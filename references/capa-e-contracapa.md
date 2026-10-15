@@ -8,7 +8,7 @@ De cima para baixo:
 
 1. faixa laranja de 6 mm no topo, de borda a borda;
 2. campo inteiro no azul da marca (`#294964`), com a arte do usuário por baixo, se houver (`.cm-fundo`);
-3. logo vertical negativo, centralizado (`.cm-logo`, arquivo `@ds/logo-pge-vertical-negativo.svg`);
+3. logo horizontal branco, centralizado (`.cm-logo`, arquivo `@ds/logo-pge-branco.png`);
 4. bloco do título com contorno laranja e canto superior esquerdo arredondado (`.cm-bloco`), com o tipo da publicação em caixa alta (`.cm-tipo`: GUIA, PLANO, MANUAL), o título (`.cm-titulo`) e o subtítulo ou a norma (`.cm-lei`);
 5. faixa laranja que fecha o bloco (`.cm-faixa`), com a unidade à esquerda e edição e ano à direita (`.cm-edicao`);
 6. filete laranja de 3 mm no pé.
@@ -71,7 +71,7 @@ Ofereça duas saídas: capa azul lisa (documento pronto agora) ou gerar uma arte
 
 Página inteira no azul da marca, com filete laranja de 3 mm no pé, como nos manuais da UPD:
 
-- logo vertical negativo, centralizado no alto (`.cc-logo`);
+- logo horizontal branco, centralizado no alto (`.cc-logo`, `@ds/logo-pge-branco.png`);
 - no pé, a unidade responsável (`.cc-unidade`) e a lista de contatos (`ul.cc-contatos`), um por linha, cada um com o círculo laranja e o ícone genérico do modelo (telefone, e-mail, site, endereço);
 - uma nota pequena opcional (`.cc-nota`) para versão, data, tiragem, ISSN ou condição de reprodução.
 

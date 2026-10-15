@@ -20,7 +20,7 @@
        - campo inteiro em azul da marca (#294964), com a arte anexada
          pelo usuário por baixo, em tom de azul (.cm-fundo, opcional);
        - faixa laranja no topo e filete laranja no pé;
-       - logo VERTICAL negativo, centralizado no alto;
+       - logo horizontal BRANCO (logo-pge-branco.png), centralizado no alto;
        - bloco do título com contorno laranja e cantos arredondados,
          fechado por uma faixa laranja com unidade, edição e ano.
 
@@ -88,7 +88,9 @@
     justify-content: center;
     padding-top: 30mm;
   }
-  .cm-logo img { display: block; height: 46mm; width: auto; }
+  /* Logo horizontal branco (logo-pge-branco.png): só sobre o azul da capa
+     e da contracapa. Em fundo claro, sempre o azul (logo-pge.png). */
+  .cm-logo img { display: block; width: 120mm; height: auto; }
 
   .cm-bloco {
     grid-row: 3;
@@ -158,8 +160,8 @@
 
   /* ------------------------------------------------------------
      CONTRACAPA
-     Página inteira em azul, como nos manuais da UPD: logo vertical
-     negativo no alto, e embaixo a unidade responsável com os contatos,
+     Página inteira em azul, como nos manuais da UPD: logo horizontal
+     branco no alto, e embaixo a unidade responsável com os contatos,
      cada um com um marcador laranja. Renderizada numa passada própria,
      sem margem e sem cabeçalho, e emendada no fim do PDF.
 
@@ -197,7 +199,7 @@
     justify-content: center;
     padding-top: 36mm;
   }
-  .cc-logo img { display: block; height: 42mm; width: auto; }
+  .cc-logo img { display: block; width: 105mm; height: auto; }
 
   .cc-corpo {
     margin-top: auto;

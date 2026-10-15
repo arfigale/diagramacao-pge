@@ -22,7 +22,7 @@ O modelo `publicacao.html` já traz as três peças montadas; os detalhes estão
 ```html
 <section class="capa-manual">
   <div class="cm-fundo"><img src="capa-fundo.png" alt=""></div>          <!-- opcional -->
-  <div class="cm-logo"><img src="@ds/logo-pge-vertical-negativo.svg" alt="..."></div>
+  <div class="cm-logo"><img src="@ds/logo-pge-branco.png" alt="..."></div>
   <div class="cm-bloco">
     <div class="cm-tipo">Guia</div>                                        <!-- opcional -->
     <h1 class="cm-titulo">Título<br>em até três linhas</h1>
@@ -32,7 +32,7 @@ O modelo `publicacao.html` já traz as três peças montadas; os detalhes estão
 </section>
 
 <section class="expediente">
-  <div class="ex-logo"><img src="@ds/logo-pge-horizontal.svg" alt="..."></div>
+  <div class="ex-logo"><img src="@ds/logo-pge.png" alt="..."></div>
   <div class="ex-blocos">
     <div class="ex-bloco"><p class="ex-rot">Dirigentes</p><p class="ex-nome">Nome</p><p class="ex-cargo">Cargo</p></div>
   </div>
@@ -40,7 +40,7 @@ O modelo `publicacao.html` já traz as três peças montadas; os detalhes estão
 </section>
 
 <section class="contracapa">
-  <div class="cc-logo"><img src="@ds/logo-pge-vertical-negativo.svg" alt="..."></div>
+  <div class="cc-logo"><img src="@ds/logo-pge-branco.png" alt="..."></div>
   <div class="cc-corpo">
     <p class="cc-unidade">Unidade</p>
     <ul class="cc-contatos"><li><span class="cc-ic"><!-- ícone do modelo --></span><span>(67) 0000-0000</span></li></ul>

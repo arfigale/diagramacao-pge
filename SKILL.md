@@ -5,7 +5,7 @@ description: Diagrama documentos institucionais da Procuradoria-Geral do Estado 
 
 # Diagramação institucional da PGE-MS
 
-Transforma um texto (.docx, .md ou o que o usuário colar) em PDF A4 no padrão visual da PGE-MS, que junta as cores e os logos do manual da marca (Decreto n. 15.281/2019) à composição dos manuais da UPD de 2025: Source Sans 3 em todo o documento, corpo preto de 12 pt com entrelinha 1,5 e alinhado à esquerda, azul da marca `#294964` nos títulos e na moldura, laranja `#F58634` na barra dos títulos e nas faixas da capa, capa azul com logo vertical e faixa laranja, expediente e sumário no layout obrigatório (rótulo laranja entre dois filetes laranja), sumário com número de página calculado, contracapa azul com contatos cabeçalho só com o nome do documento e rodapé com a unidade e a paginação. O resumo do padrão está em `references/identidade.md`. Tudo roda no computador do usuário, em Windows ou Mac, e a skill leva consigo o design system, as fontes, o logo e os scripts.
+Transforma um texto (.docx, .md ou o que o usuário colar) em PDF A4 no padrão visual da PGE-MS, que junta as cores e os logos do manual da marca (Decreto n. 15.281/2019) à composição dos manuais da UPD de 2025: Source Sans 3 em todo o documento, corpo preto de 12 pt com entrelinha 1,5 e alinhado à esquerda, azul da marca `#294964` nos títulos e na moldura, laranja `#F58634` na barra dos títulos e nas faixas da capa, capa azul com logo horizontal branco e faixa laranja, expediente e sumário no layout obrigatório (rótulo laranja entre dois filetes laranja), sumário com número de página calculado, contracapa azul com contatos cabeçalho só com o nome do documento e rodapé com a unidade e a paginação. O resumo do padrão está em `references/identidade.md`. Tudo roda no computador do usuário, em Windows ou Mac, e a skill leva consigo o design system, as fontes, o logo e os scripts.
 
 ## O que esta skill não faz
 
@@ -35,7 +35,7 @@ Na primeira vez em cada computador, rode `<dpge> setup` (cria um ambiente própr
 
 ## Regras que não se negociam
 
-- **Logo:** sempre os arquivos de `assets/design-system/`: `logo-pge.png` (horizontal, cabeçalho), `logo-pge-vertical.svg` (expediente) e `logo-pge-vertical-negativo.svg` (capa e contracapa), recortados do manual da marca. Nunca redesenhe, recolora, estique nem peça a um modelo de imagem. Se o usuário anexar outro logo, use o dele no lugar e avise que fugiu do padrão.
+- **Logo:** sempre o horizontal azul `assets/design-system/logo-pge.png`, em todo o documento (cabeçalho, expediente e qualquer outra página clara). A única troca é o horizontal branco `logo-pge-branco.png`, na capa e na contracapa, que têm fundo azul. Nunca redesenhe, recolora, estique nem peça a um modelo de imagem. Se o usuário anexar outro logo, use o dele no lugar e avise que fugiu do padrão.
 - **Texto de leitura é preto**, negrito do corpo também, alinhado à esquerda e sem hifenização. Cor fica na estrutura (títulos, barras, filetes, faixas). Laranja em texto só nos rótulos do expediente e no título do sumário.
 - **Expediente e sumário têm layout obrigatório** (o do modelo `publicacao.html`): não troque a composição nem as cores deles.
 - **Nada de texto dentro da imagem de capa** (acento errado, marca fora do padrão), a menos que o usuário anexe uma capa completa já aprovada, que entra sem nada por cima.

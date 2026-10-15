@@ -41,12 +41,10 @@ Títulos de seção em 16 pt, subseção em 13 pt, ambos em azul e negrito, só 
 
 ## Marca
 
-- Os logos são os arquivos de `assets/design-system/`:
-  - `logo-pge.png`, horizontal em cor, no cabeçalho de cada página;
-  - `logo-pge-horizontal.svg`, horizontal em cor, no alto do expediente;
-  - `logo-pge-vertical.svg`, vertical em cor, reserva;
-  - `logo-pge-vertical-negativo.svg`, vertical negativo (letras brancas, brasão em cor, fundo transparente), na capa e na contracapa azuis.
-- Os três SVG foram recortados do PDF vetorial do manual da marca, sem redesenho. Não se alteram, não se recolorem, não se esticam e nunca se pedem a um modelo de imagem. A marca da PGE e os logos pertencem à Procuradoria-Geral do Estado de Mato Grosso do Sul e não estão cobertos pela licença deste repositório.
+- Os logos são os arquivos de `assets/design-system/`, entregues pela usuária, e a regra é fixa:
+  - `logo-pge.png`, horizontal azul (letras e brasão em azul, filetes laranja, fundo transparente), em todo o documento: cabeçalho de cada página, expediente e qualquer página de fundo claro;
+  - `logo-pge-branco.png`, horizontal branco (letras brancas, brasão em cor, filetes laranja, fundo transparente), só na capa e na contracapa, que têm fundo azul.
+- Não se usa outra versão do logo (vertical, policromia sobre branco). Os logos não se alteram, não se recolorem, não se esticam e nunca se pedem a um modelo de imagem. A marca da PGE e os logos pertencem à Procuradoria-Geral do Estado de Mato Grosso do Sul e não estão cobertos pela licença deste repositório.
 - A área de proteção do manual da marca é de dois módulos em volta do logo; não encoste texto nem filete nele.
 - Nenhuma marca de terceiro entra no documento sem o usuário pedir.
 - O documento fala em nome da PGE só se o usuário tem autoridade para isso. Para material de autoria pessoal ou de equipe, o expediente diz quem assina.
@@ -65,6 +63,6 @@ As regras de composição, com o motivo de cada uma, estão em `tipografia.md`. 
 
 Definido pela usuária a partir do Manual de Condutas Eleitorais 2026 e não negociável:
 
-- **Expediente** (verso da capa): logo horizontal em cor centralizado no alto; cada papel (Dirigentes, Elaboração, Revisão, Diagramação…) com o rótulo em laranja, 15 pt negrito, entre dois filetes laranja de largura cheia; nome em negrito e cargo em texto normal, ambos em preto, em 10,5 pt. Com capa própria, a página sai junto da capa, sem cabeçalho e sem número.
+- **Expediente** (verso da capa): logo horizontal azul centralizado no alto; cada papel (Dirigentes, Elaboração, Revisão, Diagramação…) com o rótulo em laranja, 15 pt negrito, entre dois filetes laranja de largura cheia; nome em negrito e cargo em texto normal, ambos em preto, em 10,5 pt. Com capa própria, a página sai junto da capa, sem cabeçalho e sem número.
 - **Sumário**: título "Sumário" em laranja, 17 pt negrito, entre dois filetes laranja; entrada principal em negrito com o número seguido de ponto ("1. Apresentação"); subitem recuado, em texto normal e corpo menor; guia pontilhada até a página, que tem dois dígitos ("04").
 - **Cabeçalho**: logo à esquerda e, à direita, só o nome do manual ou informativo (`vl-peca`). O nome da PGE não se repete, porque já está no logo.

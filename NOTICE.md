@@ -6,13 +6,12 @@ Ela não cobre os itens abaixo.
 
 ## Marca e logo da PGE-MS
 
-Os arquivos `assets/design-system/logo-pge.png`, `logo-pge-vertical.svg` e
-`logo-pge-vertical-negativo.svg`, as cores institucionais e o nome
+Os arquivos `assets/design-system/logo-pge.png` (horizontal azul) e
+`logo-pge-branco.png` (horizontal branco), as cores institucionais e o nome
 Procuradoria-Geral do Estado de Mato Grosso do Sul pertencem ao órgão. Estão
 neste repositório apenas para que a skill gere documentos no padrão da
-instituição. Os dois logos verticais foram recortados, sem redesenho, do PDF
-vetorial do manual da marca da PGE; as variações oficiais do logo constam do
-anexo do Decreto n. 15.281, de 13 de setembro de 2019. Esta skill não é um produto oficial da PGE-MS e o seu uso não
+instituição. As variações oficiais do logo constam do anexo do Decreto
+n. 15.281, de 13 de setembro de 2019. Esta skill não é um produto oficial da PGE-MS e o seu uso não
 autoriza falar em nome do órgão. Quem a utiliza responde pelo conteúdo que
 publica. Se o órgão pedir a retirada dos logos, eles saem do repositório e a skill
 passa a pedir os arquivos ao usuário.

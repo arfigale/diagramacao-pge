@@ -47,7 +47,7 @@ Pergunte, com a opção "nenhuma contracapa" à vista, e depois o que entra. Cad
 - telefone, e-mail, site e endereço com CEP;
 - versão, data, tiragem, ISSN ou ISBN, ou condição de reprodução do conteúdo, numa nota pequena.
 
-Item sem resposta não entra: apague a linha do modelo em vez de deixar o marcador. A contracapa leva sempre o logo vertical negativo.
+Item sem resposta não entra: apague a linha do modelo em vez de deixar o marcador. A contracapa leva sempre o logo horizontal branco.
 
 ## 7. Conteúdo especial
 

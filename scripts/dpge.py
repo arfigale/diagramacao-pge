@@ -149,7 +149,7 @@ def doctor() -> int:
         print(f"Navegador     {nome or 'NENHUM (instale o Edge ou o Chrome)'}")
         ok = ok and bool(nome)
     ds = RAIZ / "assets" / "design-system"
-    for arq in ("tokens.css", "componentes.css", "publicacao.css", "logo-pge.png",
+    for arq in ("tokens.css", "componentes.css", "publicacao.css", "logo-pge.png", "logo-pge-branco.png",
                 "fonts/SourceSans3.ttf", "fonts/Montserrat.ttf", "fonts/SourceSerif4.ttf",
                 "vendor/paged.min.js"):
         existe = (ds / arq).is_file()
