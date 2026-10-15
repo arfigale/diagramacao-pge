@@ -4,12 +4,17 @@
 imagem.py, prepara a imagem de capa anexada pelo usuário.
 
     python scripts/dpge.py imagem inspecionar <arquivo>
+    python scripts/dpge.py imagem fundo  <arquivo> [--saida capa-fundo.png] [--foco centro]
     python scripts/dpge.py imagem faixa  <arquivo> [--saida capa-faixa.png] [--foco centro]
     python scripts/dpge.py imagem pagina <arquivo> [--saida capa-pagina.png] [--foco centro]
 
 A skill não gera imagem. Ela recebe a que o usuário anexa e a ajusta a um dos
 dois usos da capa:
 
+    fundo    A4 inteiro (proporção 0,707), para ir POR BAIXO da capa padrão: o
+             build a passa para cinza e a 18% sobre o azul da marca, e o logo,
+             o título e a faixa laranja vêm por cima, do HTML. É o uso padrão.
+             Arquivo final: 1985 x 2808 px.
     faixa    tira de 210 mm de largura por 71 mm de altura (proporção 2,94:1)
              entre o logo e o campo marinho. O título e o logo vêm por cima do
              HTML, nunca da imagem. Arquivo final: 2480 x 843 px.
@@ -28,6 +33,7 @@ from PIL import Image, ImageOps
 
 USOS = {
     # nome: (largura px, altura px, descrição)
+    "fundo": (1985, 2808, "fundo da capa, A4 inteiro"),
     "faixa": (2480, 843, "faixa de 210 x 71 mm"),
     "pagina": (1985, 2808, "A4 inteiro"),
 }

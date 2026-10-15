@@ -5,20 +5,50 @@ As classes vivem em `assets/design-system/componentes.css` (base) e `publicacao.
 ## Estrutura
 
 ```html
-<h2 class="secao quebra-antes">PARTE 3 &ndash; TÍTULO DA PARTE</h2>
-<h3 class="subsecao">3.1. Título da seção</h3>
+<h2 class="secao quebra-antes"><span class="num">3</span><span class="titulo">Título da parte</span></h2>
+<h3 class="subsecao"><span class="num">3.1</span>Título da seção</h3>
 <p class="grupo">rótulo de grupo, em negrito:</p>
 <p class="item-letra">a) item recuado de uma enumeração;</p>
 ```
 
-Parte é `h2.secao`, seção é `h3.subsecao`; três níveis no máximo, dois é melhor. O título diz o argumento, não rotula ("A decisão vale para os processos em curso", não "Da vigência"). Com os números em destaque (`converter --numerar` produz esta forma):
-
-```html
-<h2 class="secao"><span class="num">1</span><span class="titulo">Título</span></h2>
-<h3 class="subsecao"><span class="num">1.1</span> Título</h3>
-```
+Parte é `h2.secao`, seção é `h3.subsecao`; três níveis no máximo, dois é melhor. O `h2.secao` sai com a barra laranja vertical à esquerda, a marca dos manuais da UPD, em azul e negrito de 16 pt. Os títulos levam maiúscula só na primeira letra e nos nomes próprios: nada de "PARTE 1 – TÍTULO" em caixa alta. Título sem número (Apresentação, Glossário) usa só o `.titulo`. O título diz o argumento, não rotula ("A decisão vale para os processos em curso", não "Da vigência"). `converter --numerar` produz a forma numerada.
 
 Para forçar quebra de página antes de um título, `quebra-antes`; para impedir quebra dentro de um bloco, `nao-quebrar`; para colar dois blocos, `juntar`. O primeiro título depois do sumário leva `primeira`.
+
+## Capa, expediente e contracapa
+
+O modelo `publicacao.html` já traz as três peças montadas; os detalhes estão em `capa-e-contracapa.md`.
+
+```html
+<section class="capa-manual">
+  <div class="cm-fundo"><img src="capa-fundo.png" alt=""></div>          <!-- opcional -->
+  <div class="cm-logo"><img src="@ds/logo-pge-vertical-negativo.svg" alt="..."></div>
+  <div class="cm-bloco">
+    <div class="cm-tipo">Guia</div>                                        <!-- opcional -->
+    <h1 class="cm-titulo">Título<br>em até três linhas</h1>
+    <div class="cm-lei">Subtítulo ou norma</div>                           <!-- opcional -->
+  </div>
+  <div class="cm-faixa"><span>Unidade</span><span class="cm-edicao">1ª edição | 2026</span></div>
+</section>
+
+<section class="expediente">
+  <div class="ex-logo"><img src="@ds/logo-pge-vertical.svg" alt="..."></div>
+  <div class="ex-blocos">
+    <div class="ex-bloco"><p class="ex-rot">Papel</p><p class="ex-nome">Nome</p><p class="ex-cargo">Cargo</p></div>
+  </div>
+  <div class="ex-ficha"><p>…</p></div>                                     <!-- opcional -->
+  <p class="ex-ano">2026</p>
+</section>
+
+<section class="contracapa">
+  <div class="cc-logo"><img src="@ds/logo-pge-vertical-negativo.svg" alt="..."></div>
+  <div class="cc-corpo">
+    <p class="cc-unidade">Unidade</p>
+    <ul class="cc-contatos"><li><span class="cc-ic"><!-- ícone do modelo --></span><span>(67) 0000-0000</span></li></ul>
+    <p class="cc-nota">Versão e data</p>                                   <!-- opcional -->
+  </div>
+</section>
+```
 
 ## Caixas
 
@@ -32,7 +62,7 @@ Para forçar quebra de página antes de um título, `quebra-antes`; para impedir
 <div class="nota"><p><span class="n-rot">Nota explicativa 1:</span> …</p></div>
 ```
 
-`sintese` é o que o leitor leva da seção; `atencao` é o ponto em que mais se erra (laranja, use pouco); `exemplo` é o caso prático, mais leve que a síntese; `nota` é a observação em cinza, dentro de modelo de documento. Caixa (`sintese` ou `exemplo`) com três ou mais parágrafos vai com `pode-quebrar` (`<div class="sintese pode-quebrar">`), senão abre vão no pé da página.
+`sintese` é o que o leitor leva da seção; `atencao` é o ponto em que mais se erra, o "Fique atento!" dos manuais da UPD (abra o parágrafo com `<strong>Fique atento!</strong>`; laranja, use pouco); `exemplo` é o caso prático, mais leve que a síntese; `nota` é a observação em cinza, dentro de modelo de documento. Caixa (`sintese` ou `exemplo`) com três ou mais parágrafos vai com `pode-quebrar` (`<div class="sintese pode-quebrar">`), senão abre vão no pé da página.
 
 ## Tabelas
 

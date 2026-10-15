@@ -11,24 +11,31 @@
    ============================================================ */
 
   /* ------------------------------------------------------------
-     CAPA DE PUBLICAÇÃO
-     Página inteira, sangrada, renderizada à parte pelo build.py
-     e emendada na frente do corpo. Recebe cabeçalho e rodapé
-     nenhum, e não entra na contagem de páginas.
+     CAPA DE PUBLICAÇÃO (padrão dos manuais da PGE, 2026)
+     Página inteira, sangrada, renderizada à parte pelo build.py e
+     emendada na frente do corpo. Sem cabeçalho nem rodapé, e fora
+     da contagem de páginas.
+
+     Composição tirada dos manuais da UPD (Guia, Plano, Orientações):
+       - campo inteiro em azul da marca (#294964), com a arte anexada
+         pelo usuário por baixo, em tom de azul (.cm-fundo, opcional);
+       - faixa laranja no topo e filete laranja no pé;
+       - logo VERTICAL negativo, centralizado no alto;
+       - bloco do título com contorno laranja e cantos arredondados,
+         fechado por uma faixa laranja com unidade, edição e ano.
 
      Fica escondida por padrão: quem a mostra é a classe .so-capa,
-     aplicada só na passada da capa. Abrir o HTML no navegador,
-     portanto, mostra o corpo sem ela.
+     aplicada só na passada da capa.
      ------------------------------------------------------------ */
-  /* Uma regra só: declarar display duas vezes fazia a segunda vencer, o que
-     ao mesmo tempo desligava o grid e deixava a capa aparecer no corpo. */
   .capa-manual {
     display: none;
+    position: relative;
     width: 210mm;
     height: 297mm;
     box-sizing: border-box;
-    background: var(--branco);
-    grid-template-rows: auto auto 1fr auto;
+    background: var(--marinho);
+    color: var(--branco);
+    grid-template-rows: auto 1fr auto auto;
     overflow: hidden;
   }
 
@@ -36,234 +43,211 @@
   body.so-capa > *:not(.capa-manual) { display: none; }
   body.so-capa .capa-manual { display: grid; }
 
-  /* Capa que é uma imagem de página inteira (A4, proporção 0,707), anexada
-     pelo usuário já pronta. Nada é sobreposto a ela: título, logo e data
-     fazem parte da arte. */
+  .capa-manual::before,
+  .capa-manual::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: var(--destaque);
+    z-index: 2;
+  }
+  .capa-manual::before { top: 0; height: 6mm; }
+  .capa-manual::after { bottom: 0; height: 3mm; }
+
+  /* Capa que é uma imagem de página inteira, já pronta e aprovada. Nada é
+     sobreposto a ela: título, logo e data fazem parte da arte. */
   .capa-manual.capa-img { grid-template-rows: 1fr; background: #fff; }
+  .capa-manual.capa-img::before,
+  .capa-manual.capa-img::after { display: none; }
   .capa-manual.capa-img img { display: block; width: 210mm; height: 297mm; }
+
+  /* Arte de fundo: a imagem anexada, recortada em A4 por
+     `<dpge> imagem fundo`. Entra em cinza e a 18% sobre o azul, o que a
+     tinge de azul e garante o contraste do título branco por cima. */
+  .cm-fundo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .cm-fundo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+    opacity: 0.18;
+  }
+
+  .cm-logo {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    padding-top: 30mm;
+  }
+  .cm-logo img { display: block; height: 46mm; width: auto; }
+
+  .cm-bloco {
+    grid-row: 3;
+    position: relative;
+    z-index: 1;
+    margin: 0 20mm;
+    padding: 11mm 12mm 10mm 12mm;
+    border: 0.5mm solid var(--destaque);
+    border-bottom: 0;
+    border-radius: 7mm 0 0 0;
+    background: rgba(41, 73, 100, 0.86);
+    text-align: center;
+  }
+
+  /* Tipo da publicação em destaque (GUIA, PLANO, MANUAL), como nos manuais
+     da UPD. Opcional: sem ele, o título assume o lugar. */
+  .cm-tipo {
+    font-size: 44pt;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin: 0 0 4mm 0;
+  }
+
+  .cm-titulo {
+    font-size: 21pt;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin: 0;
+    text-align: center;
+    color: var(--branco);
+  }
+  .cm-tipo + .cm-titulo { font-size: 17pt; font-weight: 600; }
+
+  .cm-lei {
+    font-size: 11pt;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #D7E1EA;
+    margin: 4mm 0 0 0;
+  }
+
+  /* Faixa laranja que fecha o bloco. O texto é azul-escuro, e não branco:
+     branco sobre #F58634 tem contraste de 2,5:1, abaixo do mínimo de 4,5:1
+     das WCAG para texto deste corpo; o #223141 dá 5,3:1. */
+  .cm-faixa {
+    grid-row: 4;
+    position: relative;
+    z-index: 1;
+    margin: 0 20mm 26mm 20mm;
+    padding: 4.2mm 12mm;
+    background: var(--destaque);
+    color: var(--marinho-escuro);
+    border-radius: 0 0 7mm 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6mm;
+    font-size: 10pt;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .cm-faixa span { text-align: left; }
+  .cm-faixa .cm-edicao { white-space: nowrap; text-align: right; }
 
   /* ------------------------------------------------------------
      CONTRACAPA
-     Espelho da capa: topo claro com o logo e o nome do órgão, a
-     mesma faixa de grafismo, o miolo com os dados de contato e a
-     base em marinho com o filete laranja. Renderizada numa
-     passada própria, sem margem e sem cabeçalho, e emendada no
-     fim do PDF. Escondida por padrão, como a capa.
+     Página inteira em azul, como nos manuais da UPD: logo vertical
+     negativo no alto, e embaixo a unidade responsável com os contatos,
+     cada um com um marcador laranja. Renderizada numa passada própria,
+     sem margem e sem cabeçalho, e emendada no fim do PDF.
 
      É flex e não grid: cada bloco do miolo é opcional, e uma linha
      de grid vazia desloca as demais.
      ------------------------------------------------------------ */
   .contracapa {
     display: none;
+    position: relative;
     flex-direction: column;
     width: 210mm;
     height: 297mm;
     box-sizing: border-box;
-    background: var(--branco);
+    background: var(--marinho);
+    color: var(--branco);
     overflow: hidden;
+  }
+
+  .contracapa::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3mm;
+    background: var(--destaque);
   }
 
   body.so-contracapa { margin: 0; }
   body.so-contracapa > *:not(.contracapa) { display: none; }
   body.so-contracapa .contracapa { display: flex; }
 
+  .cc-logo {
+    display: flex;
+    justify-content: center;
+    padding-top: 36mm;
+  }
+  .cc-logo img { display: block; height: 42mm; width: auto; }
+
   .cc-corpo {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10mm;
-    padding: 12mm 20mm 12mm 25mm;
+    margin-top: auto;
+    padding: 0 25mm 30mm 25mm;
   }
 
-  .cc-rot {
-    font-size: 7.4pt;
-    font-weight: 700;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--acento);
-    margin: 0 0 3mm 0;
-    text-align: left;
-  }
-
-  .cc-txt {
-    font-size: 9.6pt;
-    line-height: 1.5;
-    color: var(--texto);
-    margin: 0;
-    text-align: left;
-    max-width: 120mm;
-  }
-
-  .cc-txt + .cc-txt { margin-top: 1.6mm; }
-  .cc-txt strong { color: var(--marinho); }
-
-  .cc-base {
-    position: relative;
-    background: var(--marinho);
-    color: var(--branco);
-    padding: 15mm 20mm 17mm 25mm;
-  }
-
-  .cc-base::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 46mm; height: 1.6mm;
-    background: var(--destaque);
-  }
-
-  .cc-marca {
-    font-size: 8pt;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    line-height: 1.6;
-    margin: 0;
-    text-align: left;
-  }
-
-  .cc-site {
-    font-size: 13pt;
+  .cc-unidade {
+    font-size: 15pt;
     font-weight: 600;
-    color: var(--agua-claro);
-    margin: 3mm 0 0 0;
-    text-align: left;
-  }
-
-  .cc-nota {
-    font-size: 7.6pt;
-    line-height: 1.5;
-    color: #C3D2DD;
-    margin: 6mm 0 0 0;
-    text-align: left;
-    max-width: 130mm;
-  }
-
-  .cm-topo {
-    padding: 20mm 20mm 0 25mm;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-
-  .cm-topo img { height: 15mm; width: auto; display: block; }
-
-  /* Faixa de grafismo: imagem anexada pelo usuário e recortada para 210 mm de
-     largura (proporção 2,94:1, ou seja, 71 mm de altura), ou o SVG padrão que
-     o modelo traz. Deve ser só desenho: texto e logo dentro da arte saem
-     errados, e o logo vem sempre de assets/design-system/logo-pge.png. */
-  .cm-arcadas {
-    display: block;
-    width: 210mm;
-    height: auto;
-    margin-top: 6mm;
-  }
-
-  .cm-orgao {
-    text-align: right;
-    font-size: 7.6pt;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    line-height: 1.5;
-    color: var(--marinho);
-  }
-
-  /* O campo marinho é o que dá à capa a leitura de publicação, e não
-     de peça. Sangra nas duas laterais; o texto respeita a margem. */
-  /* O campo estica para preencher a linha 1fr. Com align-self: center a folga
-     do grid se partia em duas e abria uma faixa branca entre as arcadas e o
-     marinho; esticando, as colunas somem atrás do campo, que é o efeito
-     pretendido. */
-  .cm-campo {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--marinho);
-    color: var(--branco);
-    padding: 20mm 20mm 20mm 25mm;
-    margin-top: 0;
-    position: relative;
-  }
-
-  .cm-campo::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 46mm; height: 1.6mm;
-    background: var(--destaque);
-  }
-
-  .cm-eyebrow {
-    font-size: 7.4pt;
-    font-weight: 700;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--destaque);
-    margin-bottom: 7mm;
-  }
-
-  .cm-titulo {
-    font-size: 30pt;
-    font-weight: 700;
-    line-height: 1.12;
-    letter-spacing: -0.012em;
+    line-height: 1.3;
     margin: 0 0 7mm 0;
     text-align: left;
   }
 
-  .cm-lei {
-    font-size: 13pt;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--agua-claro);
-    margin-bottom: 8mm;
-  }
-
-  .cm-descritor {
-    font-size: 9.6pt;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #C3D2DD;
+  ul.cc-contatos {
+    list-style: none;
     margin: 0;
-    max-width: 118mm;
+    padding: 0;
+  }
+
+  ul.cc-contatos li {
+    display: grid;
+    grid-template-columns: 7mm 1fr;
+    column-gap: 3.5mm;
+    align-items: center;
+    margin: 0 0 3.4mm 0;
+    font-size: 10pt;
+    line-height: 1.35;
     text-align: left;
   }
 
-  .cm-pe {
-    padding: 0 20mm 22mm 25mm;
-  }
+  ul.cc-contatos li::marker { content: none; }
 
-  .cm-pe .cm-filete {
-    height: 0.4mm;
-    background: var(--cinza-05);
-    margin-bottom: 5mm;
-  }
-
-  .cm-pe-linha {
+  .cc-ic {
+    width: 7mm;
+    height: 7mm;
+    border-radius: 50%;
+    background: var(--destaque);
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+  }
+  .cc-ic svg { width: 3.8mm; height: 3.8mm; display: block; }
+
+  .cc-nota {
     font-size: 8pt;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cinza-texto);
-    font-weight: 500;
-  }
-
-  .cm-pe-linha strong { color: var(--marinho); font-weight: 700; }
-
-  .cm-creditos {
-    margin-top: 6mm;
-    font-size: 7.6pt;
-    line-height: 1.45;
-    color: var(--cinza-texto);
+    line-height: 1.5;
+    color: #C9D6E1;
+    margin: 8mm 0 0 0;
     text-align: left;
+    max-width: 150mm;
   }
-
-  .cm-creditos b { color: var(--marinho); font-weight: 600; }
 
   /* ------------------------------------------------------------
      SUMÁRIO
@@ -359,17 +343,15 @@
     width: calc(100% - 0.8mm);
   }
 
-  /* O corpo justifica sempre. Na coluna estreita da tabela, do quadro e do
-     glossário a hifenização entra para a linha fechar à direita sem rio.
-     Rótulo, cabeçalho e número ficam como estão. */
+  /* Coluna estreita de tabela, quadro e glossário: alinhada à esquerda, como
+     o corpo. Justificada, a linha curta abre vão entre as palavras. */
   table.dados td,
   table.criterios td,
   .requisitos div,
   dl.glossario dd {
-    text-align: justify;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphenate-limit-chars: 6 3 3;
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
   }
   table.dados th,
   table.criterios th,
@@ -426,7 +408,7 @@
     display: block;
     font-size: var(--t-apoio);
     line-height: var(--lh-corpo);
-    text-align: justify;
+    text-align: left;
   }
 
   .confronto .divergente { background: var(--destaque-fundo); }
@@ -629,7 +611,7 @@
     padding-left: 6mm;
   }
 
-  .modelo-corpo li { margin-bottom: 1.6mm; text-align: justify; }
+  .modelo-corpo li { margin-bottom: 1.6mm; text-align: left; }
   .modelo-corpo li:last-child { margin-bottom: 0; }
   .modelo-corpo li::marker { color: var(--acento-claro); }
 
@@ -680,7 +662,7 @@
   .nota p { margin: 0 0 1.8mm 0; }
   .nota p:last-child { margin-bottom: 0; }
   .nota ul { margin: 1.4mm 0 0 0; padding-left: 5mm; }
-  .nota li { margin-bottom: 1.2mm; text-align: justify; }
+  .nota li { margin-bottom: 1.2mm; text-align: left; }
   .nota li:last-child { margin-bottom: 0; }
   .nota .n-rot { font-weight: 700; color: var(--marinho); }
   .nota .campo { color: var(--destaque-escuro); }
@@ -766,40 +748,48 @@
     font-size: var(--t-corpo);
   }
 
-  /* Rodapé da capa: só a data, centralizada. */
-  .cm-data {
-    margin: 0;
-    text-align: center;
-    text-indent: 0;
-    font-size: 8pt;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--marinho);
-  }
-
-  /* Página de expediente, logo depois da capa. */
+  /* Página de expediente, logo depois da capa (padrão dos manuais da UPD):
+     logo vertical em cor centralizado no alto, um bloco por papel com o
+     rótulo sublinhado por um filete laranja, a ficha do documento no pé e o
+     ano centralizado. */
   .expediente {
     break-after: page;
     page-break-after: always;
-    padding-top: 16mm;
+    display: flex;
+    flex-direction: column;
+    min-height: 240mm;
   }
 
-  .ex-bloco { margin: 0 0 11mm 0; }
+  .ex-logo {
+    display: flex;
+    justify-content: center;
+    margin: 2mm 0 12mm 0;
+  }
+  .ex-logo img { display: block; height: 30mm; width: auto; }
+
+  .ex-blocos { padding-left: 14mm; }
+
+  .ex-bloco { margin: 0 0 7.5mm 0; }
 
   .ex-rot {
+    display: inline-block;
+    min-width: 48mm;
     font-size: var(--t-corpo);
     font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--acento);
-    margin: 0 0 3.5mm 0;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--marinho);
+    margin: 0 0 2.4mm 0;
+    padding-bottom: 1.2mm;
+    border-bottom: 0.4mm solid var(--destaque);
+    text-align: left;
   }
 
   .ex-nome {
     font-size: var(--t-corpo);
-    font-weight: 700;
-    color: var(--marinho);
+    font-weight: 600;
+    color: var(--texto);
+    line-height: 1.35;
     margin: 0;
     text-align: left;
     text-indent: 0;
@@ -809,12 +799,84 @@
     font-size: var(--t-corpo);
     line-height: 1.35;
     color: var(--cinza-texto);
-    margin: 0.6mm 0 4.2mm 0;
+    margin: 0.4mm 0 3.6mm 0;
     text-align: left;
     text-indent: 0;
   }
 
-  .ex-bloco .ex-cargo:last-child { margin-bottom: 0; }
+  .ex-bloco .ex-cargo:last-child,
+  .ex-bloco .ex-nome:last-child { margin-bottom: 0; }
+
+  /* Ficha do documento: autoria institucional, título, local, ano e
+     palavras-chave, no lugar da ficha que os manuais da UPD trazem na
+     página 3. Opcional. */
+  .ex-ficha {
+    margin: auto 0 0 0;
+    border: 0.35mm solid var(--cinza-05);
+    padding: 4.5mm 6mm;
+    font-size: var(--t-apoio);
+    line-height: 1.45;
+    color: var(--texto);
+    text-align: left;
+  }
+  .ex-ficha p { margin: 0 0 2mm 0; }
+  .ex-ficha p:last-child { margin-bottom: 0; }
+  .ex-ficha strong { color: var(--marinho); }
+
+  .ex-ano {
+    margin: 8mm 0 0 0;
+    text-align: center;
+    font-size: var(--t-corpo);
+    color: var(--cinza-texto);
+  }
+  .ex-ficha + .ex-ano { margin-top: 6mm; }
+  .ex-blocos + .ex-ano { margin-top: auto; }
+
+  /* ------------------------------------------------------------
+     TÍTULOS DE SEÇÃO (publicação e documento curto)
+     A marca dos manuais da UPD: barra laranja vertical à esquerda do
+     título, que vem em azul, negrito, só com a primeira letra em
+     maiúscula. Substitui o versalete com filete do design system, que
+     continua valendo para a peça processual (que não carrega esta folha).
+     ------------------------------------------------------------ */
+  h2.secao {
+    margin: var(--esp-5) 0 var(--esp-3) 0;
+    padding: 0.8mm 0 0.8mm 4.2mm;
+    border-bottom: 0;
+    border-left: 1.8mm solid var(--destaque);
+    display: flex;
+    align-items: baseline;
+    gap: 2.6mm;
+    font-size: var(--t-secao);
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--marinho);
+    line-height: 1.25;
+    text-align: left;
+  }
+  h2.secao::after { content: none; }
+
+  h2.secao .num {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 0;
+    background: none;
+    color: var(--marinho);
+    font-size: inherit;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-align: left;
+    line-height: inherit;
+  }
+
+  h3.subsecao {
+    font-size: var(--t-subsecao);
+    font-weight: 700;
+    color: var(--marinho);
+    margin: 5mm 0 2.4mm 0;
+  }
+  h3.subsecao .num { color: var(--marinho); }
 
   /* Linha em branco da ficha de interessados, para preenchimento. */
   .modelo table.dados td { height: 9mm; }

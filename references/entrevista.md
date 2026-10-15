@@ -14,23 +14,26 @@ Pergunte só o que o texto recebido e o pedido não respondem. Use `AskUserQuest
 
 | Pergunta | Onde entra |
 |---|---|
+| Que tipo de publicação é (Guia, Plano, Manual, Cartilha, Orientações)? | `.cm-tipo`, em caixa alta; pode ficar sem, se o título já disser o tipo |
 | Título completo, em até três linhas | `h1.cm-titulo`, com `<br>` nas quebras |
-| Linha pequena acima do título (ex.: "Teórico e prático", "Cartilha") | `.cm-eyebrow`; pode ficar sem |
-| Subtítulo ou norma de referência (ex.: Lei n. 6.490/2025) | `.cm-lei`; apague se não houver |
-| Descritor de uma ou duas frases | `.cm-descritor`; se o usuário não tiver, ofereça redigir e marque como redação nova |
-| Mês e ano de publicação | `.cm-data` |
-| Tem arte para a capa? Veja `capa-e-contracapa.md` | faixa, página inteira ou faixa padrão |
+| Subtítulo ou norma de referência (ex.: Lei n. 13.709/2018) | `.cm-lei`; apague se não houver |
+| Unidade responsável, como deve aparecer na faixa (ex.: UPD – PGE/MS – Unidade de Proteção de Dados Pessoais) | `.cm-faixa`, à esquerda |
+| Edição e ano (ex.: 1ª edição \| 2026) | `.cm-edicao`, à direita da faixa |
+| Tem arte para a capa? Veja `capa-e-contracapa.md` | fundo da capa padrão, página inteira ou azul liso |
 
 ## 3. Expediente (verso da capa)
 
-Pergunte quem consta e em qual papel: dirigentes, autoria, revisão, diagramação, apoio, aprovação. Para cada pessoa, nome completo com acento e cargo, na ordem em que devem aparecer. Cada papel é um `.ex-bloco`. Pergunte se o crédito de diagramação é do próprio usuário e com qual cargo. Não preencha nome nem cargo de memória, nem copie de outro documento sem o usuário confirmar.
+Pergunte quem consta e em qual papel: Administração Superior, elaboração do conteúdo, revisão, diagramação, capa, apoio, aprovação. Para cada pessoa, nome completo com acento e cargo, na ordem em que devem aparecer. Cada papel é um `.ex-bloco`; várias pessoas no mesmo papel ficam no mesmo bloco, um par `.ex-nome` e `.ex-cargo` para cada uma. Pergunte se o crédito de diagramação é do próprio usuário e com qual cargo. Não preencha nome nem cargo de memória, nem copie de outro documento sem o usuário confirmar.
+
+Pergunte também se a publicação leva a ficha do documento no pé do expediente (`.ex-ficha`): autoria institucional, unidade, título, local e ano, palavras-chave numeradas. É a ficha que os manuais da UPD trazem na página 3. Sem resposta, apague o bloco.
 
 ## 4. Cabeçalho e rodapé
 
 | Pergunta | Onde entra |
 |---|---|
 | Qual nome curto aparece no topo de cada página? | `<meta name="vl-peca">` |
-| O rodapé leva um número de referência (ofício, processo)? | `vl-processo` e `vl-rodape-rotulo`; sem eles, só a paginação |
+| Qual unidade aparece no rodapé? | `<meta name="vl-unidade">`, à esquerda da paginação |
+| O rodapé leva um número de referência (ofício, processo)? | `vl-processo` e `vl-rodape-rotulo`, no lugar da unidade |
 
 ## 5. Sumário
 
@@ -40,13 +43,11 @@ Pergunte se quer sumário e até que nível (partes e seções, ou só partes). 
 
 Pergunte, com a opção "nenhuma contracapa" à vista, e depois o que entra. Cada item é opcional:
 
-- unidade responsável, endereço, telefone, e-mail;
-- site ou perfil oficial;
-- como citar (referência no padrão ABNT);
-- licença ou condição de reprodução do conteúdo;
-- versão, data, tiragem, ISSN ou ISBN, se houver.
+- unidade responsável;
+- telefone, e-mail, site e endereço com CEP;
+- versão, data, tiragem, ISSN ou ISBN, ou condição de reprodução do conteúdo, numa nota pequena.
 
-Item sem resposta não entra: apague o bloco do modelo em vez de deixar o marcador. A base marinho da contracapa leva sempre o nome do órgão e, se houver, o site.
+Item sem resposta não entra: apague a linha do modelo em vez de deixar o marcador. A contracapa leva sempre o logo vertical negativo.
 
 ## 7. Conteúdo especial
 

@@ -5,7 +5,7 @@ description: Diagrama documentos institucionais da Procuradoria-Geral do Estado 
 
 # Diagramação institucional da PGE-MS
 
-Transforma um texto (.docx, .md ou o que o usuário colar) em PDF A4 no padrão visual da PGE-MS: Source Sans 3 no corpo, azul-marinho `#152B3F`, laranja `#F58634` só em destaque, margens de 25 mm, capa sangrada, expediente no verso, sumário com número de página calculado, contracapa e rodapé com paginação. Tudo roda no computador do usuário, em Windows ou Mac, e a skill leva consigo o design system, as fontes, o logo e os scripts.
+Transforma um texto (.docx, .md ou o que o usuário colar) em PDF A4 no padrão visual da PGE-MS, que junta as cores e os logos do manual da marca (Decreto n. 15.281/2019) à composição dos manuais da UPD de 2025: Source Sans 3 em todo o documento, corpo preto de 12 pt com entrelinha 1,5 e alinhado à esquerda, azul da marca `#294964` nos títulos e na moldura, laranja `#F58634` na barra dos títulos e nas faixas da capa, capa azul com logo vertical e faixa laranja, expediente com ficha do documento, sumário com número de página calculado, contracapa azul com contatos e rodapé com a unidade e a paginação. O resumo do padrão está em `references/identidade.md`. Tudo roda no computador do usuário, em Windows ou Mac, e a skill leva consigo o design system, as fontes, o logo e os scripts.
 
 ## O que esta skill não faz
 
@@ -25,7 +25,7 @@ Na primeira vez em cada computador, rode `<dpge> setup` (cria um ambiente própr
 2. **Faça as perguntas que faltam**, em linguagem simples e no máximo três por vez, com `AskUserQuestion` quando houver opções. O roteiro completo, com o que perguntar, a opção recomendada e onde cada resposta entra no modelo, está em `references/entrevista.md`. Nunca pergunte o que o texto recebido já responde.
 3. **Crie uma pasta de trabalho** para o documento (ex.: `manual-xyz/`) e copie o modelo escolhido para `documento.html` dentro dela. As imagens do documento ficam ao lado do HTML. Não edite os arquivos de `assets/`.
 4. **Passe o texto para HTML.** Para .docx ou .md, `<dpge> converter <arquivo> --saida corpo.html` gera o corpo e o esqueleto do sumário. Cole o corpo no modelo e monte as caixas e quadros que o texto pede, usando só os componentes de `references/componentes.md`.
-5. **Prepare as imagens**, se o usuário anexou alguma: `<dpge> imagem inspecionar <arquivo>` diz o que a imagem comporta, e `imagem faixa` ou `imagem pagina` recorta sem deformar. Mostre o resultado antes de seguir.
+5. **Prepare as imagens**, se o usuário anexou alguma: `<dpge> imagem inspecionar <arquivo>` diz o que a imagem comporta, `imagem fundo` recorta a arte que vai por baixo da capa padrão e `imagem pagina` recorta uma capa completa já aprovada, sem deformar. Mostre o resultado antes de seguir.
 6. **Preencha o modelo.** Capa, expediente, contracapa, metadados do cabeçalho. Nenhum marcador `[PREENCHER: ...]` pode sobrar: o build recusa o documento com eles.
 7. **Confira a tipografia:** `<dpge> checar documento.html --corrigir`. Ele insere o espaço não separável depois de `art.`, `n.`, `§`, troca aspas retas por curvas e relata o resto, que se resolve à mão.
 8. **Compile:** `<dpge> build documento.html --saida <Nome-do-arquivo>.pdf --conferir`. O `--conferir` grava uma imagem por página em `_conferencia/`.
@@ -35,8 +35,8 @@ Na primeira vez em cada computador, rode `<dpge> setup` (cria um ambiente própr
 
 ## Regras que não se negociam
 
-- **Logo:** sempre o arquivo `assets/design-system/logo-pge.png`. Nunca redesenhe, recolora, estique nem peça a um modelo de imagem. Se o usuário anexar outro logo, use o dele no lugar e avise que fugiu do padrão.
-- **Texto de leitura é preto**, negrito do corpo também. Cor fica na estrutura (títulos, filetes, tarjas).
+- **Logo:** sempre os arquivos de `assets/design-system/`: `logo-pge.png` (horizontal, cabeçalho), `logo-pge-vertical.svg` (expediente) e `logo-pge-vertical-negativo.svg` (capa e contracapa), recortados do manual da marca. Nunca redesenhe, recolora, estique nem peça a um modelo de imagem. Se o usuário anexar outro logo, use o dele no lugar e avise que fugiu do padrão.
+- **Texto de leitura é preto**, negrito do corpo também, alinhado à esquerda e sem hifenização. Cor fica na estrutura (títulos, barras, filetes, faixas). Laranja nunca em texto.
 - **Nada de texto dentro da imagem de capa** (acento errado, marca fora do padrão), a menos que o usuário anexe uma capa completa já aprovada, que entra sem nada por cima.
 - **Não invente** norma, número de resolução, nome de autoridade, cargo, data ou estatística. O que não estiver no texto nem na resposta do usuário vira `[CONFERIR]`, e o build avisa quantos sobraram.
 - **Grafia dos nomes e cargos** do expediente: confira com o usuário, com acento. É o erro que mais volta.

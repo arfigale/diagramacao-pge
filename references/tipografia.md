@@ -3,6 +3,8 @@
 Guia de consulta para montar e revisar publicações institucionais (manual,
 cartilha, apostila, relatório, ofício) compostas com este design system.
 
+> **Padrão de 2026 das publicações da PGE.** Para manual, guia, cartilha, plano e documento informativo, quatro decisões deste arquivo foram revistas, e onde ele diz outra coisa vale `identidade.md`: (1) o texto é alinhado à esquerda, sem justificar e sem hifenizar, a saída que a própria §5.3 e a seção de divergências apontam para quando o vão de justificação incomoda; (2) a entrelinha é 1,5, e não 1,22; (3) a fonte do documento inteiro é Source Sans 3, e não Montserrat; (4) o azul de título e moldura é o `#294964` do manual da marca. As três primeiras seguem o critério 1.4.8 das WCAG 2.2 (Apresentação visual, AAA). A peça processual, fora do escopo da skill, segue como descrita aqui.
+
 > **Nota da skill.** As regras de composição (fonte, corpo, entrelinha, medida, espaço não separável, caracteres, títulos, quebra) valem para qualquer documento da skill. Trechos sobre peça processual, protocolo e RTF são herança e não se aplicam aqui. Nos caminhos, `design-system/` é `assets/design-system/`.
 
 A base é **Matthew Butterick, _Typography for Lawyers_ (Jones McClure, 2011)**.

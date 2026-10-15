@@ -88,14 +88,17 @@ def preencher(html_path: Path, pdf: Path, capas: int) -> tuple[bool, list[str]]:
     # O próprio sumário repete todos os títulos, então a busca só começa depois
     # dele. Página de sumário é a que contém vários títulos do próprio sumário
     # ao mesmo tempo, e o sumário pode ocupar mais de uma.
-    chaves = [chave(m.group("num") + m.group("titulo")) for m in ITEM.finditer(html)]
+    chaves = [chave(m.group("titulo")) for m in ITEM.finditer(html)]
     if chaves:
         minimo = min(4, len(chaves))
-        # No sumário o título vem colado ao número da página (a chave descarta
-        # a pontuação), no corpo vem colado ao texto. É o que separa as duas.
-        padroes = [re.compile(re.escape(c) + r"\d") for c in chaves]
+        # Página de sumário é a primeira que reúne vários títulos do próprio
+        # sumário. Não dá para exigir o título colado ao número da página: o
+        # sumário é uma grade (número, título, página) e o PDF devolve o texto
+        # coluna por coluna, com todos os números antes dos títulos. Uma página
+        # de corpo pode ter quatro títulos de seção, mas só conta a sequência
+        # de páginas densas que começa na primeira delas, que é o sumário.
         densas = [i for i in range(capas, len(paginas))
-                  if sum(1 for r in padroes if r.search(paginas[i])) >= minimo]
+                  if sum(1 for c in chaves if c and c in paginas[i]) >= minimo]
         if densas:
             ultima = densas[0]
             while ultima + 1 in densas:

@@ -75,8 +75,11 @@
      cabeçalho de tabela, tarja da capa, assinatura, gráfico. */
   --texto:              #000000;
 
-  /* --- Marinho: títulos e âncoras institucionais --- */
-  --marinho:            #152B3F;
+  /* --- Marinho: títulos e âncoras institucionais ---
+     #294964 é o azul do manual da marca da PGE (CMYK 100/75/40/30), o mesmo
+     da tabela de cores que acompanha o Decreto n. 15.281/2019. É ele que
+     pinta título, capa, contracapa e cabeçalho de tabela. */
+  --marinho:            #294964;
   --marinho-escuro:     #223141;
   --marinho-medio:      #2A4C69;
   --marinho-claro:      #366586;
@@ -137,7 +140,7 @@
   --cinza-03:           #E6E7E8;
   --cinza-04:           #DCDDDF;
   --cinza-05:           #D2D3D5;
-  --cinza-texto:        #6E7C88;
+  --cinza-texto:        #5A6673;  /* 5,9:1 sobre o branco; o #6E7C88 anterior dava 4,3:1, abaixo dos 4,5:1 das WCAG */
 
   /* --- Tipografia --- */
   /* Fator de escala da régua tipográfica. Vale 1 aqui; `build.py --corpo`
@@ -151,8 +154,8 @@
 
   --t-corpo:            12.0pt;
   --t-corpo-alt:        11.1pt;
-  --t-secao:            13.3pt;
-  --t-subsecao:         12.0pt;
+  --t-secao:            16.0pt;
+  --t-subsecao:         13.0pt;
   --t-citacao:          10.9pt;
   --t-rotulo:           8.2pt;
   --t-apoio:            9.6pt;
@@ -161,7 +164,11 @@
   /* Entrelinha do corpo. Vale para o texto corrido E para o texto dentro das
      caixas, quadros, tabelas e listas: os componentes herdam daqui em vez de
      fixar valor próprio, senão mudar a entrelinha só mexe em metade da peça. */
-  --lh-corpo:           1.22;
+  --lh-corpo:           1.5;
+  /* 1,5 é o mínimo do critério 1.4.8 das WCAG 2.2 (Apresentação visual, AAA)
+     para entrelinha dentro do parágrafo. Com 12 pt de Source Sans 3 na medida
+     de 160 mm a linha fica perto de 78 caracteres, abaixo dos 80 do mesmo
+     critério. */
   --lh-citacao:         var(--lh-corpo);
 
   /* Entrelinha DENTRO das caixas de dado (ficha, resumo). Nasce igual à do
@@ -173,7 +180,9 @@
   /* --- Ritmo vertical --- */
   /* Espaço entre parágrafos de corpo. Isolado dos demais espaçamentos para
      poder ser ajustado no build sem mexer nas caixas. */
-  --esp-paragrafo:      3mm;
+  --esp-paragrafo:      3.4mm;
+  /* Entre parágrafos, 3,4 mm somados à linha de 18 pt dão 27,6 pt de uma
+     linha de base à outra: 1,5 vez a entrelinha, como pede o mesmo critério. */
 
   --esp-1:              2mm;
   --esp-2:              3.5mm;

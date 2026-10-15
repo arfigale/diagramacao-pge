@@ -14,7 +14,7 @@ Gera dois fragmentos, não o documento inteiro:
                    (o `sumario` acerta os números depois de compilar)
 
 Mapeamento:
-    Título 1 / #     h2.secao        seção (caixa alta; começa página nova)
+    Título 1 / #     h2.secao        seção (barra laranja; começa página nova)
     Título 2 / ##    h3.subsecao     subseção
     Título 3 / ###   p.grupo         rótulo em negrito, fora do sumário
     tabela           table.dados     primeira linha vira cabeçalho
@@ -206,7 +206,7 @@ def montar_sumario(itens) -> str:
     linhas = ['<div class="sumario">', "  <ol>"]
     for nivel, numero, titulo in itens:
         classe = "parte" if nivel == 1 else "sub"
-        t = html.escape(titulo.upper() if nivel == 1 else titulo)
+        t = html.escape(titulo)  # sem caixa alta: o padrão de 2026 só usa maiúscula na primeira letra
         linhas.append(
             f'    <li class="{classe}"><span class="s-num">{html.escape(numero)}</span>'
             f'<span class="s-tit"><span>{t}</span></span>'

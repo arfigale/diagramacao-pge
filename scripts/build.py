@@ -48,6 +48,10 @@ PAGED_JS = DESIGN / "vendor" / "paged.min.js"
 # que o conteúdo passe por baixo deles.
 MARGENS = {"top": "31mm", "bottom": "19mm", "left": "25mm", "right": "25mm"}
 
+# Laranja da marca (manual da PGE, CMYK 0/60/100/0). Só em filete e faixa,
+# nunca em texto: sobre o branco o contraste é de 2,5:1.
+DESTAQUE = "#F58634"
+
 MM = 3.779527559  # 1 mm em px CSS a 96 dpi (templates do Chrome usam px)
 
 # --- Paletas -----------------------------------------------------------
@@ -107,8 +111,8 @@ PALETAS = {
 # a hierarquia; a régua do livro é decidir o corpo do texto primeiro e
 # relacionar todo o resto a ele.
 ESCALA = {
-    "t-corpo": 12.0, "t-corpo-alt": 11.1, "t-secao": 13.3,
-    "t-subsecao": 12.0, "t-citacao": 10.9, "t-rotulo": 8.2,
+    "t-corpo": 12.0, "t-corpo-alt": 11.1, "t-secao": 16.0,
+    "t-subsecao": 13.0, "t-citacao": 10.9, "t-rotulo": 8.2,
     "t-apoio": 9.6, "t-capa-titulo": 25.6,
 }
 CORPO_BASE = ESCALA["t-corpo"]
@@ -181,7 +185,7 @@ def cabecalho(tipo_peca: str, orgao: str, acento: str, acento_escuro: str) -> st
             {tipo_peca}
           </div>
           <div style="font-size: {px(2.3)}; letter-spacing: 0.04em;
-                      color: #6E7C88; font-weight: 500; margin-top: {px(0.8)};">
+                      color: #5A6673; font-weight: 500; margin-top: {px(0.8)};">
             {orgao}
           </div>
         </div>
@@ -195,7 +199,7 @@ def cabecalho(tipo_peca: str, orgao: str, acento: str, acento_escuro: str) -> st
     """
 
 
-def rodape(rotulo: str, referencia: str, acento: str) -> str:
+def rodape(rotulo: str, referencia: str, acento: str, unidade: str = "") -> str:
     """Rodapé com a referência do documento e a paginação, em todas as páginas.
 
     O rótulo é "Processo n." nas peças processuais, mas o mesmo design system
@@ -207,6 +211,11 @@ def rodape(rotulo: str, referencia: str, acento: str) -> str:
           {rotulo} <span style="color: #294964; font-weight: 600;">{referencia}</span>
         </span>"""
         if referencia
+        # Sem número de referência, o rodapé leva o nome da unidade responsável
+        # (`<meta name="vl-unidade">`), no lugar do logo cinza dos manuais da
+        # UPD, que quase não se lia.
+        else f"""<span style="color: #294964; font-weight: 600;">{unidade}</span>"""
+        if unidade
         else "<span></span>"
     )
     return f"""
@@ -222,7 +231,7 @@ def rodape(rotulo: str, referencia: str, acento: str) -> str:
                     height: {px(0.35)}; background: {acento};"></div>
       </div>
       <div style="display: flex; align-items: baseline; justify-content: space-between;
-                  font-size: {px(2.35)}; letter-spacing: 0.08em; color: #6E7C88;
+                  font-size: {px(2.35)}; letter-spacing: 0.08em; color: #5A6673;
                   font-weight: 500;">
         {referencia_html}
         <span style="text-transform: uppercase;">
@@ -483,6 +492,7 @@ def _compilar(caminho_html: Path, modo: str, conferir: bool,
     # para o corpo, que é onde a paginação começa a contar.
     capa_propria = ler_meta(html, "vl-capa", "").lower() == "propria"
     rotulo_rodape = ler_meta(html, "vl-rodape-rotulo", "Documento n.")
+    unidade = ler_meta(html, "vl-unidade", "")
     tipo_peca = ler_meta(html, "vl-peca", "Documento institucional")
     # `vl-tipo: peca` liga a tipografia da seção 20 do componentes.css
     # (corpo serifado, recuo de parágrafo, título justificado). Sem a meta,
@@ -597,9 +607,11 @@ def _compilar(caminho_html: Path, modo: str, conferir: bool,
             format="A4",
             print_background=True,
             display_header_footer=True,
-            header_template=cabecalho(tipo_peca, orgao, cores["acento"],
+            # O trecho de cor do filete é o laranja da marca, como nos manuais;
+            # o texto do cabeçalho segue no azul do papel `acento`.
+            header_template=cabecalho(tipo_peca, orgao, DESTAQUE,
                                       cores["acento_escuro"]),
-            footer_template=rodape(rotulo_rodape, processo, cores["acento"]),
+            footer_template=rodape(rotulo_rodape, processo, DESTAQUE, unidade),
             margin=MARGENS,
             prefer_css_page_size=False,
         )

@@ -22,11 +22,12 @@ body {
   line-height: var(--lh-corpo);
   color: var(--texto);
   font-weight: 400;
-  text-align: justify;
-  /* Hifenização desligada no corpo, por decisão editorial. O preço é vão de
-     justificação mais largo, porque o navegador só pode quebrar em espaço. Se
-     algum parágrafo abrir rio de branco, alinhar aquele bloco à esquerda; não
-     religar a hifenização aqui. Citação em bloco é a exceção e hifeniza. */
+  /* Texto alinhado à esquerda, sem justificar e sem hifenizar. Justificar sem
+     hifenização abre vão entre as palavras sempre que a linha tem uma palavra
+     longa, e os manuais da PGE mostram o defeito nas colunas estreitas. O
+     critério 1.4.8 das WCAG 2.2 pede texto não justificado. A peça processual
+     (.doc-peca, seção 20) segue justificada. */
+  text-align: left;
   hyphens: none;
   -webkit-hyphens: none;
 }
@@ -1442,6 +1443,9 @@ p.sem-recuo {
 .doc-peca ul {
   margin-left: var(--recuo-bloco);
 }
+
+/* A peça processual continua justificada, como no Word do fórum. */
+.doc-peca { text-align: justify; }
 
 /* --- Títulos -------------------------------------------------------------
    Justificados como no Word: linhas cheias esticam, a última fica à esquerda
