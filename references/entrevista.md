@@ -23,7 +23,7 @@ Pergunte só o que o texto recebido e o pedido não respondem. Use `AskUserQuest
 
 ## 3. Expediente (verso da capa)
 
-Pergunte quem consta e em qual papel: Administração Superior, elaboração do conteúdo, revisão, diagramação, capa, apoio, aprovação. Para cada pessoa, nome completo com acento e cargo, na ordem em que devem aparecer. Cada papel é um `.ex-bloco`; várias pessoas no mesmo papel ficam no mesmo bloco, um par `.ex-nome` e `.ex-cargo` para cada uma. Pergunte se o crédito de diagramação é do próprio usuário e com qual cargo. Não preencha nome nem cargo de memória, nem copie de outro documento sem o usuário confirmar.
+Pergunte quem consta e em qual papel: Dirigentes, elaboração ou atualização do conteúdo, revisão, diagramação, capa, apoio, aprovação. Para cada pessoa, nome completo com acento e cargo, na ordem em que devem aparecer. Cada papel é um `.ex-bloco`; várias pessoas no mesmo papel ficam no mesmo bloco, um par `.ex-nome` e `.ex-cargo` para cada uma. Pergunte se o crédito de diagramação é do próprio usuário e com qual cargo. Não preencha nome nem cargo de memória, nem copie de outro documento sem o usuário confirmar.
 
 Pergunte também se a publicação leva a ficha do documento no pé do expediente (`.ex-ficha`): autoria institucional, unidade, título, local e ano, palavras-chave numeradas. É a ficha que os manuais da UPD trazem na página 3. Sem resposta, apague o bloco.
 

@@ -179,15 +179,12 @@ def cabecalho(tipo_peca: str, orgao: str, acento: str, acento_escuro: str) -> st
         color: #294964; box-sizing: border-box;">
       <div style="display: flex; align-items: flex-end; justify-content: space-between;">
         <img src="{logo_data_uri()}" style="height: {px(11)}; width: auto; display: block;">
-        <div style="text-align: right; line-height: 1.25;">
-          <div style="font-size: {px(2.5)}; letter-spacing: 0.16em;
-                      text-transform: uppercase; font-weight: 600; color: {acento_escuro};">
-            {tipo_peca}
-          </div>
-          <div style="font-size: {px(2.3)}; letter-spacing: 0.04em;
-                      color: #5A6673; font-weight: 500; margin-top: {px(0.8)};">
-            {orgao}
-          </div>
+        <!-- Só o nome do documento (vl-peca): o nome do órgão já está no logo.
+             `orgao` segue no PDF como autor (ajustar_metadados). -->
+        <div style="text-align: right; line-height: 1.25; font-size: {px(2.7)};
+                    letter-spacing: 0.16em; text-transform: uppercase;
+                    font-weight: 600; color: {acento_escuro};">
+          {tipo_peca}
         </div>
       </div>
       <div style="margin-top: {px(3)}; height: {px(0.45)}; background: #D2D3D5;

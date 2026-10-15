@@ -39,7 +39,7 @@ O build também grava título e autor no PDF a partir de `<title>` e `vl-orgao`.
 
 ## Como o documento é montado
 
-- **Capa e contracapa próprias.** Com `<meta name="vl-capa" content="propria">`, o build imprime a capa numa passada sem margem e sem cabeçalho, o corpo noutra, e a contracapa (`<section class="contracapa">`) numa terceira, e emenda as três. A capa e a contracapa não têm número; a paginação do rodapé conta a partir do expediente, que é a página 1.
+- **Capa e contracapa próprias.** Com `<meta name="vl-capa" content="propria">`, o build imprime a capa numa passada sem margem e sem cabeçalho, o corpo noutra, e a contracapa (`<section class="contracapa">`) numa terceira, e emenda as três. O expediente sai na passada da capa, logo depois dela. Capa, expediente e contracapa não têm número nem cabeçalho; a paginação do rodapé começa no sumário, que é a página 1. O `sumario` desconta essas duas páginas sozinho (`--capas` força outro valor).
 - **Cabeçalho e rodapé** vêm do build, não do CSS (o Chromium ignora as margens do CSS paginado). Mexer neles é mexer em `scripts/build.py`. O rodapé leva à esquerda a unidade de `<meta name="vl-unidade">` (ou o número de `vl-processo`, quando houver) e à direita a paginação; os filetes têm um trecho em laranja da marca.
 - **Caminhos do design system.** O HTML aponta para `@ds/tokens.css`, `@ds/logo-pge.png` etc.; o build troca pelo caminho da skill numa cópia temporária que some ao fim. Imagens do documento ficam ao lado do HTML e entram por caminho relativo.
 - **Número de página do sumário** depende do PDF; por isso `sumario` compila e relê. Rode de novo depois de qualquer mudança de texto.

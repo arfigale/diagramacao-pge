@@ -61,27 +61,30 @@
 
 
 <!-- ============================================================
-     EXPEDIENTE (verso da capa). Um bloco por papel; cada pessoa com nome
-     e cargo. Confira a grafia e a acentuação de cada nome.
-     A ficha do documento é opcional: apague-a se o usuário não quiser.
+     EXPEDIENTE (verso da capa). Layout obrigatório: logo horizontal no
+     alto e, para cada papel, o rótulo em laranja entre dois filetes, com
+     nome (negrito) e cargo embaixo. Um bloco por papel; várias pessoas no
+     mesmo papel ficam no mesmo bloco. Confira a grafia de cada nome.
+     Com capa própria, esta página sai junto da capa, sem cabeçalho e sem
+     número. A ficha do documento é opcional: apague-a se não houver.
      ============================================================ -->
 <section class="expediente">
-  <div class="ex-logo"><img src="@ds/logo-pge-vertical.svg" alt="PGE – Procuradoria-Geral do Estado de Mato Grosso do Sul"></div>
+  <div class="ex-logo"><img src="@ds/logo-pge-horizontal.svg" alt="PGE – Procuradoria-Geral do Estado de Mato Grosso do Sul"></div>
 
   <div class="ex-blocos">
     <div class="ex-bloco">
-      <p class="ex-rot">Administração Superior</p>
+      <p class="ex-rot">Dirigentes</p>
       <p class="ex-nome">[PREENCHER: nome completo]</p>
       <p class="ex-cargo">[PREENCHER: cargo]</p>
     </div>
     <div class="ex-bloco">
-      <p class="ex-rot">[PREENCHER: papel, ex.: Elaboração do conteúdo]</p>
+      <p class="ex-rot">[PREENCHER: papel, ex.: Elaboração de conteúdo]</p>
       <p class="ex-nome">[PREENCHER: nome completo]</p>
       <p class="ex-cargo">[PREENCHER: cargo]</p>
     </div>
     <div class="ex-bloco">
       <p class="ex-rot">Diagramação</p>
-      <p class="ex-nome">[PREENCHER: nome completo]</p>
+      <p class="ex-nome">[PREENCHER: nome ou unidade]</p>
     </div>
   </div>
 
@@ -91,8 +94,6 @@
     <p>[PREENCHER: título completo]. Campo Grande: PGE/MS, [PREENCHER: ano].</p>
     <p>[PREENCHER: palavras-chave numeradas, ex.: 1. Proteção de dados. 2. LGPD.]</p>
   </div>
-
-  <p class="ex-ano">[PREENCHER: ano]</p>
 </section>
 
 
@@ -100,10 +101,12 @@
      SUMÁRIO. Cada item traz o número de página como &mdash;; quem preenche
      é o comando
        <dpge> sumario <este-arquivo> --ate-estabilizar
-     Parte em negrito (li.parte), subitem em texto normal (li.sub).
+     Layout obrigatório: entrada principal em negrito (li.parte), com o
+     número seguido de ponto; subitem recuado, em texto normal (li.sub).
+     Entrada sem número (Apresentação, Glossário) leva s-num vazio.
      O texto de cada título tem de ser IGUAL ao do título no corpo.
      ============================================================ -->
-<h2 class="secao primeira quebra-antes">Sumário</h2>
+<h2 class="secao sumario-titulo primeira quebra-antes">Sumário</h2>
 
 <div class="sumario">
   <ol>

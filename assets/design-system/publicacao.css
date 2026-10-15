@@ -42,7 +42,7 @@
   body.so-capa { margin: 0; }
   /* !important: componente com display próprio (flex, grid) vencia esta regra
      pela especificidade e vazava para a passada da capa. */
-  body.so-capa > *:not(.capa-manual) { display: none !important; }
+  body.so-capa > *:not(.capa-manual):not(.expediente) { display: none !important; }
   body.so-capa .capa-manual { display: grid; }
 
   .capa-manual::before,
@@ -252,68 +252,90 @@
   }
 
   /* ------------------------------------------------------------
-     SUMÁRIO
-     Duas hierarquias: parte, em marinho, e subitem, recuado e em
-     cinza. A guia pontilhada liga o título ao número da página.
+     SUMÁRIO — layout obrigatório do padrão PGE
+     Título "Sumário" em laranja entre dois filetes laranja (o mesmo
+     rótulo do expediente). Entrada principal em negrito, com o número
+     seguido de ponto ("1. Apresentação"); subitem recuado, em texto
+     normal e corpo menor. Guia pontilhada até o número da página, que
+     sai com dois dígitos ("04") pelo comando `sumario`.
      ------------------------------------------------------------ */
-  .sumario { margin: var(--esp-3) 0 var(--esp-4) 0; }
+  h2.secao.sumario-titulo {
+    display: block;
+    border-left: 0;
+    border-top: 0.35mm solid var(--destaque);
+    border-bottom: 0.35mm solid var(--destaque);
+    padding: 2.6mm 0;
+    margin: 0 0 6mm 0;
+    font-size: 17pt;
+    font-weight: 700;
+    color: var(--destaque);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .sumario { margin: 0 0 var(--esp-4) 0; }
 
   .sumario ol { list-style: none; margin: 0; padding: 0; }
 
   .sumario li {
-    display: grid;
-    grid-template-columns: 22mm 1fr auto;
-    column-gap: 2mm;
+    display: flex;
     align-items: baseline;
     break-inside: avoid;
     page-break-inside: avoid;
     text-align: left;
+    color: var(--texto);
   }
 
   .sumario li.parte {
-    margin-top: 4mm;
-    padding-top: 2.4mm;
-    border-top: 0.3mm solid var(--cinza-04);
-    font-size: var(--t-corpo);
+    margin: 2mm 0 0 0;
+    padding: 0;
+    border: 0;
+    font-size: 11pt;
     font-weight: 700;
-    color: var(--marinho);
+    line-height: 1.35;
   }
-
-  .sumario li.parte:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
+  .sumario li.parte:first-child { margin-top: 0; }
+  .sumario li.sub + li.parte { margin-top: 3.4mm; }
 
   .sumario li.sub {
-    font-size: var(--t-corpo);
+    margin: 1mm 0 0 4mm;
+    font-size: 10pt;
     font-weight: 400;
-    color: var(--cinza-texto);
-    margin-top: 1.4mm;
+    line-height: 1.35;
   }
+  .sumario li.parte + li.sub { margin-top: 1.8mm; }
 
-  .sumario .s-num { font-variant-numeric: tabular-nums; }
-  .sumario li.parte .s-num { color: var(--acento-escuro); }
+  .sumario .s-num {
+    flex: 0 0 auto;
+    font-variant-numeric: tabular-nums;
+    margin-right: 1.6mm;
+    color: var(--texto);
+  }
+  .sumario .s-num:empty { display: none; }
+  .sumario li.parte .s-num:not(:empty)::after { content: '.'; }
 
   /* A guia é um pontilhado que ocupa a folga entre título e página. */
-  .sumario .s-tit { position: relative; overflow: hidden; }
-
-  .sumario .s-tit span { background: var(--branco); padding-right: 1.6mm; }
-
+  .sumario .s-tit { flex: 1 1 auto; min-width: 0; position: relative; overflow: hidden; }
+  .sumario .s-tit span { position: relative; z-index: 1; background: var(--branco); padding-right: 1.4mm; }
   .sumario .s-tit::after {
     content: '';
     position: absolute;
-    bottom: 0.9mm;
-    width: 100%;
-    border-bottom: 0.25mm dotted var(--cinza-05);
+    left: 0;
+    right: 0;
+    bottom: 1mm;
+    border-bottom: 0.4mm dotted var(--texto);
   }
-
-  .sumario li.parte .s-tit span { position: relative; z-index: 1; }
 
   .sumario .s-pag {
+    flex: 0 0 auto;
+    min-width: 8mm;
+    padding-left: 1.6mm;
+    text-align: right;
     font-variant-numeric: tabular-nums;
-    font-weight: 700;
-    color: var(--acento-escuro);
-    padding-left: 2mm;
+    color: var(--texto);
   }
-
-  .sumario li.sub .s-pag { font-weight: 500; color: var(--cinza-texto); }
+  .sumario li.parte .s-pag { font-weight: 700; }
+  .sumario li.sub .s-pag { font-weight: 400; }
 
   /* ------------------------------------------------------------
      Ajustes herdados das versões anteriores deste documento
@@ -750,89 +772,105 @@
     font-size: var(--t-corpo);
   }
 
-  /* Página de expediente, logo depois da capa (padrão dos manuais da UPD):
-     logo vertical em cor centralizado no alto, um bloco por papel com o
-     rótulo sublinhado por um filete laranja, a ficha do documento no pé e o
-     ano centralizado. */
+  /* ------------------------------------------------------------
+     EXPEDIENTE (verso da capa) — layout obrigatório do padrão PGE
+     Logo horizontal em cor centralizado no alto; cada papel com o
+     rótulo em laranja entre dois filetes laranja de largura cheia;
+     nomes em negrito e cargos em texto normal, ambos em preto.
+
+     Sai na passada da capa (sem cabeçalho e sem número), como página
+     própria logo depois dela: o logo do cabeçalho repetiria o do alto
+     da página. No corpo ela fica escondida (body.sem-capa).
+     ------------------------------------------------------------ */
   .expediente {
     break-after: page;
     page-break-after: always;
     display: flex;
     flex-direction: column;
-    min-height: 240mm;
   }
 
-  .ex-logo {
+  body.so-capa .expediente {
+    display: flex !important;
+    break-before: page;
+    page-break-before: always;
+    width: 210mm;
+    min-height: 296mm;
+    box-sizing: border-box;
+    padding: 18mm 25mm 18mm 25mm;
+    background: var(--branco);
+  }
+  body.sem-capa .expediente { display: none !important; }
+
+  .expediente .ex-logo {
     display: flex;
     justify-content: center;
-    margin: 2mm 0 12mm 0;
+    margin: 0 0 7mm 0;
   }
-  .ex-logo img { display: block; height: 30mm; width: auto; }
+  .expediente .ex-logo img { display: block; height: 15mm; width: auto; }
 
-  .ex-blocos { padding-left: 14mm; }
+  .expediente .ex-blocos { padding: 0; }
 
-  .ex-bloco { margin: 0 0 7.5mm 0; }
+  .expediente .ex-bloco { margin: 0 0 5mm 0; }
 
-  .ex-rot {
-    display: inline-block;
-    min-width: 48mm;
-    font-size: var(--t-corpo);
+  .expediente .ex-rot {
+    display: block;
+    font-size: 15pt;
     font-weight: 700;
     letter-spacing: 0;
     text-transform: none;
-    color: var(--marinho);
-    margin: 0 0 2.4mm 0;
-    padding-bottom: 1.2mm;
-    border-bottom: 0.4mm solid var(--destaque);
+    line-height: 1.25;
+    color: var(--destaque);
+    margin: 0 0 3.6mm 0;
+    padding: 2.4mm 0;
+    border-top: 0.35mm solid var(--destaque);
+    border-bottom: 0.35mm solid var(--destaque);
     text-align: left;
   }
 
-  .ex-nome {
-    font-size: var(--t-corpo);
-    font-weight: 600;
+  .expediente .ex-nome {
+    font-size: 10.5pt;
+    font-weight: 700;
     color: var(--texto);
-    line-height: 1.35;
+    line-height: 1.3;
     margin: 0;
     text-align: left;
     text-indent: 0;
   }
 
-  .ex-cargo {
-    font-size: var(--t-corpo);
-    line-height: 1.35;
-    color: var(--cinza-texto);
-    margin: 0.4mm 0 3.6mm 0;
+  .expediente .ex-cargo {
+    font-size: 10.5pt;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--texto);
+    margin: 0 0 3.2mm 0;
     text-align: left;
     text-indent: 0;
   }
 
-  .ex-bloco .ex-cargo:last-child,
-  .ex-bloco .ex-nome:last-child { margin-bottom: 0; }
+  .expediente .ex-bloco .ex-cargo:last-child,
+  .expediente .ex-bloco .ex-nome:last-child { margin-bottom: 0; }
 
-  /* Ficha do documento: autoria institucional, título, local, ano e
-     palavras-chave, no lugar da ficha que os manuais da UPD trazem na
-     página 3. Opcional. */
-  .ex-ficha {
+  /* Ficha do documento (opcional): autoria institucional, título, local,
+     ano e palavras-chave, no pé da página. */
+  .expediente .ex-ficha {
     margin: auto 0 0 0;
     border: 0.35mm solid var(--cinza-05);
-    padding: 4.5mm 6mm;
-    font-size: var(--t-apoio);
-    line-height: 1.45;
+    padding: 4mm 5mm;
+    font-size: 9pt;
+    line-height: 1.4;
     color: var(--texto);
     text-align: left;
   }
-  .ex-ficha p { margin: 0 0 2mm 0; }
-  .ex-ficha p:last-child { margin-bottom: 0; }
-  .ex-ficha strong { color: var(--marinho); }
+  .expediente .ex-ficha p { margin: 0 0 1.6mm 0; }
+  .expediente .ex-ficha p:last-child { margin-bottom: 0; }
+  .expediente .ex-ficha strong { color: var(--marinho); }
 
-  .ex-ano {
-    margin: 8mm 0 0 0;
+  .expediente .ex-ano {
+    margin: 6mm 0 0 0;
     text-align: center;
-    font-size: var(--t-corpo);
+    font-size: 10.5pt;
     color: var(--cinza-texto);
   }
-  .ex-ficha + .ex-ano { margin-top: 6mm; }
-  .ex-blocos + .ex-ano { margin-top: auto; }
 
   /* ------------------------------------------------------------
      TÍTULOS DE SEÇÃO (publicação e documento curto)

@@ -117,7 +117,7 @@ def preencher(html_path: Path, pdf: Path, capas: int) -> tuple[bool, list[str]]:
             faltando.append(f"{num} {re.sub('<[^>]+>', '', titulo)}")
             return m.group(0)
         cursor = achou
-        novo = str(achou + 1 - capas)
+        novo = f"{achou + 1 - capas:02d}"  # dois dígitos, como no padrão: 04
         if novo != m.group("pag").strip():
             mudou = True
         return (
@@ -137,8 +137,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("html", type=Path)
     ap.add_argument("pdf", type=Path, nargs="?")
-    ap.add_argument("--capas", type=int, default=1,
-                    help="páginas antes da paginação começar (padrão: 1)")
+    ap.add_argument("--capas", type=int, default=None,
+                    help="páginas antes da paginação começar (padrão: 1, ou 2 "
+                         "quando a publicação tem capa própria e expediente)")
     ap.add_argument("--modo", default="sobrio")
     ap.add_argument("--ate-estabilizar", action="store_true",
                     help="recompila e repete até os números não mudarem")
@@ -151,6 +152,14 @@ def main() -> int:
     args, extras = ap.parse_known_args()
 
     pdf = args.pdf or args.html.parent / f"{args.html.stem}-{args.modo}.pdf"
+
+    if args.capas is None:
+        # Com capa própria, o expediente sai na passada da capa, sem número:
+        # são duas páginas antes da paginação do corpo.
+        fonte = re.sub(r"<!--.*?-->", "", args.html.read_text(encoding="utf-8"), flags=re.S)
+        capa_propria = re.search(r'name=["\']vl-capa["\']\s+content=["\']propria', fonte)
+        expediente = re.search(r'<section[^>]*class="[^"]*\bexpediente\b', fonte)
+        args.capas = 2 if (capa_propria and expediente) else 1
 
     def compilar() -> None:
         nonlocal pdf

@@ -11,15 +11,15 @@ As três primeiras são as do manual da marca, com os códigos dele.
 | Cor | Hex | CMYK | Uso |
 |---|---|---|---|
 | Azul da marca | `#294964` | 100 / 75 / 40 / 30 | títulos, capa, contracapa, cabeçalho de tabela, estrutura |
-| Laranja | `#F58634` | 0 / 60 / 100 / 0 | barra dos títulos de seção, faixas da capa, filetes, marcadores; nunca em texto |
+| Laranja | `#F58634` | 0 / 60 / 100 / 0 | barra dos títulos de seção, faixas da capa, filetes, marcadores; em texto, só nos rótulos do expediente e no título do sumário |
 | Verde-água | `#51A8B1` | 60 / 0 / 20 / 20 | apoio, grafismo; uso raro |
 | Preto | `#000000` | | texto de leitura: corpo, células, listas, negrito do corpo |
-| Cinza do texto de apoio | `#5A6673` | | cargo no expediente, subitem do sumário, rodapé |
+| Cinza do texto de apoio | `#5A6673` | | legendas de figura, rodapé |
 | Cinza de filete | `#D2D3D5` | | filetes, bordas, fundos de quadro |
 
 Texto de leitura é preto e a cor fica na moldura institucional. Negrito do corpo é preto, não azul.
 
-O laranja não serve para texto sobre o branco: o contraste é de 2,5:1, e as WCAG pedem 4,5:1 para texto comum. Pelo mesmo motivo, o texto da faixa laranja da capa é azul-escuro (`#223141`, 5,3:1), e não branco (2,5:1).
+O laranja não serve para texto corrido sobre o branco: o contraste é de 2,5:1, e as WCAG pedem 4,5:1 para texto comum. A exceção, fixada pelo layout obrigatório, são os rótulos curtos do expediente e o título do sumário, em 15 pt e 17 pt negrito. Pelo mesmo motivo, o texto da faixa laranja da capa é azul-escuro (`#223141`, 5,3:1), e não branco (2,5:1).
 
 Os manuais da UPD usavam cinco azuis e cinco laranjas diferentes. O padrão fica com um de cada, os do manual da marca.
 
@@ -43,9 +43,10 @@ Títulos de seção em 16 pt, subseção em 13 pt, ambos em azul e negrito, só 
 
 - Os logos são os arquivos de `assets/design-system/`:
   - `logo-pge.png`, horizontal em cor, no cabeçalho de cada página;
-  - `logo-pge-vertical.svg`, vertical em cor, no alto do expediente;
+  - `logo-pge-horizontal.svg`, horizontal em cor, no alto do expediente;
+  - `logo-pge-vertical.svg`, vertical em cor, reserva;
   - `logo-pge-vertical-negativo.svg`, vertical negativo (letras brancas, brasão em cor, fundo transparente), na capa e na contracapa azuis.
-- Os dois verticais foram recortados do PDF vetorial do manual da marca, sem redesenho. Não se alteram, não se recolorem, não se esticam e nunca se pedem a um modelo de imagem. A marca da PGE e os logos pertencem à Procuradoria-Geral do Estado de Mato Grosso do Sul e não estão cobertos pela licença deste repositório.
+- Os três SVG foram recortados do PDF vetorial do manual da marca, sem redesenho. Não se alteram, não se recolorem, não se esticam e nunca se pedem a um modelo de imagem. A marca da PGE e os logos pertencem à Procuradoria-Geral do Estado de Mato Grosso do Sul e não estão cobertos pela licença deste repositório.
 - A área de proteção do manual da marca é de dois módulos em volta do logo; não encoste texto nem filete nele.
 - Nenhuma marca de terceiro entra no documento sem o usuário pedir.
 - O documento fala em nome da PGE só se o usuário tem autoridade para isso. Para material de autoria pessoal ou de equipe, o expediente diz quem assina.
@@ -59,3 +60,11 @@ Títulos de seção em 16 pt, subseção em 13 pt, ambos em azul e negrito, só 
 - Título que diz o argumento. Máximo de três níveis.
 
 As regras de composição, com o motivo de cada uma, estão em `tipografia.md`. Onde aquele arquivo fala em texto justificado e entrelinha 1,22, vale esta página.
+
+## Layout obrigatório do expediente, do sumário e do cabeçalho
+
+Definido pela usuária a partir do Manual de Condutas Eleitorais 2026 e não negociável:
+
+- **Expediente** (verso da capa): logo horizontal em cor centralizado no alto; cada papel (Dirigentes, Elaboração, Revisão, Diagramação…) com o rótulo em laranja, 15 pt negrito, entre dois filetes laranja de largura cheia; nome em negrito e cargo em texto normal, ambos em preto, em 10,5 pt. Com capa própria, a página sai junto da capa, sem cabeçalho e sem número.
+- **Sumário**: título "Sumário" em laranja, 17 pt negrito, entre dois filetes laranja; entrada principal em negrito com o número seguido de ponto ("1. Apresentação"); subitem recuado, em texto normal e corpo menor; guia pontilhada até a página, que tem dois dígitos ("04").
+- **Cabeçalho**: logo à esquerda e, à direita, só o nome do manual ou informativo (`vl-peca`). O nome da PGE não se repete, porque já está no logo.

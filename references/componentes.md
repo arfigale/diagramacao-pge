@@ -32,12 +32,11 @@ O modelo `publicacao.html` já traz as três peças montadas; os detalhes estão
 </section>
 
 <section class="expediente">
-  <div class="ex-logo"><img src="@ds/logo-pge-vertical.svg" alt="..."></div>
+  <div class="ex-logo"><img src="@ds/logo-pge-horizontal.svg" alt="..."></div>
   <div class="ex-blocos">
-    <div class="ex-bloco"><p class="ex-rot">Papel</p><p class="ex-nome">Nome</p><p class="ex-cargo">Cargo</p></div>
+    <div class="ex-bloco"><p class="ex-rot">Dirigentes</p><p class="ex-nome">Nome</p><p class="ex-cargo">Cargo</p></div>
   </div>
   <div class="ex-ficha"><p>…</p></div>                                     <!-- opcional -->
-  <p class="ex-ano">2026</p>
 </section>
 
 <section class="contracapa">
@@ -117,13 +116,15 @@ O modelo parte entre páginas. `.campo` é o que o leitor preenche, em laranja; 
 ## Sumário
 
 ```html
+<h2 class="secao sumario-titulo primeira quebra-antes">Sumário</h2>
 <div class="sumario"><ol>
-  <li class="parte"><span class="s-num">1</span><span class="s-tit"><span>PRIMEIRA PARTE</span></span><span class="s-pag">&mdash;</span></li>
+  <li class="parte"><span class="s-num"></span><span class="s-tit"><span>Apresentação</span></span><span class="s-pag">&mdash;</span></li>
+  <li class="parte"><span class="s-num">1</span><span class="s-tit"><span>Primeira parte</span></span><span class="s-pag">&mdash;</span></li>
   <li class="sub"><span class="s-num">1.1</span><span class="s-tit"><span>Primeira seção</span></span><span class="s-pag">&mdash;</span></li>
 </ol></div>
 ```
 
-O texto de cada `s-tit` tem de ser igual ao título no corpo (o sumário é casado pelo texto). `<dpge> sumario` troca o traço pelo número de página.
+Layout obrigatório (ver `identidade.md`): o título leva `sumario-titulo`; a entrada principal sai em negrito, com o número seguido de ponto; o subitem sai recuado e em texto normal. Entrada sem número leva `s-num` vazio. O texto de cada `s-tit` tem de ser igual ao título no corpo (o sumário é casado pelo texto). `<dpge> sumario` troca o traço pelo número de página, com dois dígitos.
 
 ## Notas de rodapé
 
