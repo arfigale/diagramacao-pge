@@ -264,13 +264,13 @@
   h2.secao.sumario-titulo {
     display: block;
     border-left: 0;
-    border-top: 0.35mm solid var(--destaque);
-    border-bottom: 0.35mm solid var(--destaque);
+    border-top: 0.35mm solid var(--marinho);
+    border-bottom: 0.35mm solid var(--marinho);
     padding: 2.6mm 0;
     margin: 0 0 6mm 0;
     font-size: 17pt;
     font-weight: 700;
-    color: var(--destaque);
+    color: var(--marinho);
     letter-spacing: 0;
     text-transform: none;
   }

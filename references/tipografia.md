@@ -392,7 +392,7 @@ fica depois dela.
 ### 5.2 Margem e assimetria
 
 Uma polegada não basta em fonte proporcional. Em A4 nossas margens são 25 mm à
-esquerda e 20 mm à direita, 31 mm no topo e 19 mm no pé.
+esquerda e 20 mm à direita, 37 mm no topo e 19 mm no pé.
 
 As laterais eram 25 mm e 20 mm, e o problema não era o tamanho, era a
 assimetria: **5 mm de diferença entre esquerda e direita lê como erro de

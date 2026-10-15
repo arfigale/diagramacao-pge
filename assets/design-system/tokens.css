@@ -225,7 +225,7 @@
   /* --- Ritmo vertical --- */
   /* Espaço entre parágrafos de corpo. Isolado dos demais espaçamentos para
      poder ser ajustado no build sem mexer nas caixas. */
-  --esp-paragrafo:      3.4mm;
+  --esp-paragrafo:      2.4mm;
   /* Entre parágrafos, 3,4 mm somados à linha de 18 pt dão 27,6 pt de uma
      linha de base à outra: 1,5 vez a entrelinha, como pede o mesmo critério. */
 

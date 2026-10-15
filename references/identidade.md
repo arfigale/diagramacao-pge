@@ -11,7 +11,7 @@ As três primeiras são as do manual da marca, com os códigos dele.
 | Cor | Hex | CMYK | Uso |
 |---|---|---|---|
 | Azul da marca | `#294964` | 100 / 75 / 40 / 30 | títulos, capa, contracapa, cabeçalho de tabela, estrutura |
-| Laranja | `#F58634` | 0 / 60 / 100 / 0 | barra dos títulos de seção, faixas da capa, filetes, marcadores; em texto, só no título do sumário |
+| Laranja | `#F58634` | 0 / 60 / 100 / 0 | barra dos títulos de seção, faixas da capa, filetes, marcadores; em texto, nunca |
 | Verde-água | `#51A8B1` | 60 / 0 / 20 / 20 | apoio, grafismo; uso raro |
 | Preto | `#000000` | | texto de leitura: corpo, células, listas, negrito do corpo |
 | Cinza do texto de apoio | `#5A6673` | | legendas de figura, rodapé |
@@ -19,7 +19,7 @@ As três primeiras são as do manual da marca, com os códigos dele.
 
 Texto de leitura é preto e a cor fica na moldura institucional. Negrito do corpo é preto, não azul.
 
-O laranja não serve para texto corrido sobre o branco: o contraste é de 2,5:1, e as WCAG pedem 4,5:1 para texto comum. A exceção, fixada pelo layout obrigatório, é o título do sumário, em 17 pt negrito. Pelo mesmo motivo, o texto da faixa laranja da capa é azul-escuro (`#223141`, 5,3:1), e não branco (2,5:1).
+O laranja não serve para texto corrido sobre o branco: o contraste é de 2,5:1, e as WCAG pedem 4,5:1 para texto comum. Pelo mesmo motivo, o texto da faixa laranja da capa é azul-escuro (`#223141`, 5,3:1), e não branco (2,5:1).
 
 Os manuais da UPD usavam cinco azuis e cinco laranjas diferentes. O padrão fica com um de cada, os do manual da marca.
 
@@ -33,9 +33,9 @@ Cabeçalho e rodapé também saem em Source Sans 3: o build embute nos dois um s
 
 ## Página e texto
 
-A4, margens de 25 mm nas laterais, 31 mm no topo e 19 mm no pé. Área útil de 160 mm por 247 mm.
+A4, margens de 25 mm nas laterais, 37 mm no topo (o texto não encosta no cabeçalho) e 19 mm no pé. Área útil de 160 mm por 241 mm.
 
-Corpo de 12 pt, entrelinha 1,5, 3,4 mm entre parágrafos, recuo de 1,25 cm na primeira linha, texto corrido justificado e sem hifenização. Cerca de 78 caracteres por linha. Entrelinha, espaço entre parágrafos e medida seguem o critério 1.4.8 das WCAG 2.2 (Apresentação visual, nível AAA); a justificação é decisão do padrão da PGE. Coluna estreita (célula de tabela, glossário, ficha, quadro) vai alinhada à esquerda, porque justificada sem hifenização abre vão entre as palavras.
+Corpo de 12 pt, entrelinha 1,5, 2,4 mm entre parágrafos, recuo de 1,25 cm na primeira linha, texto corrido justificado e sem hifenização. Cerca de 78 caracteres por linha. Entrelinha, espaço entre parágrafos e medida seguem o critério 1.4.8 das WCAG 2.2 (Apresentação visual, nível AAA); a justificação é decisão do padrão da PGE. Coluna estreita (célula de tabela, glossário, ficha, quadro) vai alinhada à esquerda, porque justificada sem hifenização abre vão entre as palavras.
 
 Títulos de seção em 16 pt, subseção em 13 pt, ambos em azul e negrito, só com a primeira letra em maiúscula.
 
@@ -64,5 +64,5 @@ As regras de composição, com o motivo de cada uma, estão em `tipografia.md`. 
 Definido pela usuária a partir do Manual de Condutas Eleitorais 2026 e não negociável:
 
 - **Expediente** (verso da capa): logo horizontal azul centralizado no alto; cada papel (Dirigentes, Elaboração, Revisão, Diagramação…) com o rótulo em azul, 15 pt negrito, entre dois filetes azuis de largura cheia; nome em negrito e cargo em texto normal, ambos em preto, em 10,5 pt. Com capa própria, a página sai junto da capa, sem cabeçalho e sem número.
-- **Sumário**: título "Sumário" em laranja, 17 pt negrito, entre dois filetes laranja; entrada principal em negrito com o número seguido de ponto ("1. Apresentação"); subitem recuado, em texto normal e corpo menor; guia pontilhada até a página, que tem dois dígitos ("04").
+- **Sumário**: título "Sumário" em azul, 17 pt negrito, entre dois filetes azuis; entrada principal em negrito com o número seguido de ponto ("1. Apresentação"); subitem recuado, em texto normal e corpo menor; guia pontilhada até a página, que tem dois dígitos ("04").
 - **Cabeçalho**: logo à esquerda e, à direita, só o nome do manual ou informativo (`vl-peca`). O nome da PGE não se repete, porque já está no logo.

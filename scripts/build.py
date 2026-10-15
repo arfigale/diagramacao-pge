@@ -46,7 +46,7 @@ PAGED_JS = DESIGN / "vendor" / "paged.min.js"
 # --- Geometria da página ------------------------------------------------
 # Margens generosas no topo e no pé para acomodar cabeçalho e rodapé sem
 # que o conteúdo passe por baixo deles.
-MARGENS = {"top": "31mm", "bottom": "19mm", "left": "25mm", "right": "25mm"}
+MARGENS = {"top": "37mm", "bottom": "19mm", "left": "25mm", "right": "25mm"}
 
 # Laranja da marca (manual da PGE, CMYK 0/60/100/0). Só em filete e faixa,
 # nunca em texto: sobre o branco o contraste é de 2,5:1.
