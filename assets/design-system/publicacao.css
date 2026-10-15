@@ -40,7 +40,9 @@
   }
 
   body.so-capa { margin: 0; }
-  body.so-capa > *:not(.capa-manual) { display: none; }
+  /* !important: componente com display próprio (flex, grid) vencia esta regra
+     pela especificidade e vazava para a passada da capa. */
+  body.so-capa > *:not(.capa-manual) { display: none !important; }
   body.so-capa .capa-manual { display: grid; }
 
   .capa-manual::before,
@@ -187,7 +189,7 @@
   }
 
   body.so-contracapa { margin: 0; }
-  body.so-contracapa > *:not(.contracapa) { display: none; }
+  body.so-contracapa > *:not(.contracapa) { display: none !important; }
   body.so-contracapa .contracapa { display: flex; }
 
   .cc-logo {
