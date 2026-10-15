@@ -1,0 +1,1617 @@
+/* ============================================================
+   diagramacao-pge / componentes.css
+   Componentes visuais das peças. Depende de tokens.css.
+
+   Dois modos, controlados pela classe do <body>:
+     .modo-sobrio    → só tipografia, quadros, caixas e tabelas
+     .modo-completo  → acrescenta capa, linha do tempo e gráficos
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  font-family: var(--fonte);
+  font-size: var(--t-corpo);
+  line-height: var(--lh-corpo);
+  color: var(--texto);
+  font-weight: 400;
+  text-align: justify;
+  /* Hifenização desligada no corpo, por decisão editorial. O preço é vão de
+     justificação mais largo, porque o navegador só pode quebrar em espaço. Se
+     algum parágrafo abrir rio de branco, alinhar aquele bloco à esquerda; não
+     religar a hifenização aqui. Citação em bloco é a exceção e hifeniza. */
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+p {
+  margin: 0 0 var(--esp-paragrafo) 0;
+  /* 2 e não 3: com 3, um título de subseção no pé da página empurrava
+     o parágrafo inteiro e abria quase 3 cm de vão. */
+  orphans: 2;
+  widows: 2;
+}
+
+strong { font-weight: 600; }
+em { font-style: italic; }
+
+/* ------------------------------------------------------------
+   Alternância entre modos
+   ------------------------------------------------------------ */
+.so-completo { display: none; }
+.modo-completo .so-completo { display: block; }
+.modo-completo table.so-completo { display: table; }
+
+.so-sobrio { display: block; }
+.modo-completo .so-sobrio { display: none; }
+
+
+/* ============================================================
+   1. CAPA  (apenas modo completo)
+   ============================================================ */
+.capa {
+  break-after: page;
+  page-break-after: always;
+  padding-top: 2mm;
+}
+
+.capa-tarja {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  background: var(--marinho);
+  color: var(--branco);
+  padding: 7mm 8mm 6.5mm 8mm;
+  position: relative;
+}
+
+.capa-tarja::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1.6mm;
+  background: var(--acento);
+}
+
+.capa-eyebrow {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--acento-claro);
+  margin-bottom: 3mm;
+  text-align: left;
+}
+
+.capa-titulo {
+  font-size: var(--t-capa-titulo);
+  line-height: 1.08;
+  font-weight: 700;
+  /* Caixa alta pede entreletra positiva: maiúscula é desenhada para conviver
+     com minúscula, e maiúsculas juntas nascem apertadas. Aqui fica no piso da
+     faixa (5–12%) porque a 23 pt o defeito já é visível com pouco. */
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  margin: 0 0 4mm 0;
+  text-align: left;
+}
+
+.capa-processo {
+  font-size: calc(12.8pt * var(--k));
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--citacao-claro);
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.capa-partes {
+  margin-top: 5mm;
+  display: grid;
+  grid-template-columns: 26mm 1fr;
+  gap: 1.8mm 5mm;
+  font-size: var(--t-apoio);
+  text-align: left;
+}
+
+.capa-partes dt {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--acento-palido);
+  padding-top: 0.4mm;
+}
+
+.capa-partes dd {
+  margin: 0;
+  font-weight: 400;
+  line-height: var(--lh-corpo);
+}
+
+/* Resumo executivo da capa */
+.resumo {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-top: 6.5mm;
+  border: 0.35mm solid var(--cinza-05);
+  border-top: 1.4mm solid var(--acento);
+  padding: 5.5mm 7mm 5mm 7mm;
+  background: var(--cinza-01);
+}
+
+.resumo-rotulo {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  margin-bottom: 3.5mm;
+  text-align: left;
+}
+
+.resumo h3 {
+  font-size: calc(9.6pt * var(--k));
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--marinho);
+  margin: 3.6mm 0 1.4mm 0;
+  text-align: left;
+}
+
+.resumo h3:first-of-type { margin-top: 0; }
+
+.resumo p {
+  font-size: calc(10.6pt * var(--k));
+  margin-bottom: 0;
+  line-height: var(--lh-corpo);
+}
+
+.resumo ol {
+  margin: 0;
+  padding-left: 5mm;
+  font-size: calc(10.6pt * var(--k));
+  line-height: var(--lh-corpo);
+}
+
+.resumo ol li { margin-bottom: 1.1mm; }
+.resumo ol li::marker { color: var(--acento); font-weight: 700; }
+
+/* Faixa de números-chave */
+.numeros {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 6mm;
+  border-top: 0.35mm solid var(--cinza-05);
+  border-bottom: 0.35mm solid var(--cinza-05);
+}
+
+.numeros div {
+  padding: 4mm 3mm;
+  text-align: center;
+  border-right: 0.35mm solid var(--cinza-05);
+}
+
+.numeros div:last-child { border-right: 0; }
+
+.numeros .n-valor {
+  display: block;
+  font-size: calc(17.8pt * var(--k));
+  font-weight: 700;
+  color: var(--acento-escuro);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Rótulo em caixa baixa: são frases, e caixa alta longa trava a leitura. */
+.numeros .n-rotulo {
+  display: block;
+  font-size: calc(8.9pt * var(--k));
+  letter-spacing: 0.005em;
+  font-weight: 500;
+  color: var(--cinza-texto);
+  margin-top: 1.6mm;
+  line-height: 1.3;
+}
+
+
+/* ============================================================
+   2. ENDEREÇAMENTO E FICHA DO PROCESSO
+   ============================================================ */
+.enderecamento {
+  font-size: var(--t-corpo);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  text-align: left;
+  margin: 0 0 var(--esp-4) 0;
+  padding-bottom: var(--esp-2);
+  border-bottom: 0.7mm solid var(--acento);
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.ficha {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  background: var(--cinza-01);
+  border-left: 1.2mm solid var(--marinho);
+  padding: 5mm 6mm;
+  margin-bottom: var(--esp-4);
+  display: grid;
+  grid-template-columns: 28mm 1fr;
+  gap: 2.4mm 5mm;
+  text-align: left;
+}
+
+/* Item de grade tem `min-width: auto`: o `dt` NÃO encolhe abaixo do próprio
+   conteúdo, e um rótulo composto (`IMPUGNADO/EXEQUENTE`, ~47 mm a 8,2 pt com
+   entreletra) vaza da coluna de 28 mm e SOBRESCREVE o nome no `dd` — as duas
+   linhas impressas uma sobre a outra. Com `min-width: 0` o rótulo quebra
+   dentro da coluna e o valor nunca é coberto. Não alargar a coluna: 28 mm
+   comporta IMPUGNANTE, e alargá-la encolheria todo valor da ficha. */
+.ficha dt,
+.ficha dd { min-width: 0; }
+
+.ficha dt {
+  overflow-wrap: anywhere;
+  hyphens: none;
+  -webkit-hyphens: none;
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  padding-top: 0.5mm;
+}
+
+.ficha dd {
+  margin: 0;
+  font-size: var(--t-apoio);
+  line-height: var(--lh-caixa);
+  font-weight: 500;
+  color: var(--texto);
+}
+
+.ficha dd .num { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+
+
+/* ============================================================
+   3. CAIXA-SÍNTESE  ("em síntese, o que se pede")
+   ============================================================ */
+.sintese {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border: 0.35mm solid var(--acento-claro);
+  background: var(--acento-fundo);
+  padding: 5.5mm 6mm;
+  margin-bottom: var(--esp-4);
+}
+
+.sintese-rotulo {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  margin-bottom: 3mm;
+  text-align: left;
+}
+
+.sintese p {
+  margin-bottom: 2mm;
+  font-size: var(--t-corpo-alt);
+  line-height: var(--lh-corpo);
+}
+
+.sintese p:last-child { margin-bottom: 0; }
+
+
+/* ============================================================
+   4. TÍTULOS DE SEÇÃO
+   ============================================================ */
+h2.secao {
+  break-after: avoid;
+  page-break-after: avoid;
+  break-inside: avoid;
+  margin: var(--esp-5) 0 var(--esp-3) 0;
+  padding-bottom: 2.2mm;
+  border-bottom: 0.35mm solid var(--cinza-05);
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  font-size: var(--t-secao);
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--marinho);
+  line-height: 1.25;
+  text-align: left;
+}
+
+h2.secao::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.35mm;
+  width: 26mm;
+  height: 0.8mm;
+  background: var(--acento);
+}
+
+/* O rótulo do título vai envolvido em `.titulo` — `<h2 class="secao">
+   <span class="num">1</span><span class="titulo">Do cabimento</span></h2>`.
+   Sem o wrapper o texto é um item ANÔNIMO de flex, que nasce do tamanho do
+   conteúdo: `text-align: justify` no container não teria o que esticar,
+   porque não há caixa mais larga que a linha. Com `flex: 1` a caixa passa a
+   valer a medida restante, e aí a justificação do título funciona.
+   `min-width: 0` deixa o título quebrar em vez de estourar a linha. */
+h2.secao .titulo {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+h2.secao .num {
+  flex: 0 0 auto;
+  display: inline-block;
+  min-width: 7.5mm;
+  padding: 1.1mm 1.8mm;
+  background: var(--acento);
+  color: var(--branco);
+  font-size: calc(10.0pt * var(--k));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1;
+}
+
+h3.subsecao {
+  break-after: avoid;
+  page-break-after: avoid;
+  margin: 4mm 0 2.6mm 0;
+  font-size: var(--t-subsecao);
+  font-weight: 700;
+  color: var(--marinho);
+  line-height: 1.35;
+  text-align: left;
+  letter-spacing: 0.005em;
+}
+
+h3.subsecao .num {
+  color: var(--acento-escuro);
+  font-weight: 700;
+  margin-right: 1.5mm;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Primeira seção logo após a síntese não precisa de tanto respiro */
+h2.secao.primeira { margin-top: var(--esp-4); }
+
+
+/* ============================================================
+   5. CAIXA DE TESE VINCULANTE  (destaque forte)
+   ============================================================ */
+.tese {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  background: var(--marinho);
+  color: var(--branco);
+  padding: 6mm 7mm;
+  margin: var(--esp-3) 0 var(--esp-3) 0;
+  position: relative;
+}
+
+.tese::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1.4mm;
+  background: var(--acento);
+}
+
+.tese-rotulo {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-claro);
+  margin-bottom: 3mm;
+  text-align: left;
+}
+
+.tese-texto {
+  font-size: calc(11.6pt * var(--k));
+  line-height: var(--lh-corpo);
+  font-weight: 500;
+  margin-bottom: 3.5mm;
+  text-align: justify;
+  /* Citação em bloco é a exceção à hifenização desligada do corpo: a medida
+     aqui é mais curta por causa do recuo, e sem hifenizar o vão fica grande
+     demais. Ver references/tipografia.md §5.3. */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.tese-fonte {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--citacao-claro);
+  text-align: left;
+  line-height: 1.45;
+}
+
+
+/* ============================================================
+   6. CAIXA DE PRECEDENTE  (ementas, julgados)
+   ============================================================ */
+/* A citação NÃO começa partida (revisto em 10/09/2026, medido em PDF).
+   `break-inside: auto` aqui evitava o buraco no pé, mas cobrava um preço
+   pior: o motor ABRE a caixa (filete de 1,2 mm + fundo + 5 mm de padding)
+   no espaço que ainda resta, o primeiro `<p>` é indivisível e vai inteiro
+   para a página seguinte, e sobra na anterior a barra colorida SEM UMA
+   LINHA DE TEXTO. Com `avoid`, a caixa que não cabe migra inteira.
+
+   O buraco que o `auto` evitava volta pela porta certa: a ementa longa
+   recebe `.partivel` (seção 14), que libera a caixa E o parágrafo JUNTOS.
+   Liberar só a caixa reproduz exatamente o fragmento vazio, porque o
+   parágrafo indivisível continua migrando sozinho.
+
+   Citação maior que uma página inteira ainda parte: o motor ignora `avoid`
+   quando o bloco não cabe nem numa página vazia — e aí há texto dos dois
+   lados, que é o caso honesto. */
+.precedente {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border-left: 1.2mm solid var(--citacao);
+  background: var(--citacao-fundo);
+  padding: 5mm 6mm;
+  margin: var(--esp-3) 0;
+}
+
+.precedente p {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  font-size: var(--t-citacao);
+  line-height: var(--lh-citacao);
+  margin-bottom: 3mm;
+  color: var(--texto);
+  /* Idem .tese-texto: citação hifeniza. */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.precedente p:last-of-type { margin-bottom: 3mm; }
+
+.precedente .fonte {
+  display: block;
+  break-before: avoid;
+  page-break-before: avoid;
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--citacao-escuro);
+  text-align: left;
+  line-height: 1.45;
+  margin: 0;
+  padding-top: 2.5mm;
+  border-top: 0.3mm solid var(--citacao-claro);
+}
+
+/* Citação longa que não cabe em uma página: encadear blocos */
+.precedente.cont { border-top: 0; margin-top: -2mm; }
+
+
+/* ============================================================
+   7. QUADRO DE ADMISSIBILIDADE  (grade de requisitos)
+   ============================================================ */
+/* O quadro pode partir entre as duas linhas: com 66 mm ele raramente cabe no
+   fim de página, e travá-lo inteiro abria buraco de quase 30 mm. Cada célula
+   continua indivisível. */
+.requisitos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin: var(--esp-3) 0;
+  border: 0.35mm solid var(--cinza-05);
+}
+
+.requisitos div {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  padding: 4mm 5mm;
+  border-right: 0.35mm solid var(--cinza-05);
+  border-bottom: 0.35mm solid var(--cinza-05);
+  text-align: left;
+}
+
+.requisitos div:nth-child(2n) { border-right: 0; }
+.requisitos div:nth-last-child(-n+2) { border-bottom: 0; }
+
+.requisitos .r-rotulo {
+  display: block;
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  margin-bottom: 1.6mm;
+}
+
+.requisitos .r-texto {
+  display: block;
+  font-size: var(--t-apoio);
+  line-height: var(--lh-corpo);
+  font-weight: 400;
+}
+
+
+/* ============================================================
+   8. TABELA
+   ============================================================ */
+/* A tabela parte entre linhas por padrão. Era o contrário, e travada inteira
+   qualquer tabela grande abria buraco na página anterior; o `thead` já se
+   repete por `table-header-group`, então atravessar a quebra não perde
+   contexto. Tabela pequena que precise ficar inteira leva `.nao-quebrar`. */
+table.dados {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3.5mm 0 var(--esp-3) 0;
+  font-size: var(--t-apoio);
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+table.dados tr {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* O rótulo da tabela não se separa da primeira linha dela. */
+table.dados caption { break-after: avoid; page-break-after: avoid; }
+
+table.dados caption {
+  caption-side: top;
+  text-align: left;
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  padding-bottom: 2mm;
+}
+
+table.dados thead { display: table-header-group; }
+
+table.dados th {
+  background: var(--marinho);
+  color: var(--branco);
+  font-weight: 600;
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 2.6mm 4mm;
+  line-height: 1.32;
+}
+
+table.dados th.num, table.dados td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+table.dados td {
+  padding: 2.7mm 4mm;
+  border-bottom: 0.3mm solid var(--cinza-04);
+  vertical-align: top;
+  line-height: var(--lh-corpo);
+}
+
+table.dados tbody tr:nth-child(even) td { background: var(--cinza-01); }
+table.dados tbody tr:last-child td { border-bottom: 0.35mm solid var(--cinza-05); }
+
+table.dados td.destaque {
+  font-weight: 700;
+  color: var(--destaque-escuro);
+}
+
+table.dados tr.total td {
+  background: var(--cinza-02) !important;
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+/* `.pode-quebrar` virou o padrão de `table.dados` e a classe ficou só como
+   apelido, para não quebrar o HTML das peças que já a usam. Não remover sem
+   varrer os documentos. */
+table.dados.pode-quebrar {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.tab-nota {
+  font-size: var(--t-rotulo);
+  line-height: var(--lh-corpo);
+  color: var(--cinza-texto);
+  text-align: left;
+  margin: -2mm 0 var(--esp-3) 0;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+
+/* ============================================================
+   9. LINHA DO TEMPO  (apenas modo completo)
+   ============================================================ */
+/* A linha do tempo parte entre marcos, como o quadro de requisitos: travada
+   inteira ela passa de 140 mm e raramente cabe no fim da página, o que abria
+   buraco de 116 mm na página anterior. Cada marco continua indivisível, e o
+   rótulo continua colado ao primeiro marco. O eixo vertical simplesmente
+   recomeça na página seguinte, que é o comportamento certo. */
+.timeline {
+  break-inside: auto;
+  page-break-inside: auto;
+  margin: var(--esp-3) 0 var(--esp-4) 0;
+  padding-left: 0;
+}
+
+.timeline-rotulo {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  margin-bottom: 4mm;
+  text-align: left;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* margin-left afasta o eixo da borda da página: sem ela, as bolinhas ficam
+   centradas em x=0 e a metade esquerda é cortada pela margem de impressão. */
+.timeline ol {
+  list-style: none;
+  margin: 0 0 0 2.2mm;
+  padding: 0 0 0 6mm;
+  border-left: 0.4mm solid var(--cinza-05);
+}
+
+.timeline li {
+  position: relative;
+  padding: 0 0 5mm 0;
+  text-align: left;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.timeline li:last-child { padding-bottom: 0; }
+
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: -7.05mm;
+  top: 1.2mm;
+  width: 2.1mm;
+  height: 2.1mm;
+  background: var(--acento);
+  border-radius: 50%;
+}
+
+.timeline li.marco::before {
+  background: var(--branco);
+  border: 0.7mm solid var(--marinho);
+  width: 2.6mm;
+  height: 2.6mm;
+  left: -7.3mm;
+  top: 0.9mm;
+}
+
+.timeline .tl-titulo {
+  display: block;
+  font-size: var(--t-apoio);
+  font-weight: 700;
+  color: var(--marinho);
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
+.timeline .tl-texto {
+  display: block;
+  font-size: var(--t-apoio);
+  font-weight: 400;
+  line-height: var(--lh-corpo);
+  color: var(--texto);
+  margin-top: 0.8mm;
+}
+
+
+/* ============================================================
+   10. GRÁFICO DE BARRAS  (apenas modo completo)
+   ============================================================ */
+.grafico {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border: 0.35mm solid var(--cinza-05);
+  padding: 4.5mm 7mm;
+  margin: 3mm 0 var(--esp-3) 0;
+  background: var(--branco);
+}
+
+.grafico-titulo {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  margin-bottom: 1.5mm;
+  text-align: left;
+}
+
+.grafico-sub {
+  font-size: var(--t-apoio);
+  color: var(--cinza-texto);
+  margin-bottom: 4mm;
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* Rótulo e barra na mesma linha: metade da altura do layout empilhado,
+   e é assim que gráfico de barras se lê. */
+.barra-linha {
+  display: grid;
+  grid-template-columns: 56mm 1fr;
+  align-items: center;
+  gap: 0 4mm;
+  margin-bottom: 3mm;
+  text-align: left;
+}
+.barra-linha:last-of-type { margin-bottom: 0; }
+
+.barra-rotulo {
+  display: block;
+  font-size: calc(9.1pt * var(--k));
+  font-weight: 600;
+  color: var(--marinho);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.barra-trilho {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+
+.barra {
+  height: 5mm;
+  min-width: 1mm;
+}
+
+.barra.privado { background: var(--destaque); }
+.barra.tema    { background: var(--marinho); }
+
+.barra-valor {
+  font-size: var(--t-apoio);
+  font-weight: 700;
+  color: var(--marinho);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.grafico-selo {
+  margin-top: 4.5mm;
+  padding-top: 3mm;
+  border-top: 0.3mm solid var(--cinza-04);
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  text-align: left;
+}
+
+.grafico-selo .selo-num {
+  font-size: calc(16.7pt * var(--k));
+  font-weight: 700;
+  color: var(--destaque-escuro);
+  line-height: 1;
+}
+
+.grafico-selo .selo-txt {
+  font-size: var(--t-apoio);
+  line-height: var(--lh-corpo);
+  color: var(--marinho);
+}
+
+
+/* ============================================================
+   11. QUADRO DE PEDIDOS
+   ============================================================ */
+/* Sem caixa, de propósito. Fechado num container indivisível, o bloco de
+   pedidos é longo demais para caber no que resta da página e empurra meia
+   folha em branco. Aberto, ele atravessa a quebra sem estranheza, e só cada
+   pedido é indivisível. O rótulo ganha o mesmo filete dos títulos de seção,
+   que é o que dá a leitura de bloco sem precisar de moldura. */
+.pedidos {
+  margin: var(--esp-4) 0 var(--esp-3) 0;
+}
+
+.pedidos-rotulo {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--marinho);
+  margin-bottom: 3.5mm;
+  padding-bottom: 2mm;
+  border-bottom: 0.35mm solid var(--cinza-05);
+  position: relative;
+  text-align: left;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.pedidos-rotulo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.35mm;
+  width: 26mm;
+  height: 0.7mm;
+  background: var(--marinho);
+}
+
+.pedidos-rotulo.subsidiario { color: var(--acento-escuro); }
+.pedidos-rotulo.subsidiario::after { background: var(--acento); }
+
+.pedidos ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: pedido;
+}
+
+.pedidos li {
+  counter-increment: pedido;
+  position: relative;
+  padding-left: 7mm;
+  margin-bottom: 2.4mm;
+  font-size: calc(10.7pt * var(--k));
+  line-height: var(--lh-corpo);
+}
+
+.pedidos li:last-child { margin-bottom: 0; }
+
+/* Letra em negrito com parêntese, e não quadradinho preenchido: o fundo de um
+   run no Word cobre toda a altura da linha, e o marcador vira um retângulo
+   alto e desalinhado. Assim renderiza igual nos dois motores, e "a)" é a
+   convenção das peças. */
+.pedidos li::before {
+  content: counter(pedido, lower-alpha) ")";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--acento-escuro);
+  font-size: calc(10.7pt * var(--k));
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.pedidos.escuro li::before { color: var(--marinho); }
+
+.pedidos-intro {
+  font-size: var(--t-corpo-alt);
+  line-height: var(--lh-corpo);
+  margin-bottom: 4mm;
+}
+
+
+/* ============================================================
+   12. PREQUESTIONAMENTO  (chips de dispositivos)
+   ============================================================ */
+.dispositivos {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2mm;
+  margin: var(--esp-3) 0;
+}
+
+.dispositivos span {
+  display: inline-block;
+  border: 0.3mm solid var(--citacao);
+  background: var(--citacao-fundo);
+  color: var(--marinho);
+  font-size: var(--t-apoio);
+  font-weight: 600;
+  padding: 1.8mm 3.2mm;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   13. FECHO E ASSINATURA
+   ============================================================ */
+.fecho {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-top: var(--esp-5);
+  text-align: left;
+}
+
+.fecho p { margin-bottom: var(--esp-2); }
+
+.assinatura {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-top: var(--esp-5);
+  text-align: center;
+}
+
+.assinatura .filete {
+  width: 62mm;
+  height: 0.7mm;
+  background: var(--acento);
+  margin: 0 auto 4mm auto;
+}
+
+.assinatura .nome {
+  font-size: calc(12.8pt * var(--k));
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--marinho);
+  line-height: 1.3;
+}
+
+.assinatura .cargo {
+  font-size: var(--t-apoio);
+  font-weight: 500;
+  color: var(--marinho);
+  margin-top: 1.2mm;
+  line-height: 1.4;
+}
+
+.assinatura .oab {
+  font-size: var(--t-rotulo);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cinza-texto);
+  margin-top: 1.5mm;
+}
+
+
+/* ============================================================
+   14. AUXILIARES DE PAGINAÇÃO
+   Usados para acertar quebras na conferência página a página.
+   ------------------------------------------------------------
+   .quebra-antes  força a página seguinte
+   .juntar        impede que o bloco se separe do próximo
+   .nao-quebrar   impede quebra interna
+   .partivel      libera a quebra dentro de uma caixa que não parte
+   ============================================================ */
+.quebra-antes { break-before: page; page-break-before: always; }
+.quebra-depois { break-after: page; page-break-after: always; }
+.juntar { break-after: avoid; page-break-after: avoid; }
+.nao-quebrar { break-inside: avoid; page-break-inside: avoid; }
+
+/* `.nao-quebrar` sozinha perde de `table.dados`/`table.criterios` por
+   especificidade (uma classe contra classe + tipo), e a tabela quebraria de
+   qualquer forma. Estes dois pares fazem a classe valer também em tabela. */
+table.dados.nao-quebrar,
+table.criterios.nao-quebrar { break-inside: avoid; page-break-inside: avoid; }
+
+/* `.partivel` é o contrário de `.nao-quebrar`, e existe por causa da citação.
+   `.precedente` não começa partida (seção 6), o que é certo para a ementa de
+   tamanho comum e errado para a longa: travada inteira, ela abre atrás de si
+   um buraco do próprio tamanho — meia página em branco. Marcada aqui, parte.
+
+   OS DOIS têm de abrir juntos. Liberar só a caixa devolve o fragmento vazio:
+   o parágrafo continua com `break-inside: avoid` e migra inteiro, deixando a
+   barra colorida sem texto. `orphans`/`widows` são o piso — sem eles o
+   remédio troca o buraco por uma linha solta no alto ou no pé.
+
+   Critério de uso: ementa que passe de ~10 linhas (~800 caracteres). Abaixo
+   disso, o pior buraco que ela abre fica em torno de 1/5 da página, e migrar
+   é mais limpo que partir. */
+.partivel,
+.partivel > p {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.partivel > p {
+  orphans: 2;
+  widows: 2;
+}
+
+
+/* ============================================================
+   15. RÓTULOS DE DESTAQUE — tratamento refinado
+   ------------------------------------------------------------
+   Os rótulos ("EM SÍNTESE", "RESUMO EXECUTIVO", "TEMA 1.033 DA
+   REPERCUSSÃO GERAL"...) ocupavam uma linha inteira em caixa alta
+   larga e pesavam mais que o conteúdo que anunciam. Aqui eles
+   viram etiqueta: corpo menor, entreletra menor e um filete curto
+   antes do texto, que marca a hierarquia sem gritar.
+
+   O filete usa currentColor, então acompanha a cor do rótulo em
+   qualquer paleta, inclusive nas caixas de fundo escuro.
+   ============================================================ */
+.resumo-rotulo,
+.sintese-rotulo,
+.tese-rotulo,
+.timeline-rotulo,
+.grafico-titulo,
+.pedidos-rotulo,
+table.dados caption {
+  font-size: calc(7.3pt * var(--k));
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+
+.resumo-rotulo::before,
+.sintese-rotulo::before,
+.tese-rotulo::before,
+.timeline-rotulo::before,
+.grafico-titulo::before,
+table.dados caption::before {
+  content: '';
+  display: inline-block;
+  width: 4mm;
+  height: 0.5mm;
+  background: currentColor;
+  vertical-align: middle;
+  margin-right: 2.2mm;
+  margin-bottom: 0.4mm;
+}
+
+.resumo-rotulo  { margin-bottom: 2.8mm; }
+.sintese-rotulo { margin-bottom: 2.4mm; }
+.tese-rotulo    { margin-bottom: 2.4mm; }
+.timeline-rotulo { margin-bottom: 3.2mm; }
+.grafico-titulo { margin-bottom: 1.2mm; }
+table.dados caption { padding-bottom: 1.8mm; }
+
+/* Caixas mais enxutas: menos respiro interno e traço mais fino */
+.sintese {
+  border-width: 0.25mm;
+  padding: 4.2mm 5.5mm;
+}
+
+.resumo {
+  border-top-width: 1mm;
+  padding: 4.5mm 6mm 4.2mm 6mm;
+}
+
+.tese    { padding: 5mm 6mm; }
+.grafico { padding: 4.2mm 6mm; }
+.precedente { padding: 4.2mm 5.5mm; }
+
+
+/* ============================================================
+   16. RESUMO EXECUTIVO
+   ------------------------------------------------------------
+   Abre a peça, logo depois da ficha. A questão jurídica vem em
+   corpo grande, ancorada por uma barra de acento; o resto é
+   apoio, em duas colunas e corpo pequeno. Quem organiza é a
+   tipografia, não a moldura — por isso não há caixa em volta.
+   ============================================================ */
+.resumo-exec {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: var(--esp-4);
+}
+
+.resumo-exec .questao {
+  position: relative;
+  padding: 1mm 0 1mm 7mm;
+  margin-bottom: 4.5mm;
+  font-size: calc(13.9pt * var(--k));
+  line-height: 1.32;
+  font-weight: 500;
+  color: var(--marinho);
+  text-align: left;
+}
+
+.resumo-exec .questao::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1.6mm;
+  background: var(--acento);
+}
+
+.resumo-exec .apoio {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 0 8mm;
+  padding-top: 3.2mm;
+  border-top: 0.35mm solid var(--cinza-05);
+}
+
+.resumo-exec .apoio h4 {
+  margin: 0 0 2mm 0;
+  font-size: calc(7.3pt * var(--k));
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acento-escuro);
+}
+
+.resumo-exec .apoio p {
+  margin: 0;
+  font-size: calc(9.6pt * var(--k));
+  line-height: 1.42;
+  color: var(--cinza-texto);
+  text-align: left;
+}
+
+.resumo-exec .apoio ol {
+  margin: 0;
+  padding-left: 4.5mm;
+  font-size: calc(9.6pt * var(--k));
+  line-height: 1.42;
+}
+
+.resumo-exec .apoio ol li { margin-bottom: 1.4mm; text-align: left; }
+.resumo-exec .apoio ol li:last-child { margin-bottom: 0; }
+.resumo-exec .apoio ol li::marker { color: var(--acento-escuro); font-weight: 700; }
+
+.resumo-exec .nota-rodape-final {
+  margin: 3.5mm 0 0 0;
+  padding-top: 3mm;
+  border-top: 0.35mm solid var(--cinza-05);
+  font-size: calc(9.8pt * var(--k));
+  line-height: 1.4;
+  text-align: left;
+}
+
+
+/* ============================================================
+   17. QUADRO DE CRITÉRIOS
+   ------------------------------------------------------------
+   Três medidas possíveis, com selo do que o precedente adotou e
+   do que afastou. A linha do critério que se pede fica marcada e
+   as outras recuam para o cinza.
+   ============================================================ */
+table.criterios {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3.5mm 0 var(--esp-3) 0;
+  font-size: calc(9.6pt * var(--k));
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+table.criterios caption {
+  caption-side: top;
+  text-align: left;
+  font-size: calc(7.3pt * var(--k));
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  padding-bottom: 1.8mm;
+}
+
+table.criterios caption::before {
+  content: '';
+  display: inline-block;
+  width: 4mm;
+  height: 0.5mm;
+  background: currentColor;
+  vertical-align: middle;
+  margin-right: 2.2mm;
+  margin-bottom: 0.4mm;
+}
+
+table.criterios thead { display: table-header-group; }
+
+/* Mesma regra da table.dados: parte entre linhas, linha indivisível. */
+table.criterios tr { break-inside: avoid; page-break-inside: avoid; }
+table.criterios caption { break-after: avoid; page-break-after: avoid; }
+
+table.criterios th {
+  background: var(--marinho);
+  color: var(--branco);
+  font-size: calc(7.3pt * var(--k));
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 2.6mm 4mm;
+  line-height: 1.32;
+}
+
+table.criterios td {
+  padding: 3mm 4mm;
+  border-bottom: 0.3mm solid var(--cinza-04);
+  vertical-align: top;
+  line-height: var(--lh-corpo);
+  text-align: left;
+}
+
+table.criterios tr:last-child td { border-bottom: 0.35mm solid var(--cinza-05); }
+
+table.criterios .criterio { font-weight: 700; color: var(--marinho); }
+
+/* .destaque marca a linha que interessa; .atenua recua as demais.
+   Nomes genéricos de propósito: a tabela serve a qualquer contraste de
+   critérios, não só ao do Tema 1.033. */
+table.criterios tr.destaque td { background: var(--destaque-fundo); }
+table.criterios tr.destaque .criterio { color: var(--destaque-escuro); }
+table.criterios tr.atenua td { color: var(--cinza-texto); }
+
+table.criterios .selo {
+  display: inline-block;
+  font-size: calc(7.1pt * var(--k));
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.9mm 2.2mm;
+  border: 0.3mm solid currentColor;
+  white-space: nowrap;
+}
+
+table.criterios tr.destaque .selo { color: var(--destaque-escuro); }
+table.criterios tr.atenua .selo { color: var(--cinza-texto); }
+
+
+/* ============================================================
+   18. ASSINATURA DIGITALIZADA
+   ------------------------------------------------------------
+   A rubrica entra antes do filete e desce por cima dele e do
+   nome, com margem negativa, para ficar com o aspecto de quem
+   assinou o papel depois de impresso — e não de uma figura
+   encaixada num espaço reservado.
+   ============================================================ */
+.assinatura .rubrica {
+  display: block;
+  width: 58mm;
+  height: auto;
+  margin: 0 auto -11mm auto;
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ============================================================
+   19. ÚLTIMA LINHA JUSTIFICADA
+
+   `body` justifica. Em tela a última linha do parágrafo cai à esquerda por
+   conta de `text-align-last: auto`, e ninguém nota. No PDF, e no pedaço que
+   o paginador marca com `data-align-last-split-element="justify"`, o motor
+   trata esse `auto` como "justifique também a última linha do fragmento": uma
+   linha CURTA de pedido ou de item estica o espaço entre cada palavra e abre
+   um rio de branco atravessando o bloco. Medido em PDF: `Tema 793/STF e do
+   art. 18 da Lei n. 8.080/1990;` saía com os vãos triplicados.
+
+   `text-align-last: start` é o conserto, e não religa a hifenização.
+   `text-justify: inter-word` impede que o motor compense também ENTRE letras,
+   o que numa fonte variável desmancha a palavra.
+
+   O segundo bloco existe porque o paginador injeta a regra do atributo DEPOIS
+   das folhas do documento, com especificidade (0,1,0). Sem casar o atributo —
+   e sem `!important` — a injeção vence e o rio volta.
+   ============================================================ */
+/* A regra em bloco vale só dentro da peça, onde o design system controla a
+   marcação. Global, ela quebra alinhamento alheio: `text-align-last` NÃO
+   distingue "última linha de parágrafo justificado" de "linha única de
+   elemento centralizado", e um rótulo centrado de uma linha vira alinhado à
+   esquerda. Medido no manual da Lei do Processo Administrativo: o rótulo
+   `E/OU` saltou 200 pt para a esquerda em três páginas.
+
+   Fora daqui, o `auto` do padrão já faz o certo: ele alinha a última linha
+   conforme o `text-align`, e só a troca por `start` quando o texto justifica.
+   O defeito é do paginador, não do `auto` — e é o bloco seguinte que o trata,
+   onde ele de fato acontece. */
+.doc-peca p,
+.doc-peca li,
+.doc-peca dd,
+.doc-peca .tese-texto,
+.doc-peca h2.secao,
+.doc-peca h3.subsecao,
+.doc-peca h2.secao .titulo,
+.doc-peca h3.subsecao .titulo {
+  text-align-last: start;
+  text-justify: inter-word;
+}
+
+/* O que é centralizado por desenho tem de continuar centralizado, inclusive
+   quando tem uma linha só — a regra acima não sabe distinguir os dois casos.
+   A tarja do número da seção é o exemplo que apareceu primeiro: 3,5 pt numa
+   caixa de 21,3 pt, exatamente a diferença entre centrar e alinhar à
+   esquerda, e um span entre 642. */
+.doc-peca h2.secao .num,
+.doc-peca h3.subsecao .num,
+.doc-peca .assinatura,
+.doc-peca .assinatura *,
+.doc-peca .capa,
+.doc-peca .capa *,
+.doc-peca .numeros,
+.doc-peca .numeros * {
+  text-align-last: center;
+}
+
+.doc-peca th.num,
+.doc-peca td.num {
+  text-align-last: right;
+}
+
+/* Este, sim, é global: o atributo só existe onde o paginador partiu um bloco
+   entre duas páginas, e ali ele trata o `auto` como "justifique também a
+   última linha do fragmento" — uma linha curta de pedido ou de item sai com
+   o espaço entre palavras triplicado, um rio de branco atravessando o bloco.
+   Medido em PDF: `Tema 793/STF e do art. 18 da Lei n. 8.080/1990;`.
+
+   O paginador injeta a regra do atributo DEPOIS das folhas do documento, com
+   especificidade (0,1,0); sem `!important` a injeção vence e o rio volta. */
+[data-align-last-split-element="justify"] {
+  text-align-last: start !important;
+}
+
+
+/* ============================================================
+   20. PEÇA PROCESSUAL — tipografia própria
+
+   Liga com `<meta name="vl-tipo" content="peca">`, que faz `build.py`
+   pôr `doc-peca` no <body>. Sem a meta, NADA desta seção aplica: o material
+   de documento institucional sai exatamente como saía antes.
+
+   O corpo compõe em serifada e os rótulos ficam em sans — a moldura
+   institucional continua reconhecível, e o texto que se lê por páginas ganha
+   a serifa. Capa, linha do tempo e gráfico (modo completo) também ficam em
+   sans: são peças gráficas, não prosa.
+   ============================================================ */
+.doc-peca {
+  font-family: var(--fonte-corpo);
+  /* 450 e não 400: no eixo variável da Source Serif o 400 fica leve demais
+     no corpo de 12 pt sobre papel. `optical-sizing: auto` deixa a fonte
+     escolher o desenho do tamanho; não fixar `opsz` à mão (apaga o `wght`). */
+  font-weight: 450;
+  font-optical-sizing: auto;
+}
+
+/* Rótulos, moldura e componentes gráficos permanecem em sans. */
+.doc-peca .enderecamento,
+.doc-peca .ficha dt,
+.doc-peca [class*="-rotulo"],
+.doc-peca .assinatura,
+.doc-peca table th,
+.doc-peca .capa,
+.doc-peca .numeros,
+.doc-peca .timeline,
+.doc-peca .grafico {
+  font-family: var(--fonte);
+}
+
+.doc-peca .ficha dd,
+.doc-peca .precedente p {
+  font-family: var(--fonte-corpo);
+  font-weight: 450;
+}
+
+/* --- Recuo de primeira linha -------------------------------------------
+   Só o parágrafo de corpo. Endereçamento, ficha, resumo, síntese e citação
+   ou não são `p`, ou têm recuo de BLOCO — somar os dois desalinha. O fecho
+   ("Termos em que pede deferimento") É parágrafo de peça e recua com os
+   demais.
+
+   A regra não precisa de condicional: `--recuo-corpo` só existe dentro de
+   `.doc-peca` (tokens.css). Em documento institucional a variável não
+   resolve, a declaração cai como inválida e o recuo é zero. */
+p {
+  text-indent: var(--recuo-corpo);
+}
+
+.resumo p,
+.resumo-exec p,
+.sintese p,
+.precedente p,
+.pedidos-intro,
+.capa p,
+.tese-texto,
+p.sem-recuo {
+  text-indent: 0;
+}
+
+/* --- Recuo de bloco ------------------------------------------------------
+   Lista (pedidos, quesitos, bullets) e citação recuam 1 cm além da primeira
+   linha do corpo. `.pedidos ol` precisa estar NOMEADO: a seção 11 zera
+   `margin` nele, e um `ol` nu perderia por especificidade. O rótulo de
+   `.pedidos` fica de fora de propósito — é cabeça de bloco, não item. */
+.doc-peca .precedente,
+.doc-peca .pedidos ol,
+.doc-peca .pedidos ul,
+.doc-peca ol,
+.doc-peca ul {
+  margin-left: var(--recuo-bloco);
+}
+
+/* --- Títulos -------------------------------------------------------------
+   Justificados como no Word: linhas cheias esticam, a última fica à esquerda
+   (seção 19). Serifados como o corpo — sans com entreletra larga puxava o
+   título para deck de apresentação. A entreletra cai a quase zero: a
+   hierarquia vem do peso, do caixa-alta e do filete, não do tracking. */
+.doc-peca h2.secao,
+.doc-peca h3.subsecao,
+.doc-peca h2.secao .titulo,
+.doc-peca h3.subsecao .titulo {
+  text-align: justify;
+}
+
+.doc-peca h2.secao,
+.doc-peca h2.secao .titulo,
+.doc-peca h2.secao .num,
+.doc-peca h3.subsecao,
+.doc-peca h3.subsecao .num,
+.doc-peca .precedente .fonte {
+  font-family: var(--fonte-corpo);
+}
+
+.doc-peca h2.secao,
+.doc-peca h2.secao .titulo {
+  letter-spacing: 0.01em;
+}
+
+/* Subtítulo: mais respiro acima do que os 4 mm do padrão, para descolar do
+   parágrafo que fecha o item anterior; `--esp-4` é o degrau nomeado seguinte.
+   Peso 700 porque em Source Serif o 600 desaparece contra um corpo de 450 —
+   mesmo tamanho, mesma família. A seção continua acima dele pelo caixa-alta,
+   pelo filete e por `--t-secao`, não pelo peso. */
+.doc-peca h3.subsecao {
+  margin-top: var(--esp-4);
+}
+
+.doc-peca h3.subsecao,
+.doc-peca h3.subsecao .titulo,
+.doc-peca h3.subsecao .num {
+  font-weight: 700;
+}
+
+/* Negrito do texto corrido: a mesma cor e o mesmo peso do título. O padrão
+   deixa `strong` em 600 e sem cor, e os dois divergiam do h2/h3. Rótulo e
+   cabeçalho de tabela ficam de fora: já têm peso e cor próprios. */
+.doc-peca p strong,
+.doc-peca li strong,
+.doc-peca dd strong,
+.doc-peca td strong,
+.doc-peca .tese-texto strong {
+  color: var(--marinho);
+  font-weight: 700;
+}
+
+/* --- Citação -------------------------------------------------------------
+   A ementa NÃO hifeniza, ao contrário da regra geral da seção 6. Em ementa
+   de caixa alta, sobre a medida já encurtada pelo recuo de bloco, o motor
+   parte palavra no meio e sai `NULI-DADE`. O corpo da peça não hifeniza; a
+   ementa dela também não.
+
+   A referência da fonte sai em romano de ~10 pt, e não como caption de
+   interface: caixa alta com entreletra de 0,08em é etiqueta de tela, e aqui
+   ela é a credencial do julgado, que se lê. */
+.doc-peca .precedente p {
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+.doc-peca .precedente .fonte {
+  font-size: calc(10pt * var(--k));
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* --- Assinatura ----------------------------------------------------------
+   Sem vão entre as três linhas: o padrão abre ~3 mm entre nome, cargo e OAB,
+   e o bloco se lê como três coisas em vez de uma. */
+.doc-peca .assinatura .nome,
+.doc-peca .assinatura .cargo,
+.doc-peca .assinatura .oab {
+  margin-top: 0;
+  line-height: 1.15;
+}
+
+
+/* ============================================================
+   21. NOTAS DE RODAPÉ  (CSS Paged Media)
+
+   Nota de verdade: sai no PÉ DA PÁGINA em que a chamada aparece. Quem faz
+   isso é `float: footnote`, que o Chrome NÃO implementa — quem implementa é
+   o polyfill em `vendor/paged.min.js`, que `build.py`
+   carrega e executa antes de imprimir. Sem ele o navegador ignora a
+   declaração e o texto da nota sai DENTRO DO PARÁGRAFO, no meio da frase:
+   documento errado com cara de certo. Por isso o build FALHA quando o
+   paginador não conclui, em vez de imprimir assim mesmo.
+
+   O NOME NÃO É `.nota`, e a diferença importa: `.nota` já está em uso como
+   caixa de nota explicativa no fluxo do texto (o manual da Lei do Processo
+   Administrativo tem 32 delas, com estilo próprio). `float: footnote` sobre
+   aquela classe arrancaria as 32 caixas do texto e as despejaria no pé da
+   página — sem erro, sem aviso. Nota de rodapé é `.nota-rodape`.
+
+   ARMADILHA DO POLYFILL: as notas do `@page` são ATRIBUÍDAS ao último `@page`
+   do documento, não fundidas com as anteriores. Um `@page` declarado DEPOIS
+   desta folha apaga o estilo da área de notas, em silêncio — é por isso que
+   `build.py` emite o `@page` de tamanho e margem ANTES das folhas.
+   ============================================================ */
+.nota-rodape {
+  float: footnote;
+  font-size: var(--t-apoio);
+  line-height: var(--lh-corpo);
+  color: var(--cinza-texto);
+  text-align: left;
+  text-indent: 0;
+  /* Vão entre duas notas na MESMA página; sem ele o pé vira um parágrafo só,
+     com números no meio. Vale apenas para a nota já movida: no elemento da
+     chamada o polyfill impõe `all: unset`, com especificidade maior. */
+  margin: 0 0 1.2mm 0;
+}
+
+/* A chamada no corpo. O polyfill traduz `::footnote-call` para
+   `[data-footnote-call]::after` e cria o elemento COPIANDO as classes da
+   nota — é por isso que `.nota-rodape::footnote-call` casa. O número vem do
+   contador do CSS: a numeração é por ordem de OCORRÊNCIA no texto.
+
+   `font-variant-position: normal` é deliberado: o polyfill embute um
+   `@supports (font-variant-position: super)` que troca o sobrescrito por
+   variante tipográfica em tamanho cheio, e nem Montserrat nem Source têm
+   glifo `sups` — o número sairia na altura do texto. Assim a elevação volta
+   a ser geométrica. `line-height: 0` impede que o sobrescrito abra a linha
+   em que aparece e entorte o ritmo vertical da página. */
+.nota-rodape::footnote-call {
+  content: counter(footnote);
+  font-variant-position: normal;
+  vertical-align: super;
+  font-size: 0.62em;
+  line-height: 0;
+  font-weight: 700;
+  color: var(--acento-escuro);
+  margin-left: 0.15em;
+}
+
+/* O marcador no pé vira `[data-footnote-marker]::marker`, que só aceita
+   propriedades de fonte e cor — `vertical-align` NÃO funciona ali, e a
+   elevação tem de vir de `font-variant-position`, a única via que o
+   `::marker` admite. Sem glifo sobrescrito na fonte, degrada para um número
+   pequeno no acento, que continua sendo marcador legítimo. */
+.nota-rodape::footnote-marker {
+  /* O espaço fino faz parte do `content` porque `::marker` não aceita
+     margem: sem ele o número cola na primeira letra da nota. */
+  content: counter(footnote-marker) "\2009";
+  font-variant-position: super;
+  font-size: var(--t-rotulo);
+  font-weight: 700;
+  color: var(--acento-escuro);
+}
+
+/* Nota referenciada e não definida. Sai como nota de verdade, com a falta
+   declarada no pé — quem revisa tem de ver o que falta escrever. Sumir em
+   silêncio é o único desfecho inaceitável. */
+.nota-rodape-ausente {
+  font-weight: 700;
+  color: var(--acento-escuro);
+}
+
+@page {
+  @footnote {
+    border-top: 0.3mm solid var(--cinza-05);
+    margin-top: var(--esp-2);
+    padding-top: var(--esp-1);
+  }
+}

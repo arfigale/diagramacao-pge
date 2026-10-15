@@ -1,0 +1,217 @@
+/* ============================================================
+   diagramacao-pge / tokens.css
+   Design system das peças jurídicas — identidade PGE-MS.
+   Cores extraídas da tabela oficial de cores da PGE
+   (coluna central destacada + variações da mesma família).
+   ============================================================ */
+
+@font-face {
+  font-family: 'Montserrat VL';
+  src: url('fonts/Montserrat.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Montserrat VL';
+  src: url('fonts/Montserrat-Italic.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: block;
+}
+
+/* --- Source Serif 4 e Source Sans 3 (peça, 10/09/2026) -------------------
+   A peça processual passou a compor em serifada; documento institucional
+   segue em Montserrat (ver o bloco `.doc-peca` no fim deste arquivo). As
+   duas famílias são variáveis no eixo `wght`; a Serif também tem `opsz`,
+   e por isso os componentes usam `font-optical-sizing: auto` em vez de
+   fixar o eixo em `font-variation-settings` — fixá-lo APAGA o `wght` e o
+   peso do corpo volta a 400 no dia em que `--corpo` mudar.
+   Licença SIL OFL 1.1 (Adobe), em fonts/OFL-source.txt. */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-Italic.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3-Italic.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: block;
+}
+
+:root {
+  /* --- Texto de leitura -----------------------------------------
+     Preto, e isto não é preferência: "documentos impressos para leitura devem
+     sempre ser compostos em tipo preto, sem exceções" (Butterick). Cor em
+     corpo de texto cansa e compete com o argumento. O azul da marca não
+     desaparece: ele se recolhe para a moldura institucional, que é onde o
+     livro admite cor (o equivalente ao papel timbrado).
+
+     Quem usa --texto: corpo, célula de tabela, item de lista, corpo de
+     citação, texto de marco da linha do tempo, dado da ficha.
+     Quem usa --marinho: título, numeração de seção, filete, rótulo,
+     cabeçalho de tabela, tarja da capa, assinatura, gráfico. */
+  --texto:              #000000;
+
+  /* --- Marinho: títulos e âncoras institucionais --- */
+  --marinho:            #152B3F;
+  --marinho-escuro:     #223141;
+  --marinho-medio:      #2A4C69;
+  --marinho-claro:      #366586;
+
+  /* --- Famílias cruas da tabela oficial da PGE --- */
+  --laranja:            #F58634;
+  --laranja-escuro:     #C16C2F;
+  --laranja-claro:      #FAB370;
+  --laranja-palido:     #FDC685;
+
+  --agua:               #51A8B1;
+  --agua-escuro:        #3C7B82;
+  --agua-claro:         #A9D4D8;
+  --agua-fundo:         #F3FAFB;
+
+  /* ----------------------------------------------------------
+     PAPÉIS DE COR
+
+     Os componentes não usam a família crua, usam o papel. Trocar
+     a paleta é trocar estes nove valores, no CSS ou por
+     `build.py --paleta`.
+
+       --acento*   numeração de seção, filetes, marcadores, rótulos
+       --citacao*  eixo de precedentes: ementas e julgados
+
+     Paleta ativa: INSTITUCIONAL, em dois tons de azul. Desde que o --marinho
+     do texto escureceu para #152B3F, o --acento (#294964) ficou um tom acima
+     dele: numeração de seção, filete e rótulo aparecem em azul médio sobre
+     texto azul escuro. Antes os dois eram o mesmo valor e o acento não tinha
+     papel visível. O laranja segue fora da estrutura, no papel --destaque, só
+     onde se quer de fato chamar a atenção do leitor para um dado.
+
+     Alternativas prontas em build.py: agua, bordo, bronze, laranja.
+     ---------------------------------------------------------- */
+  --acento:             #294964;
+  --acento-escuro:      #294964;
+  --acento-claro:       #8FA9BC;
+  --acento-palido:      #C3D2DD;
+  --acento-fundo:       #F4F7FA;
+
+  --citacao:            #366586;
+  --citacao-escuro:     #294964;
+  --citacao-claro:      #9DB4C6;
+  --citacao-fundo:      #F4F7FA;
+
+  /* --- Destaque: laranja, e só para chamar atenção ---------------
+     Regra de uso: nunca como cor de estrutura. Entra quando um número,
+     uma linha de tabela ou uma barra precisa saltar da página. Se aparecer
+     em mais de dois ou três lugares por peça, perdeu a função. */
+  --destaque:           #F58634;
+  --destaque-escuro:    #C16C2F;
+  --destaque-fundo:     #FFF9F2;
+
+  /* --- Neutros --- */
+  --branco:             #FFFFFF;
+  --cinza-01:           #FAFAFA;
+  --cinza-02:           #F1F1F2;
+  --cinza-03:           #E6E7E8;
+  --cinza-04:           #DCDDDF;
+  --cinza-05:           #D2D3D5;
+  --cinza-texto:        #6E7C88;
+
+  /* --- Tipografia --- */
+  /* Fator de escala da régua tipográfica. Vale 1 aqui; `build.py --corpo`
+     reescreve os tokens --t-* E este fator, porque há tamanhos que só fazem
+     sentido no componente (o valor do número-chave, o corpo do rótulo dentro
+     da caixa) e vivem no componentes.css multiplicados por ele. Sem isso o
+     --corpo mexia em metade da peça e a hierarquia saía torta. */
+  --k: 1;
+
+  --fonte: 'Montserrat VL', 'Montserrat', 'Segoe UI', Arial, sans-serif;
+
+  --t-corpo:            12.0pt;
+  --t-corpo-alt:        11.1pt;
+  --t-secao:            13.3pt;
+  --t-subsecao:         12.0pt;
+  --t-citacao:          10.9pt;
+  --t-rotulo:           8.2pt;
+  --t-apoio:            9.6pt;
+  --t-capa-titulo:      25.6pt;
+
+  /* Entrelinha do corpo. Vale para o texto corrido E para o texto dentro das
+     caixas, quadros, tabelas e listas: os componentes herdam daqui em vez de
+     fixar valor próprio, senão mudar a entrelinha só mexe em metade da peça. */
+  --lh-corpo:           1.22;
+  --lh-citacao:         var(--lh-corpo);
+
+  /* Entrelinha DENTRO das caixas de dado (ficha, resumo). Nasce igual à do
+     corpo — quem a aperta é a peça, onde o corpo abriu para 1,62 e a caixa
+     ficaria arejada demais. Existe como token próprio porque `.ficha dd`
+     herdava `--lh-corpo` e não havia como separar as duas. */
+  --lh-caixa:           var(--lh-corpo);
+
+  /* --- Ritmo vertical --- */
+  /* Espaço entre parágrafos de corpo. Isolado dos demais espaçamentos para
+     poder ser ajustado no build sem mexer nas caixas. */
+  --esp-paragrafo:      3mm;
+
+  --esp-1:              2mm;
+  --esp-2:              3.5mm;
+  --esp-3:              5mm;
+  --esp-4:              7mm;
+  --esp-5:              10mm;
+}
+
+
+/* ============================================================
+   PEÇA PROCESSUAL — a tipografia que só vale em peça processual
+
+   `build.py` põe a classe `doc-peca` no <body> quando o HTML declara
+   `<meta name="vl-tipo" content="peca">`. Sem a meta nada disto aplica, e
+   o documento institucional sai byte a byte como antes.
+
+   A separação é o ponto: manual, informativo e ofício são texto de tela e
+   de leitura corrida, e recuo de primeira linha com corpo serifado neles
+   pareceria peça. Quem tem recuo é a petição.
+
+   O recuo se AUTOPROTEGE: `p { text-indent: var(--recuo-corpo) }` vive no
+   componentes.css sem condicional, e fora daqui a variável não resolve —
+   a declaração cai como inválida e o recuo é zero. Não há segunda regra
+   para manter em dia.
+   ============================================================ */
+.doc-peca {
+  /* Corpo em Source Serif 4; rótulo, ficha e assinatura ficam em sans.
+     A Montserrat permanece no fallback e no cabeçalho/rodapé. */
+  --fonte:              'Source Sans 3', 'Montserrat VL', 'Segoe UI', Arial, sans-serif;
+  --fonte-corpo:        'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+  /* Citação mais apertada que o corpo, e caixa de dado mais ainda. */
+  --lh-citacao:         1.36;
+  --lh-caixa:           1.32;
+
+  /* Recuo de primeira linha do parágrafo, e recuo de BLOCO (lista e
+     citação) 1 cm além dele. O caminho ABNT usa 2/3/4 cm; aqui os valores
+     são os pedidos para o visual law. */
+  --recuo-corpo:        1.5cm;
+  --recuo-bloco:        2.5cm;
+}

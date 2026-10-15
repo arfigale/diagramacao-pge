@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>[PREENCHER: título completo da publicação]</title>
+
+<!-- Lidos pelo build.py.
+     vl-peca     texto pequeno do cabeçalho de cada página (nome curto)
+     vl-orgao    segunda linha do cabeçalho
+     vl-capa     "propria": a capa e a contracapa saem em página inteira, sem
+                 cabeçalho, e a numeração do rodapé começa no expediente.
+     Sem vl-processo, o rodapé fica só com a paginação. -->
+<meta name="vl-peca" content="[PREENCHER: nome curto no cabeçalho, ex.: Manual do Processo Administrativo]">
+<meta name="vl-orgao" content="Procuradoria-Geral do Estado de Mato Grosso do Sul">
+<meta name="vl-capa" content="propria">
+
+<!-- @ds/ aponta para assets/design-system/ da skill. O build troca pelo
+     caminho real; não mexa nestas três linhas. -->
+<link rel="stylesheet" href="@ds/tokens.css">
+<link rel="stylesheet" href="@ds/componentes.css">
+<link rel="stylesheet" href="@ds/publicacao.css">
+</head>
+
+<body class="modo-sobrio">
+
+<!-- ============================================================
+     CAPA, variante A: composta (logo, faixa de grafismo, campo marinho).
+     A faixa é a imagem anexada pelo usuário, depois de preparada por
+       <dpge> imagem faixa <arquivo> --saida capa-faixa.png
+     e referenciada abaixo no lugar do SVG padrão:
+       <img class="cm-arcadas" src="capa-faixa.png" alt="">
+
+     Variante B: imagem de página inteira, já pronta (arte completa). Apague
+     esta seção e use no lugar:
+       <section class="capa-manual capa-img">
+         <img src="capa-pagina.png" alt="[texto alternativo da capa]">
+       </section>
+     ============================================================ -->
+<section class="capa-manual">
+  <div class="cm-topo">
+    <img src="@ds/logo-pge.png" alt="">
+    <div class="cm-orgao">Procuradoria-Geral<br>do Estado de<br>Mato Grosso do Sul</div>
+  </div>
+
+  <img class="cm-arcadas" src="@ds/faixa-padrao.svg" alt="">
+
+  <div class="cm-campo">
+    <div class="cm-eyebrow">[PREENCHER: linha pequena acima do título, ex.: Teórico e prático]</div>
+    <h1 class="cm-titulo">[PREENCHER: título,<br>quebrado em até<br>três linhas]</h1>
+    <div class="cm-lei">[PREENCHER: subtítulo ou norma de referência, ou apague esta linha]</div>
+    <p class="cm-descritor">[PREENCHER: descritor de duas linhas, ou apague este parágrafo.]</p>
+  </div>
+
+  <div class="cm-pe">
+    <div class="cm-filete"></div>
+    <p class="cm-data">[PREENCHER: mês e ano, ex.: Outubro de 2026]</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     EXPEDIENTE (verso da capa). Um bloco por papel; cada pessoa com nome
+     e cargo. Confira a grafia e a acentuação de cada nome.
+     ============================================================ -->
+<section class="expediente">
+  <div class="ex-bloco">
+    <p class="ex-rot">[PREENCHER: papel, ex.: Dirigentes]</p>
+    <p class="ex-nome">[PREENCHER: nome completo]</p>
+    <p class="ex-cargo">[PREENCHER: cargo]</p>
+  </div>
+  <div class="ex-bloco">
+    <p class="ex-rot">[PREENCHER: papel, ex.: Elaboração do conteúdo]</p>
+    <p class="ex-nome">[PREENCHER: nome completo]</p>
+    <p class="ex-cargo">[PREENCHER: cargo]</p>
+  </div>
+  <div class="ex-bloco">
+    <p class="ex-rot">Diagramação</p>
+    <p class="ex-nome">[PREENCHER: nome completo]</p>
+    <p class="ex-cargo">[PREENCHER: cargo]</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SUMÁRIO. Cada item traz o número de página como &mdash;; quem preenche
+     é o comando
+       <dpge> sumario <este-arquivo> --ate-estabilizar
+     Parte em caixa alta (li.parte), subitem em texto normal (li.sub).
+     O texto de cada título tem de ser IGUAL ao do título no corpo.
+     ============================================================ -->
+<h2 class="secao primeira quebra-antes">Sumário</h2>
+
+<div class="sumario">
+  <ol>
+    <li class="parte"><span class="s-num">1</span><span class="s-tit"><span>[PREENCHER: PRIMEIRA PARTE]</span></span><span class="s-pag">&mdash;</span></li>
+    <li class="sub"><span class="s-num">1.1</span><span class="s-tit"><span>[PREENCHER: primeira seção]</span></span><span class="s-pag">&mdash;</span></li>
+    <li class="sub"><span class="s-num">1.2</span><span class="s-tit"><span>[PREENCHER: segunda seção]</span></span><span class="s-pag">&mdash;</span></li>
+    <li class="parte"><span class="s-num">2</span><span class="s-tit"><span>[PREENCHER: SEGUNDA PARTE]</span></span><span class="s-pag">&mdash;</span></li>
+    <li class="sub"><span class="s-num">2.1</span><span class="s-tit"><span>[PREENCHER: terceira seção]</span></span><span class="s-pag">&mdash;</span></li>
+  </ol>
+</div>
+
+
+<!-- ============================================================
+     CORPO. Parte = h2.secao; seção = h3.subsecao.
+     Os blocos abaixo mostram os componentes disponíveis. Mantenha só os
+     que o texto pede e apague o resto; ver references/componentes.md.
+     Depois de art., n., §, inc., Lei, Tema, Súmula, R$: espaço não
+     separável (&nbsp;). O comando `checar --corrigir` insere.
+     ============================================================ -->
+<h2 class="secao quebra-antes">PARTE 1 &ndash; [PREENCHER: PRIMEIRA PARTE]</h2>
+
+<h3 class="subsecao">1.1. [PREENCHER: primeira seção]</h3>
+
+<p>[PREENCHER: texto corrido. Parágrafo justificado, sem recuo, uma ideia por parágrafo.]</p>
+
+<ul>
+  <li>[PREENCHER: item de lista]</li>
+  <li>[PREENCHER: item de lista]</li>
+</ul>
+
+<!-- Caixa de síntese: o que o leitor precisa levar da seção. Redação nova,
+     que o responsável pelo conteúdo deve revisar. -->
+<div class="sintese">
+  <div class="sintese-rotulo">Em síntese</div>
+  <p>[PREENCHER: resumo em uma ou duas frases.]</p>
+</div>
+
+<h3 class="subsecao">1.2. [PREENCHER: segunda seção]</h3>
+
+<!-- Caixa de atenção: o ponto em que o leitor mais erra. -->
+<div class="atencao">
+  <div class="atencao-marca">!</div>
+  <div>
+    <p>[PREENCHER: o alerta, em uma ou duas frases.]</p>
+  </div>
+</div>
+
+<!-- Caixa de exemplo: o caso prático que ilustra a regra. -->
+<div class="exemplo"><p>[PREENCHER: exemplo.]</p></div>
+
+<h2 class="secao quebra-antes">PARTE 2 &ndash; [PREENCHER: SEGUNDA PARTE]</h2>
+
+<h3 class="subsecao">2.1. [PREENCHER: terceira seção]</h3>
+
+<table class="dados">
+  <thead>
+    <tr><th>[PREENCHER: coluna]</th><th>[PREENCHER: coluna]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>[PREENCHER]</td><td>[PREENCHER]</td></tr>
+    <tr><td>[PREENCHER]</td><td>[PREENCHER]</td></tr>
+  </tbody>
+</table>
+
+<!-- Glossário: termo na coluna estreita, definição ao lado. -->
+<dl class="glossario">
+  <div><dt>[PREENCHER: termo]</dt><dd>[PREENCHER: definição.]</dd></div>
+  <div><dt>[PREENCHER: termo]</dt><dd>[PREENCHER: definição.]</dd></div>
+</dl>
+
+<!-- Modelo de documento: texto para o leitor copiar. Campo a preencher em
+     laranja (.campo). A nota explicativa fica em cinza e o próprio manual
+     manda retirá-la do documento final. -->
+<div class="modelo">
+  <div class="modelo-cab"><span class="m-num">01</span><span class="m-nome">[PREENCHER: nome do modelo]</span></div>
+  <div class="modelo-corpo">
+    <p>[PREENCHER: texto do modelo, com <span class="campo">(campo a preencher)</span>.]</p>
+    <div class="nota"><p><span class="n-rot">Nota explicativa 1:</span> [PREENCHER: orientação de uso.]</p></div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     CONTRACAPA. O build reconhece a seção pela classe `contracapa` e a
+     imprime em página inteira no fim do PDF. Cada bloco de .cc-corpo é
+     opcional: apague os que o usuário não pediu. A mesma imagem da capa
+     pode repetir aqui (troque o SVG por <img class="cm-arcadas" ...>),
+     ou apague a faixa para uma contracapa mais limpa.
+     ============================================================ -->
+<section class="contracapa">
+  <div class="cm-topo">
+    <img src="@ds/logo-pge.png" alt="">
+    <div class="cm-orgao">Procuradoria-Geral<br>do Estado de<br>Mato Grosso do Sul</div>
+  </div>
+
+  <img class="cm-arcadas" src="@ds/faixa-padrao.svg" alt="">
+
+  <div class="cc-corpo">
+    <div class="cc-bloco">
+      <p class="cc-rot">Como citar</p>
+      <p class="cc-txt">[PREENCHER: referência no padrão ABNT, ou apague o bloco.]</p>
+    </div>
+    <div class="cc-bloco">
+      <p class="cc-rot">Contato</p>
+      <p class="cc-txt">[PREENCHER: unidade responsável]</p>
+      <p class="cc-txt">[PREENCHER: endereço]</p>
+      <p class="cc-txt">[PREENCHER: telefone e e-mail]</p>
+    </div>
+    <div class="cc-bloco">
+      <p class="cc-rot">Uso do conteúdo</p>
+      <p class="cc-txt">[PREENCHER: licença ou condição de reprodução, ou apague o bloco.]</p>
+    </div>
+  </div>
+
+  <div class="cc-base">
+    <p class="cc-marca">Procuradoria-Geral do Estado<br>de Mato Grosso do Sul</p>
+    <p class="cc-site">[PREENCHER: endereço do site]</p>
+    <p class="cc-nota">[PREENCHER: versão, data e outras notas de rodapé de página, ou apague este parágrafo.]</p>
+  </div>
+</section>
+
+</body>
+</html>

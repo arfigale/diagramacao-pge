@@ -1,0 +1,868 @@
+/* ============================================================
+   publicacao.css
+   Kit de publicação institucional da PGE-MS: manual, cartilha,
+   apostila, programa, relatório. Vem DEPOIS de tokens.css e de
+   componentes.css e traz o que só uma publicação de várias páginas
+   usa: capa e contracapa de página inteira, expediente, sumário
+   com número de página, notas explicativas, modelos de documento,
+   glossário e quadros de consulta.
+
+   Tipografia da publicação: Source Sans 3 em todo o documento.
+   ============================================================ */
+
+  /* ------------------------------------------------------------
+     CAPA DE PUBLICAÇÃO
+     Página inteira, sangrada, renderizada à parte pelo build.py
+     e emendada na frente do corpo. Recebe cabeçalho e rodapé
+     nenhum, e não entra na contagem de páginas.
+
+     Fica escondida por padrão: quem a mostra é a classe .so-capa,
+     aplicada só na passada da capa. Abrir o HTML no navegador,
+     portanto, mostra o corpo sem ela.
+     ------------------------------------------------------------ */
+  /* Uma regra só: declarar display duas vezes fazia a segunda vencer, o que
+     ao mesmo tempo desligava o grid e deixava a capa aparecer no corpo. */
+  .capa-manual {
+    display: none;
+    width: 210mm;
+    height: 297mm;
+    box-sizing: border-box;
+    background: var(--branco);
+    grid-template-rows: auto auto 1fr auto;
+    overflow: hidden;
+  }
+
+  body.so-capa { margin: 0; }
+  body.so-capa > *:not(.capa-manual) { display: none; }
+  body.so-capa .capa-manual { display: grid; }
+
+  /* Capa que é uma imagem de página inteira (A4, proporção 0,707), anexada
+     pelo usuário já pronta. Nada é sobreposto a ela: título, logo e data
+     fazem parte da arte. */
+  .capa-manual.capa-img { grid-template-rows: 1fr; background: #fff; }
+  .capa-manual.capa-img img { display: block; width: 210mm; height: 297mm; }
+
+  /* ------------------------------------------------------------
+     CONTRACAPA
+     Espelho da capa: topo claro com o logo e o nome do órgão, a
+     mesma faixa de grafismo, o miolo com os dados de contato e a
+     base em marinho com o filete laranja. Renderizada numa
+     passada própria, sem margem e sem cabeçalho, e emendada no
+     fim do PDF. Escondida por padrão, como a capa.
+
+     É flex e não grid: cada bloco do miolo é opcional, e uma linha
+     de grid vazia desloca as demais.
+     ------------------------------------------------------------ */
+  .contracapa {
+    display: none;
+    flex-direction: column;
+    width: 210mm;
+    height: 297mm;
+    box-sizing: border-box;
+    background: var(--branco);
+    overflow: hidden;
+  }
+
+  body.so-contracapa { margin: 0; }
+  body.so-contracapa > *:not(.contracapa) { display: none; }
+  body.so-contracapa .contracapa { display: flex; }
+
+  .cc-corpo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10mm;
+    padding: 12mm 20mm 12mm 25mm;
+  }
+
+  .cc-rot {
+    font-size: 7.4pt;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--acento);
+    margin: 0 0 3mm 0;
+    text-align: left;
+  }
+
+  .cc-txt {
+    font-size: 9.6pt;
+    line-height: 1.5;
+    color: var(--texto);
+    margin: 0;
+    text-align: left;
+    max-width: 120mm;
+  }
+
+  .cc-txt + .cc-txt { margin-top: 1.6mm; }
+  .cc-txt strong { color: var(--marinho); }
+
+  .cc-base {
+    position: relative;
+    background: var(--marinho);
+    color: var(--branco);
+    padding: 15mm 20mm 17mm 25mm;
+  }
+
+  .cc-base::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 46mm; height: 1.6mm;
+    background: var(--destaque);
+  }
+
+  .cc-marca {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    margin: 0;
+    text-align: left;
+  }
+
+  .cc-site {
+    font-size: 13pt;
+    font-weight: 600;
+    color: var(--agua-claro);
+    margin: 3mm 0 0 0;
+    text-align: left;
+  }
+
+  .cc-nota {
+    font-size: 7.6pt;
+    line-height: 1.5;
+    color: #C3D2DD;
+    margin: 6mm 0 0 0;
+    text-align: left;
+    max-width: 130mm;
+  }
+
+  .cm-topo {
+    padding: 20mm 20mm 0 25mm;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .cm-topo img { height: 15mm; width: auto; display: block; }
+
+  /* Faixa de grafismo: imagem anexada pelo usuário e recortada para 210 mm de
+     largura (proporção 2,94:1, ou seja, 71 mm de altura), ou o SVG padrão que
+     o modelo traz. Deve ser só desenho: texto e logo dentro da arte saem
+     errados, e o logo vem sempre de assets/design-system/logo-pge.png. */
+  .cm-arcadas {
+    display: block;
+    width: 210mm;
+    height: auto;
+    margin-top: 6mm;
+  }
+
+  .cm-orgao {
+    text-align: right;
+    font-size: 7.6pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: var(--marinho);
+  }
+
+  /* O campo marinho é o que dá à capa a leitura de publicação, e não
+     de peça. Sangra nas duas laterais; o texto respeita a margem. */
+  /* O campo estica para preencher a linha 1fr. Com align-self: center a folga
+     do grid se partia em duas e abria uma faixa branca entre as arcadas e o
+     marinho; esticando, as colunas somem atrás do campo, que é o efeito
+     pretendido. */
+  .cm-campo {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--marinho);
+    color: var(--branco);
+    padding: 20mm 20mm 20mm 25mm;
+    margin-top: 0;
+    position: relative;
+  }
+
+  .cm-campo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 46mm; height: 1.6mm;
+    background: var(--destaque);
+  }
+
+  .cm-eyebrow {
+    font-size: 7.4pt;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--destaque);
+    margin-bottom: 7mm;
+  }
+
+  .cm-titulo {
+    font-size: 30pt;
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.012em;
+    margin: 0 0 7mm 0;
+    text-align: left;
+  }
+
+  .cm-lei {
+    font-size: 13pt;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--agua-claro);
+    margin-bottom: 8mm;
+  }
+
+  .cm-descritor {
+    font-size: 9.6pt;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #C3D2DD;
+    margin: 0;
+    max-width: 118mm;
+    text-align: left;
+  }
+
+  .cm-pe {
+    padding: 0 20mm 22mm 25mm;
+  }
+
+  .cm-pe .cm-filete {
+    height: 0.4mm;
+    background: var(--cinza-05);
+    margin-bottom: 5mm;
+  }
+
+  .cm-pe-linha {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: 8pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cinza-texto);
+    font-weight: 500;
+  }
+
+  .cm-pe-linha strong { color: var(--marinho); font-weight: 700; }
+
+  .cm-creditos {
+    margin-top: 6mm;
+    font-size: 7.6pt;
+    line-height: 1.45;
+    color: var(--cinza-texto);
+    text-align: left;
+  }
+
+  .cm-creditos b { color: var(--marinho); font-weight: 600; }
+
+  /* ------------------------------------------------------------
+     SUMÁRIO
+     Duas hierarquias: parte, em marinho, e subitem, recuado e em
+     cinza. A guia pontilhada liga o título ao número da página.
+     ------------------------------------------------------------ */
+  .sumario { margin: var(--esp-3) 0 var(--esp-4) 0; }
+
+  .sumario ol { list-style: none; margin: 0; padding: 0; }
+
+  .sumario li {
+    display: grid;
+    grid-template-columns: 22mm 1fr auto;
+    column-gap: 2mm;
+    align-items: baseline;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    text-align: left;
+  }
+
+  .sumario li.parte {
+    margin-top: 4mm;
+    padding-top: 2.4mm;
+    border-top: 0.3mm solid var(--cinza-04);
+    font-size: var(--t-corpo);
+    font-weight: 700;
+    color: var(--marinho);
+  }
+
+  .sumario li.parte:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
+
+  .sumario li.sub {
+    font-size: var(--t-corpo);
+    font-weight: 400;
+    color: var(--cinza-texto);
+    margin-top: 1.4mm;
+  }
+
+  .sumario .s-num { font-variant-numeric: tabular-nums; }
+  .sumario li.parte .s-num { color: var(--acento-escuro); }
+
+  /* A guia é um pontilhado que ocupa a folga entre título e página. */
+  .sumario .s-tit { position: relative; overflow: hidden; }
+
+  .sumario .s-tit span { background: var(--branco); padding-right: 1.6mm; }
+
+  .sumario .s-tit::after {
+    content: '';
+    position: absolute;
+    bottom: 0.9mm;
+    width: 100%;
+    border-bottom: 0.25mm dotted var(--cinza-05);
+  }
+
+  .sumario li.parte .s-tit span { position: relative; z-index: 1; }
+
+  .sumario .s-pag {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--acento-escuro);
+    padding-left: 2mm;
+  }
+
+  .sumario li.sub .s-pag { font-weight: 500; color: var(--cinza-texto); }
+
+  /* ------------------------------------------------------------
+     Ajustes herdados das versões anteriores deste documento
+     ------------------------------------------------------------ */
+
+  /* Caixas de síntese com três ou mais parágrafos passam de 60 mm e, travadas,
+     abrem vão no pé da página. Estas quebram por parágrafo; o rótulo continua
+     colado ao primeiro. */
+  .sintese.pode-quebrar,
+  .exemplo.pode-quebrar { break-inside: auto; page-break-inside: auto; }
+  .sintese.pode-quebrar p,
+  .exemplo.pode-quebrar p { break-inside: avoid; page-break-inside: avoid; }
+  .sintese.pode-quebrar .sintese-rotulo { break-after: avoid; page-break-after: avoid; }
+
+  /* O Chromium recorta o filete que encosta no limite direito da área útil:
+     sobra um traço de um pixel, que some na leitura. O recuo traz a borda
+     para dentro do recorte, nos quadros e nas tabelas. */
+  .sintese,
+  .requisitos,
+  .confronto,
+  .modelo,
+  .indice-modelos,
+  .exemplo {
+    margin-right: 0.8mm;
+  }
+  .requisitos { break-inside: avoid; page-break-inside: avoid; }
+  table.dados,
+  table.criterios {
+    width: calc(100% - 0.8mm);
+  }
+
+  /* O corpo justifica sempre. Na coluna estreita da tabela, do quadro e do
+     glossário a hifenização entra para a linha fechar à direita sem rio.
+     Rótulo, cabeçalho e número ficam como estão. */
+  table.dados td,
+  table.criterios td,
+  .requisitos div,
+  dl.glossario dd {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+  }
+  table.dados th,
+  table.criterios th,
+  .requisitos .r-rotulo,
+  dl.glossario dt {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+  table.dados td.num, table.dados td.arts {
+    text-align: right;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+
+  /* table.criterios trava break-inside no design system. Estes quadros têm
+     linhas longas e, travados, empurram a tabela inteira para a página
+     seguinte. Cada linha continua indivisível. */
+  table.criterios.pode-quebrar { break-inside: auto; page-break-inside: auto; }
+  table.criterios.pode-quebrar tr { break-inside: avoid; page-break-inside: avoid; }
+
+  /* ------------------------------------------------------------
+     CONFRONTO DE REDAÇÕES
+     ------------------------------------------------------------ */
+  /* Quebra entre os dois blocos é permitida: juntos passam de meia página e,
+     travados, abriam um vão de 6 cm no pé. Cada bloco, esse sim, é indivisível. */
+  .confronto {
+    margin: var(--esp-3) 0;
+    border: 0.35mm solid var(--cinza-05);
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .confronto > div {
+    padding: 4mm 5mm;
+    border-bottom: 0.35mm solid var(--cinza-05);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .confronto > div:last-child { border-bottom: 0; }
+
+  .confronto .c-rotulo {
+    display: block;
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--acento-escuro);
+    margin-bottom: 2mm;
+  }
+
+  .confronto .c-texto {
+    display: block;
+    font-size: var(--t-apoio);
+    line-height: var(--lh-corpo);
+    text-align: justify;
+  }
+
+  .confronto .divergente { background: var(--destaque-fundo); }
+  .confronto .divergente .c-rotulo { color: var(--destaque-escuro); }
+  .confronto .divergente .c-texto strong { color: var(--destaque-escuro); }
+
+  /* ------------------------------------------------------------
+     CAIXA DE EXEMPLO
+     Mais leve que a .sintese: serve ao caso prático que ilustra
+     a regra, sem competir com ela.
+     ------------------------------------------------------------ */
+  .exemplo {
+    background: var(--cinza-01);
+    border-left: 0.9mm solid var(--cinza-05);
+    padding: 3.4mm 5mm;
+    margin: var(--esp-2) 0 var(--esp-3) 0;
+    font-size: var(--t-apoio);
+    line-height: var(--lh-corpo);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  ul {
+    margin: 0 0 var(--esp-paragrafo) 0;
+    padding-left: 6mm;
+  }
+  ul li { margin-bottom: 1.4mm; }
+  ul li::marker { color: var(--acento); }
+
+  .atencao {
+    display: grid;
+    grid-template-columns: 8mm 1fr;
+    column-gap: 3.5mm;
+    align-items: start;
+    background: var(--destaque-fundo);
+    border-left: 1.2mm solid var(--destaque);
+    padding: 3.2mm 4.5mm 3.2mm 3.5mm;
+    margin: var(--esp-2) 0 var(--esp-3) 0;
+  }
+  .atencao-marca {
+    width: 7mm;
+    height: 7mm;
+    border-radius: 50%;
+    background: var(--destaque);
+    color: var(--branco);
+    font-family: var(--fonte);
+    font-size: var(--t-corpo);
+    font-weight: 700;
+    line-height: 7mm;
+    text-align: center;
+  }
+  .atencao p { margin: 0; }
+  .atencao ul { margin: 2mm 0 0 0; }
+
+  .grupo {
+    font-weight: 700;
+    color: var(--marinho);
+    margin: var(--esp-2) 0 1.2mm 0;
+  }
+  .item-letra { margin-left: 6mm; }
+
+  .sintese p,
+  .exemplo,
+  .exemplo p {
+    font-family: var(--fonte);
+    font-size: var(--t-corpo);
+  }
+  .exemplo p:last-child { margin-bottom: 0; }
+  .exemplo .e-rotulo { font-weight: 700; color: var(--acento-escuro); }
+
+  /* ------------------------------------------------------------
+     GLOSSÁRIO
+     ------------------------------------------------------------ */
+  dl.glossario {
+    margin: var(--esp-3) 0;
+    border-top: 0.35mm solid var(--cinza-05);
+    border-bottom: 0.35mm solid var(--cinza-05);
+    padding: 3mm 0;
+  }
+
+  dl.glossario div {
+    display: grid;
+    grid-template-columns: 42mm 1fr;
+    column-gap: 5mm;
+    padding: 2.2mm 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  dl.glossario dt {
+    font-weight: 700;
+    color: var(--acento-escuro);
+    font-size: var(--t-apoio);
+    text-align: left;
+  }
+
+  dl.glossario dd {
+    margin: 0;
+    font-size: var(--t-apoio);
+    line-height: var(--lh-corpo);
+  }
+
+  /* ------------------------------------------------------------
+     ÍNDICE DOS MODELOS
+     ------------------------------------------------------------ */
+  .indice-modelos {
+    columns: 2;
+    column-gap: 8mm;
+    margin: var(--esp-3) 0;
+    padding: 4mm 5mm;
+    border: 0.35mm solid var(--cinza-05);
+    background: var(--acento-fundo);
+    break-inside: avoid;
+    page-break-inside: avoid;
+    list-style: none;
+    counter-reset: mod;
+  }
+
+  .indice-modelos li {
+    break-inside: avoid;
+    font-size: var(--t-apoio);
+    line-height: 1.28;
+    margin-bottom: 2.1mm;
+    padding-left: 8mm;
+    text-indent: -8mm;
+    text-align: left;
+  }
+
+  .indice-modelos li:last-child { margin-bottom: 0; }
+
+  .indice-modelos li::before {
+    counter-increment: mod;
+    content: counter(mod, decimal-leading-zero);
+    display: inline-block;
+    width: 8mm;
+    text-indent: 0;
+    font-weight: 700;
+    color: var(--destaque-escuro);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ------------------------------------------------------------
+     MODELO DE DOCUMENTO
+     O bloco que reproduz cada minuta do Anexo 1. Diferente de
+     todo o resto: é texto a ser copiado, não lido. Precisa poder
+     quebrar entre páginas, então a trava de break-inside dos
+     demais quadros não se aplica aqui.
+     ------------------------------------------------------------ */
+  .modelo {
+    border: 0.35mm solid var(--cinza-05);
+    border-left: 1.1mm solid var(--acento);
+    margin: var(--esp-3) 0 var(--esp-4) 0;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .modelo-cab {
+    background: var(--acento-fundo);
+    border-bottom: 0.35mm solid var(--cinza-05);
+    padding: 2.8mm 5mm;
+    break-after: avoid;
+    page-break-after: avoid;
+    break-inside: avoid;
+  }
+
+  .modelo-cab .m-num {
+    font-size: var(--t-rotulo);
+    font-weight: 700;
+    color: var(--destaque-escuro);
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
+    margin-right: 3mm;
+  }
+
+  .modelo-cab .m-nome {
+    font-size: 8.8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--marinho);
+  }
+
+  .modelo-corpo {
+    padding: 4.5mm 5mm 4mm 5mm;
+    font-size: 9.2pt;
+    line-height: 1.34;
+  }
+
+  .modelo-corpo > p { margin-bottom: 3mm; }
+  .modelo-corpo > p:last-child { margin-bottom: 0; }
+
+  .modelo-corpo .m-item {
+    font-weight: 700;
+    color: var(--marinho);
+    letter-spacing: 0.02em;
+  }
+
+  .modelo-corpo ul, .modelo-corpo ol {
+    margin: 0 0 3mm 0;
+    padding-left: 6mm;
+  }
+
+  .modelo-corpo li { margin-bottom: 1.6mm; text-align: justify; }
+  .modelo-corpo li:last-child { margin-bottom: 0; }
+  .modelo-corpo li::marker { color: var(--acento-claro); }
+
+  /* Campo a preencher. No original vinha em vermelho; aqui usa o laranja
+     da PGE, que é a cor de destaque da identidade. A convenção fica
+     declarada na abertura do Anexo. */
+  .campo {
+    color: var(--destaque-escuro);
+    font-weight: 500;
+  }
+
+  .linha {
+    display: inline-block;
+    min-width: 34mm;
+    border-bottom: 0.25mm solid var(--cinza-05);
+    vertical-align: baseline;
+  }
+
+  .linha.curta { min-width: 20mm; }
+  .linha.longa { min-width: 58mm; }
+
+  .caixa {
+    display: inline-block;
+    width: 3.2mm;
+    height: 3.2mm;
+    border: 0.3mm solid var(--marinho);
+    vertical-align: -0.4mm;
+    margin-right: 1.6mm;
+  }
+
+  /* Nota explicativa: no original é uma caixa sombreada dentro do modelo,
+     e o Manual manda retirá-la do documento final. */
+  .nota {
+    background: var(--cinza-02);
+    border-left: 0.8mm solid var(--cinza-05);
+    padding: 3mm 4mm;
+    margin: 0 0 3mm 0;
+    font-size: 7.8pt;
+    line-height: 1.32;
+    color: var(--cinza-texto);
+    /* As notas com lista passam de 30 mm e, travadas, deixavam o modelo
+       aberto com um vão de 4 cm no pé da página. Quebram por parágrafo. */
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .nota p, .nota li { break-inside: avoid; page-break-inside: avoid; }
+  .nota p { margin: 0 0 1.8mm 0; }
+  .nota p:last-child { margin-bottom: 0; }
+  .nota ul { margin: 1.4mm 0 0 0; padding-left: 5mm; }
+  .nota li { margin-bottom: 1.2mm; text-align: justify; }
+  .nota li:last-child { margin-bottom: 0; }
+  .nota .n-rot { font-weight: 700; color: var(--marinho); }
+  .nota .campo { color: var(--destaque-escuro); }
+
+  .fecho-modelo {
+    text-align: center;
+    margin-top: 4mm;
+    font-size: 8.8pt;
+    line-height: 1.5;
+  }
+
+  .fecho-modelo span { display: block; }
+
+  .alternativa {
+    text-align: center;
+    font-size: var(--t-rotulo);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--destaque-escuro);
+    margin: 0 0 3mm 0;
+  }
+
+  /* Tabela do quadro-mestre de prazos: 24 linhas, três colunas. */
+  table.dados.prazos { font-size: 8.2pt; }
+  table.dados.prazos th { font-size: 6.4pt; padding: 2.4mm 2.4mm; }
+  table.dados.prazos td { padding: 2mm 2.4mm; }
+  table.dados.prazos td.prazo {
+    font-weight: 700;
+    color: var(--acento-escuro);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  table.dados.prazos td.base {
+    font-size: 7.4pt;
+    color: var(--cinza-texto);
+    white-space: nowrap;
+  }
+
+  /* Mapa dos capítulos: 23 linhas curtas, cabe em corpo menor. */
+  table.dados.mapa { font-size: 8.4pt; }
+  table.dados.mapa th { font-size: 6.4pt; padding: 2.4mm 3mm; }
+  table.dados.mapa td { padding: 1.9mm 3mm; }
+  table.dados.mapa td.cap {
+    font-weight: 700;
+    color: var(--acento-escuro);
+    white-space: nowrap;
+    width: 14mm;
+  }
+  table.dados.mapa td.arts {
+    font-size: 7.6pt;
+    color: var(--cinza-texto);
+    white-space: nowrap;
+  }
+
+  /* ------------------------------------------------------------
+     TIPOGRAFIA DO MANUAL
+     A fonte do sumário (Source Sans 3) vale para o documento
+     inteiro. O tamanho é o do corpo, também no sumário e na
+     contracapa.
+     ------------------------------------------------------------ */
+  body {
+    --fonte: 'Source Sans 3', 'Montserrat VL', 'Segoe UI', Arial, sans-serif;
+    --fonte-corpo: 'Source Sans 3', 'Montserrat VL', 'Segoe UI', Arial, sans-serif;
+    font-family: var(--fonte);
+    font-weight: 400;
+  }
+
+  body strong { font-weight: 700; }
+
+  h2.secao,
+  h3.subsecao,
+  h2.secao .num,
+  h3.subsecao .num,
+  .sumario,
+  .sumario li,
+  .expediente,
+  .expediente .ex-rot,
+  .expediente .ex-nome,
+  .expediente .ex-cargo {
+    font-family: var(--fonte);
+    font-size: var(--t-corpo);
+  }
+
+  /* Rodapé da capa: só a data, centralizada. */
+  .cm-data {
+    margin: 0;
+    text-align: center;
+    text-indent: 0;
+    font-size: 8pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--marinho);
+  }
+
+  /* Página de expediente, logo depois da capa. */
+  .expediente {
+    break-after: page;
+    page-break-after: always;
+    padding-top: 16mm;
+  }
+
+  .ex-bloco { margin: 0 0 11mm 0; }
+
+  .ex-rot {
+    font-size: var(--t-corpo);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--acento);
+    margin: 0 0 3.5mm 0;
+  }
+
+  .ex-nome {
+    font-size: var(--t-corpo);
+    font-weight: 700;
+    color: var(--marinho);
+    margin: 0;
+    text-align: left;
+    text-indent: 0;
+  }
+
+  .ex-cargo {
+    font-size: var(--t-corpo);
+    line-height: 1.35;
+    color: var(--cinza-texto);
+    margin: 0.6mm 0 4.2mm 0;
+    text-align: left;
+    text-indent: 0;
+  }
+
+  .ex-bloco .ex-cargo:last-child { margin-bottom: 0; }
+
+  /* Linha em branco da ficha de interessados, para preenchimento. */
+  .modelo table.dados td { height: 9mm; }
+
+  /* ============================================================
+     ABERTURA DE DOCUMENTO CURTO (informativo, ofício, relatório)
+     ============================================================ */
+  .doc-abertura {
+    margin: 0 0 var(--esp-4) 0;
+    padding-bottom: var(--esp-2);
+    border-bottom: 0.7mm solid var(--acento);
+    break-after: avoid;
+    page-break-after: avoid;
+    text-align: left;
+  }
+
+  .doc-eyebrow {
+    font-size: calc(7.3pt * var(--k));
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--acento-escuro);
+    margin-bottom: 3mm;
+  }
+
+  .doc-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 4mm;
+    height: 0.5mm;
+    background: currentColor;
+    vertical-align: middle;
+    margin-right: 2.2mm;
+    margin-bottom: 0.4mm;
+  }
+
+  h1.doc-titulo {
+    font-size: calc(18.5pt * var(--k));
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.004em;
+    color: var(--marinho);
+    margin: 0 0 2.2mm 0;
+    text-align: left;
+  }
+
+  .doc-periodo {
+    font-size: var(--t-corpo-alt);
+    font-weight: 500;
+    color: var(--cinza-texto);
+    line-height: 1.35;

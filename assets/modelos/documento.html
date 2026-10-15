@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>[PREENCHER: título do documento]</title>
+
+<!-- Documento curto: informativo, ofício, relatório, nota técnica, solicitação.
+     Sem capa própria; o título abre a primeira página. Para documento de
+     várias páginas com capa, expediente e sumário, use publicacao.html.
+
+     vl-peca     texto pequeno do cabeçalho de cada página
+     vl-orgao    segunda linha do cabeçalho
+     vl-processo (opcional) referência no rodapé, ex.: n. do ofício ou do
+                 processo administrativo. Sem ela o rodapé só tem a paginação.
+     vl-rodape-rotulo  rótulo da referência no rodapé (padrão: Documento n.) -->
+<meta name="vl-peca" content="[PREENCHER: tipo do documento, ex.: Ofício]">
+<meta name="vl-orgao" content="Procuradoria-Geral do Estado de Mato Grosso do Sul">
+<!-- <meta name="vl-processo" content="[número]"> -->
+<!-- <meta name="vl-rodape-rotulo" content="Ofício n."> -->
+
+<link rel="stylesheet" href="@ds/tokens.css">
+<link rel="stylesheet" href="@ds/componentes.css">
+<link rel="stylesheet" href="@ds/publicacao.css">
+</head>
+
+<body class="modo-sobrio">
+
+<!-- Abertura. Para ofício ou carta, troque por
+       <div class="enderecamento">[destinatário em até duas linhas]</div> -->
+<div class="doc-abertura">
+  <div class="doc-eyebrow">[PREENCHER: linha pequena acima do título]</div>
+  <h1 class="doc-titulo">[PREENCHER: título,<br>em até duas linhas]</h1>
+  <div class="doc-periodo">[PREENCHER: data ou período]</div>
+</div>
+
+<!-- Ficha: os dados que identificam o documento. Apague as linhas que não servem. -->
+<dl class="ficha">
+  <dt>[PREENCHER: rótulo]</dt> <dd>[PREENCHER: dado]</dd>
+  <dt>[PREENCHER: rótulo]</dt> <dd>[PREENCHER: dado]</dd>
+  <dt>[PREENCHER: rótulo]</dt> <dd>[PREENCHER: dado]</dd>
+</dl>
+
+<!-- Síntese. Redação nova: a pessoa responsável pelo conteúdo deve revisar. -->
+<div class="sintese">
+  <div class="sintese-rotulo">[PREENCHER: rótulo, ex.: Em síntese]</div>
+  <p>[PREENCHER: o que o leitor precisa saber em duas ou três frases.]</p>
+</div>
+
+<h2 class="secao primeira"><span class="num">1</span><span class="titulo">[PREENCHER: título da seção, que diz o argumento]</span></h2>
+
+<p>[PREENCHER: texto corrido.]</p>
+
+<h3 class="subsecao"><span class="num">1.1</span>[PREENCHER: título da subseção]</h3>
+
+<p>[PREENCHER: texto corrido.]</p>
+
+<h2 class="secao"><span class="num">2</span><span class="titulo">[PREENCHER: título da seção]</span></h2>
+
+<table class="dados">
+  <thead>
+    <tr><th>[PREENCHER: coluna]</th><th>[PREENCHER: coluna]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>[PREENCHER]</td><td>[PREENCHER]</td></tr>
+    <tr><td>[PREENCHER]</td><td>[PREENCHER]</td></tr>
+  </tbody>
+</table>
+
+<!-- Fecho e assinatura. A rubrica digitalizada é opcional e é do próprio
+     signatário: o usuário anexa a imagem (PNG com fundo transparente) e ela
+     entra na linha marcada. Sem imagem, apague a linha da rubrica. -->
+<div class="fecho">
+  <p>[PREENCHER: cidade], [PREENCHER: data por extenso].</p>
+</div>
+
+<div class="assinatura">
+  <!-- <img class="rubrica" src="rubrica.png" alt=""> -->
+  <div class="filete"></div>
+  <div class="nome">[PREENCHER: nome do signatário]</div>
+  <div class="cargo">[PREENCHER: cargo]</div>
+</div>
+
+</body>
+</html>

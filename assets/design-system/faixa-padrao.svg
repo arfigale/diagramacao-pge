@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 71.4" width="210mm" height="71.4mm">
+  <!-- Faixa padrão da capa, para quando não há imagem anexada. Só desenho:
+       fluxo de documentos ligados por setas, nas cores da PGE. -->
+  <defs>
+    <marker id="seta" markerWidth="3" markerHeight="3" refX="2.4" refY="1.5" orient="auto">
+      <path d="M0,0 L3,1.5 L0,3 z" fill="#294964"/>
+    </marker>
+  </defs>
+  <!-- ondas de fundo -->
+  <path d="M0,71.4 L0,52 C30,44 55,62 90,56 C125,50 150,40 210,50 L210,71.4 z" fill="#F4F7FA"/>
+  <path d="M0,71.4 L0,60 C40,54 70,68 110,62 C150,56 180,52 210,58 L210,71.4 z" fill="#E4EBF1"/>
+  <!-- malha de pontos, canto superior esquerdo -->
+  <g fill="#8FA9BC">
+    <g id="linha-pontos">
+      <circle cx="9" cy="8" r="0.5"/><circle cx="13" cy="8" r="0.5"/><circle cx="17" cy="8" r="0.5"/>
+      <circle cx="21" cy="8" r="0.5"/><circle cx="25" cy="8" r="0.5"/>
+    </g>
+    <use href="#linha-pontos" y="4"/><use href="#linha-pontos" y="8"/><use href="#linha-pontos" y="12"/>
+  </g>
+  <!-- ligações -->
+  <g stroke="#294964" stroke-width="0.35" fill="none">
+    <line x1="42" y1="38" x2="56.5" y2="38" marker-end="url(#seta)"/>
+    <line x1="82" y1="38" x2="96.5" y2="38" marker-end="url(#seta)"/>
+    <line x1="122" y1="38" x2="136.5" y2="38" marker-end="url(#seta)"/>
+    <line x1="162" y1="38" x2="176.5" y2="38" marker-end="url(#seta)"/>
+  </g>
+  <g fill="#FFFFFF" stroke-width="0.5">
+    <circle cx="49" cy="38" r="1.3" stroke="#51A8B1"/>
+    <circle cx="89" cy="38" r="1.3" stroke="#294964"/>
+    <circle cx="129" cy="38" r="1.3" stroke="#F58634"/>
+    <circle cx="169" cy="38" r="1.3" stroke="#51A8B1"/>
+  </g>
+  <!-- documentos -->
+  <g>
+    <rect x="20" y="22" width="22" height="32" rx="2" fill="#152B3F"/>
+    <rect x="60" y="22" width="22" height="32" rx="2" fill="#366586"/>
+    <rect x="100" y="22" width="22" height="32" rx="2" fill="#51A8B1"/>
+    <rect x="140" y="22" width="22" height="32" rx="2" fill="#D2D3D5"/>
+    <rect x="180" y="22" width="22" height="32" rx="2" fill="#152B3F"/>
+  </g>
+  <g stroke="#FFFFFF" stroke-width="0.9" stroke-linecap="round" opacity="0.9">
+    <g id="texto-doc">
+      <line x1="24" y1="30" x2="38" y2="30"/><line x1="24" y1="35" x2="38" y2="35"/>
+      <line x1="24" y1="40" x2="33" y2="40"/>
+    </g>
+    <use href="#texto-doc" x="40"/><use href="#texto-doc" x="80"/><use href="#texto-doc" x="160"/>
+  </g>
+  <g stroke="#FFFFFF" stroke-width="0.9" stroke-linecap="round">
+    <line x1="144" y1="30" x2="158" y2="30"/><line x1="144" y1="35" x2="158" y2="35"/>
+    <line x1="144" y1="40" x2="153" y2="40"/>
+  </g>
+  <rect x="140" y="22" width="22" height="32" rx="2" fill="none"/>
+  <!-- ponto de destaque -->
+  <circle cx="191" cy="12" r="1.1" fill="#F58634"/>
+  <circle cx="75" cy="10" r="0.9" fill="#51A8B1"/>
+</svg>
