@@ -35,7 +35,7 @@ Montserrat fica só no cabeçalho e no rodapé, que o Chrome desenha fora do doc
 
 A4, margens de 25 mm nas laterais, 31 mm no topo e 19 mm no pé. Área útil de 160 mm por 247 mm.
 
-Corpo de 12 pt, entrelinha 1,5, 3,4 mm entre parágrafos, texto alinhado à esquerda e sem hifenização. Cerca de 78 caracteres por linha. Esses valores seguem o critério 1.4.8 das WCAG 2.2 (Apresentação visual, nível AAA): texto não justificado, entrelinha de no mínimo 1,5, espaço entre parágrafos de 1,5 vez a entrelinha e linha de até 80 caracteres.
+Corpo de 12 pt, entrelinha 1,5, 3,4 mm entre parágrafos, texto corrido justificado e sem hifenização. Cerca de 78 caracteres por linha. Entrelinha, espaço entre parágrafos e medida seguem o critério 1.4.8 das WCAG 2.2 (Apresentação visual, nível AAA); a justificação é decisão do padrão da PGE. Coluna estreita (célula de tabela, glossário, ficha, quadro) vai alinhada à esquerda, porque justificada sem hifenização abre vão entre as palavras.
 
 Títulos de seção em 16 pt, subseção em 13 pt, ambos em azul e negrito, só com a primeira letra em maiúscula.
 

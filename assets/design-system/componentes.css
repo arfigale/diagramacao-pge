@@ -22,12 +22,12 @@ body {
   line-height: var(--lh-corpo);
   color: var(--texto);
   font-weight: 400;
-  /* Texto alinhado à esquerda, sem justificar e sem hifenizar. Justificar sem
-     hifenização abre vão entre as palavras sempre que a linha tem uma palavra
-     longa, e os manuais da PGE mostram o defeito nas colunas estreitas. O
-     critério 1.4.8 das WCAG 2.2 pede texto não justificado. A peça processual
-     (.doc-peca, seção 20) segue justificada. */
-  text-align: left;
+  /* Texto corrido justificado, por padrão da PGE. Sem hifenização: o Chrome
+     que gera o PDF não hifeniza português, então o ajuste é só no espaço entre
+     palavras. Na largura cheia (160 mm, ~78 caracteres) o vão fica pequeno.
+     Coluna estreita (célula de tabela, glossário, ficha, quadro) vai alinhada
+     à esquerda no publicacao.css, porque ali a justificação abre buraco. */
+  text-align: justify;
   hyphens: none;
   -webkit-hyphens: none;
 }
