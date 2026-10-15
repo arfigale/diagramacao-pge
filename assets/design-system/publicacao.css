@@ -778,8 +778,8 @@
 
   /* ------------------------------------------------------------
      EXPEDIENTE (verso da capa) — layout obrigatório do padrão PGE
-     Logo horizontal em cor centralizado no alto; cada papel com o
-     rótulo em laranja entre dois filetes laranja de largura cheia;
+     Logo horizontal azul centralizado no alto; cada papel com o
+     rótulo em azul entre dois filetes azuis de largura cheia;
      nomes em negrito e cargos em texto normal, ambos em preto.
 
      Sai na passada da capa (sem cabeçalho e sem número), como página
@@ -823,11 +823,11 @@
     letter-spacing: 0;
     text-transform: none;
     line-height: 1.25;
-    color: var(--destaque);
+    color: var(--marinho);
     margin: 0 0 3.6mm 0;
     padding: 2.4mm 0;
-    border-top: 0.35mm solid var(--destaque);
-    border-bottom: 0.35mm solid var(--destaque);
+    border-top: 0.35mm solid var(--marinho);
+    border-bottom: 0.35mm solid var(--marinho);
     text-align: left;
   }
 
@@ -972,3 +972,20 @@
     font-weight: 500;
     color: var(--cinza-texto);
     line-height: 1.35;
+  }
+  /* O arquivo original terminava sem fechar este bloco; tudo o que viesse
+     depois ficava dentro dele e era ignorado. */
+
+  /* ------------------------------------------------------------
+     RECUO DE PRIMEIRA LINHA
+     Todo parágrafo de texto corrido (filho direto do <body>) abre com
+     recuo de 1,25 cm. Parágrafo dentro de caixa, tabela, ficha, figura,
+     expediente ou contracapa não recua. Rótulo de grupo também não.
+     A peça processual tem recuo próprio (--recuo-corpo, .doc-peca).
+     ------------------------------------------------------------ */
+  body:not(.doc-peca) > p { text-indent: 1.25cm; }
+  body:not(.doc-peca) > p.grupo,
+  body:not(.doc-peca) > p.item-letra,
+  body:not(.doc-peca) > p.tab-nota,
+  body:not(.doc-peca) > p.anexo-sobre,
+  body:not(.doc-peca) > p.sem-recuo { text-indent: 0; }

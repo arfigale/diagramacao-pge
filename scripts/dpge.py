@@ -150,7 +150,7 @@ def doctor() -> int:
         ok = ok and bool(nome)
     ds = RAIZ / "assets" / "design-system"
     for arq in ("tokens.css", "componentes.css", "publicacao.css", "logo-pge.png", "logo-pge-branco.png",
-                "fonts/SourceSans3.ttf", "fonts/Montserrat.ttf", "fonts/SourceSerif4.ttf",
+                "fonts/SourceSans3-Regular.ttf", "fonts/Montserrat.ttf", "fonts/SourceSerif4.ttf",
                 "vendor/paged.min.js"):
         existe = (ds / arq).is_file()
         ok = ok and existe

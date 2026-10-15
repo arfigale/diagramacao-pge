@@ -45,18 +45,63 @@
   font-display: block;
 }
 
+/* Source Sans 3 em instâncias ESTÁTICAS, uma por peso. A versão variável
+   saía no PDF como fonte Type 3, sem nome: o leitor de PDF não mostrava
+   "Source Sans 3" nas propriedades e o texto copiado podia vir truncado.
+   Estáticas, ela entra embutida como TrueType, com o nome da família. */
 @font-face {
   font-family: 'Source Sans 3';
-  src: url('fonts/SourceSans3.ttf') format('truetype-variations');
-  font-weight: 100 900;
+  src: url('fonts/SourceSans3-Regular.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
   font-display: block;
 }
-
 @font-face {
   font-family: 'Source Sans 3';
-  src: url('fonts/SourceSans3-Italic.ttf') format('truetype-variations');
-  font-weight: 100 900;
+  src: url('fonts/SourceSans3-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('fonts/SourceSans3-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
   font-style: italic;
   font-display: block;
 }
@@ -150,7 +195,7 @@
      --corpo mexia em metade da peça e a hierarquia saía torta. */
   --k: 1;
 
-  --fonte: 'Montserrat VL', 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --fonte: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
 
   --t-corpo:            12.0pt;
   --t-corpo-alt:        11.1pt;

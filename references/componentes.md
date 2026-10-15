@@ -11,7 +11,7 @@ As classes vivem em `assets/design-system/componentes.css` (base) e `publicacao.
 <p class="item-letra">a) item recuado de uma enumeração;</p>
 ```
 
-Parte é `h2.secao`, seção é `h3.subsecao`; três níveis no máximo, dois é melhor. O `h2.secao` sai com a barra laranja vertical à esquerda, a marca dos manuais da UPD, em azul e negrito de 16 pt. Os títulos levam maiúscula só na primeira letra e nos nomes próprios: nada de "PARTE 1 – TÍTULO" em caixa alta. Título sem número (Apresentação, Glossário) usa só o `.titulo`. O título diz o argumento, não rotula ("A decisão vale para os processos em curso", não "Da vigência"). `converter --numerar` produz a forma numerada.
+Parágrafo de texto corrido (filho direto do `<body>`) abre com recuo de 1,25 cm; para um parágrafo solto sem recuo, `class="sem-recuo"`. Parte é `h2.secao`, seção é `h3.subsecao`; três níveis no máximo, dois é melhor. O `h2.secao` sai com a barra laranja vertical à esquerda, a marca dos manuais da UPD, em azul e negrito de 16 pt. Os títulos levam maiúscula só na primeira letra e nos nomes próprios: nada de "PARTE 1 – TÍTULO" em caixa alta. Título sem número (Apresentação, Glossário) usa só o `.titulo`. O título diz o argumento, não rotula ("A decisão vale para os processos em curso", não "Da vigência"). `converter --numerar` produz a forma numerada.
 
 Para forçar quebra de página antes de um título, `quebra-antes`; para impedir quebra dentro de um bloco, `nao-quebrar`; para colar dois blocos, `juntar`. O primeiro título depois do sumário leva `primeira`.
 

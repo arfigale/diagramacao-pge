@@ -168,14 +168,45 @@ def ler_meta(html: str, nome: str, padrao: str = "") -> str:
     return m.group(1).strip() if m else padrao
 
 
+FAMILIA_TEMPLATE = "Source Sans 3 Cab"
+
+
+def faces_template() -> str:
+    """As regras @font-face da Source Sans 3 do cabeçalho e do rodapé.
+
+    O Chrome desenha cabeçalho e rodapé num documento à parte, que não enxerga
+    as fontes da página. Vão embutidos subconjuntos pequenos (latim e
+    pontuação, ~26 KB cada) como data URL. Só isso não basta: a fonte do
+    template carrega de forma assíncrona e o texto sai INVISÍVEL. Por isso a
+    página carrega as mesmas regras antes de imprimir (`carregar_fontes_template`),
+    e o template reaproveita a fonte já decodificada."""
+    regras = []
+    for peso, nome in ((400, "Regular"), (600, "SemiBold"), (700, "Bold")):
+        dados = base64.b64encode((FONTES_DIR / f"SourceSans3-Cab-{nome}.ttf").read_bytes()).decode("ascii")
+        regras.append("@font-face{font-family:'%s';font-weight:%d;"
+                      "src:url(data:font/ttf;base64,%s) format('truetype');}" % (FAMILIA_TEMPLATE, peso, dados))
+    return "".join(regras)
+
+
+def fontes_template() -> str:
+    return "<style>" + faces_template() + "</style>"
+
+
+def carregar_fontes_template(pagina) -> None:
+    pagina.add_style_tag(content=faces_template())
+    pagina.evaluate("""async (fam) => {
+        for (const w of [400, 600, 700]) { await document.fonts.load(w + " 10px '" + fam + "'"); }
+    }""", FAMILIA_TEMPLATE)
+
+
 def cabecalho(tipo_peca: str, orgao: str, acento: str, acento_escuro: str) -> str:
     """Cabeçalho institucional repetido em todas as páginas."""
-    return f"""
+    return fontes_template() + f"""
     <div style="
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
         width: 100%; margin: 0;
         padding: {px(9)} {px(20)} 0 {px(25)};
-        font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        font-family: 'Source Sans 3 Cab', 'Segoe UI', Arial, sans-serif;
         color: #294964; box-sizing: border-box;">
       <div style="display: flex; align-items: flex-end; justify-content: space-between;">
         <img src="{logo_data_uri()}" style="height: {px(11)}; width: auto; display: block;">
@@ -215,12 +246,12 @@ def rodape(rotulo: str, referencia: str, acento: str, unidade: str = "") -> str:
         if unidade
         else "<span></span>"
     )
-    return f"""
+    return fontes_template() + f"""
     <div style="
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
         width: 100%; margin: 0;
         padding: 0 {px(20)} 0 {px(25)};
-        font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        font-family: 'Source Sans 3 Cab', 'Segoe UI', Arial, sans-serif;
         box-sizing: border-box;">
       <div style="height: {px(0.35)}; background: #D2D3D5; margin-bottom: {px(2.6)};
                   position: relative;">
@@ -570,6 +601,7 @@ def _compilar(caminho_html: Path, modo: str, conferir: bool,
                 content=":root,.doc-peca{" + ";".join(regras) + "}")
 
         pagina.evaluate("document.fonts.ready")
+        carregar_fontes_template(pagina)
         pagina.wait_for_timeout(400)
 
         # Depois das injeções de paleta e escala (o polyfill congela o
