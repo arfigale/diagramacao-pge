@@ -54,6 +54,9 @@ def docx_para_html(caminho: Path, pasta_imagens: Path) -> str:
     def salvar(imagem):
         contador["n"] += 1
         ext = (imagem.content_type or "image/png").split("/")[-1].replace("jpeg", "jpg")
+        # O tipo vem do arquivo de origem: só letras e dígitos viram extensão,
+        # para um .docx malformado não escolher onde a imagem é gravada.
+        ext = re.sub(r"[^a-z0-9]", "", ext.lower())[:5] or "png"
         nome = f"img{contador['n']:03d}.{ext}"
         with imagem.open() as f:
             (pasta_imagens / nome).write_bytes(f.read())
@@ -87,9 +90,36 @@ def limpar_texto(t: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
+def higienizar(sopa) -> None:
+    """Tira do HTML convertido o que executa código ou busca arquivo fora da
+    pasta do documento. O markdown deixa passar HTML cru, e o build abre o
+    resultado num navegador; um texto de terceiros não pode rodar script nem
+    puxar `file:///` para dentro do PDF."""
+    for tag in sopa.find_all(["script", "style", "iframe", "object", "embed",
+                              "link", "meta", "base", "form", "svg", "math"]):
+        tag.decompose()
+    for tag in sopa.find_all(True):
+        for nome in list(tag.attrs):
+            valor = tag.attrs[nome]
+            if isinstance(valor, list):
+                valor = " ".join(valor)
+            if nome.lower().startswith("on") or nome.lower() == "style":
+                del tag.attrs[nome]
+            elif nome.lower() in ("src", "href", "srcset", "poster", "data"):
+                v = re.sub(r"\s+", "", str(valor)).lower()
+                externo = re.match(r"^[a-z][a-z0-9+.-]*:", v) or v.startswith(("/", "\\", "//")) or ".." in v.split("/")
+                if nome.lower() == "href" and re.match(r"^(https?|mailto):", v):
+                    continue
+                if nome.lower() == "href" and v.startswith("#"):
+                    continue
+                if externo:
+                    del tag.attrs[nome]
+
+
 def estruturar(bruto: str, numerar: bool, sem_quebra: bool = False):
     """Aplica as classes do design system e devolve (corpo, itens do sumário)."""
     sopa = BeautifulSoup(bruto, "html.parser")
+    higienizar(sopa)
 
     # parágrafos vazios e o título do documento (a capa cuida dele)
     for p in sopa.find_all("p"):
