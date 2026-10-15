@@ -90,7 +90,7 @@
   }
   /* Logo horizontal branco (logo-pge-branco.png): só sobre o azul da capa
      e da contracapa. Em fundo claro, sempre o azul (logo-pge.png). */
-  .cm-logo img { display: block; width: 120mm; height: auto; }
+  .cm-logo img { display: block; width: 66mm; height: auto; }
 
   .cm-bloco {
     grid-row: 3;
@@ -199,7 +199,7 @@
     justify-content: center;
     padding-top: 36mm;
   }
-  .cc-logo img { display: block; width: 105mm; height: auto; }
+  .cc-logo img { display: block; width: 60mm; height: auto; }
 
   .cc-corpo {
     margin-top: auto;
