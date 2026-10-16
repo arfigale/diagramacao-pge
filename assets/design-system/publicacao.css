@@ -330,8 +330,8 @@
 
   .sumario .s-pag {
     flex: 0 0 auto;
-    min-width: 8mm;
-    padding-left: 1.6mm;
+    min-width: 0;
+    padding-left: 1.2mm;
     text-align: right;
     font-variant-numeric: tabular-nums;
     color: var(--texto);
