@@ -5,7 +5,7 @@ description: Diagrama documentos institucionais da Procuradoria-Geral do Estado 
 
 # Diagramação institucional da PGE-MS
 
-Transforma um texto (.docx, .md ou o que o usuário colar) em PDF A4 no padrão visual da PGE-MS, que junta as cores e os logos do manual da marca (Decreto n. 15.281/2019) à composição dos manuais da UPD de 2025: Source Sans 3 em todo o documento, corpo preto de 12 pt com entrelinha 1,5, texto corrido justificado e recuo de 1,25 cm na primeira linha, azul da marca `#294964` nos títulos e na moldura, laranja `#F58634` na barra dos títulos e nas faixas da capa, capa azul com logo horizontal branco e faixa laranja, expediente (rótulo azul entre dois filetes azuis) e sumário (título laranja entre filetes laranja) no layout obrigatório, sumário com número de página calculado, contracapa azul com contatos, cabeçalho só com o nome do documento e rodapé com a unidade e a paginação. O resumo do padrão está em `references/identidade.md`. Tudo roda no computador do usuário, em Windows ou Mac, e a skill leva consigo o design system, as fontes, o logo e os scripts.
+Transforma um texto (.docx, .md ou o que o usuário colar) em PDF A4 no padrão visual da PGE-MS, que junta as cores e os logos do manual da marca (Decreto n. 15.281/2019) à composição dos manuais da UPD de 2025: Source Sans 3 em todo o documento, corpo preto de 12 pt com entrelinha 1,5, texto corrido justificado e recuo de 1,25 cm na primeira linha, azul da marca `#294964` nos títulos e na moldura, laranja `#F58634` na barra dos títulos e nos selos, capa branca com logo horizontal azul e faixa vertical tricolor à esquerda, expediente (rótulo azul entre dois filetes azuis) e sumário (título azul entre filetes azuis) no layout obrigatório, sumário com número de página calculado, contracapa azul com contatos, cabeçalho só com o nome do documento e rodapé com a unidade e a paginação. **O documento de referência do padrão é o Programa de Integridade da PGE/MS (2026)**, descrito em `references/padrao-referencia.md`, com as imagens das páginas em `references/padrao-referencia/`; onde ele diverge dos outros arquivos de `references/`, vale ele. O resumo das cores e regras de marca está em `references/identidade.md`. Tudo roda no computador do usuário, em Windows ou Mac, e a skill leva consigo o design system, as fontes, o logo e os scripts.
 
 ## O que esta skill não faz
 
@@ -30,14 +30,14 @@ Na primeira vez em cada computador, rode `<dpge> setup` (cria um ambiente própr
 7. **Confira a tipografia:** `<dpge> checar documento.html --corrigir`. Ele insere o espaço não separável depois de `art.`, `n.`, `§`, troca aspas retas por curvas e relata o resto, que se resolve à mão.
 8. **Compile:** `<dpge> build documento.html --saida <Nome-do-arquivo>.pdf --conferir`. O `--conferir` grava uma imagem por página em `_conferencia/`.
 9. **Acerte o sumário** (só quando há sumário): `<dpge> sumario documento.html <Nome-do-arquivo>.pdf --ate-estabilizar`. Rode de novo sempre que o texto ou as quebras de página mudarem.
-10. **Olhe as páginas.** Abra as imagens de `_conferencia/`: capa, expediente, uma página de sumário, três páginas de corpo (inclusive uma com tabela ou caixa) e a contracapa. Procure buraco grande no pé da página, título órfão, linha terminando em `art.` ou `n.`, texto cortado e a capa fora de esquadro. Corrija e recompile. Só entregue depois de ver.
+10. **Olhe as páginas** e compare com as de `references/padrao-referencia/`. Abra as imagens de `_conferencia/`: capa, expediente, uma página de sumário, três páginas de corpo (inclusive uma com tabela ou caixa) e a contracapa. Procure buraco grande no pé da página, título órfão, linha terminando em `art.` ou `n.`, texto cortado e a capa fora de esquadro. Corrija e recompile. Só entregue depois de ver.
 11. **Entregue** o PDF com um relatório curto: o que foi feito, o que a skill redigiu (para conferir), o que ficou pendente e o que precisa da decisão do usuário.
 
 ## Regras que não se negociam
 
-- **Logo:** sempre o horizontal azul `assets/design-system/logo-pge.png`, em todo o documento (cabeçalho, expediente e qualquer outra página clara). A única troca é o horizontal branco `logo-pge-branco.png`, na capa e na contracapa, que têm fundo azul. Nunca redesenhe, recolora, estique nem peça a um modelo de imagem. Se o usuário anexar outro logo, use o dele no lugar e avise que fugiu do padrão.
-- **Texto de leitura é preto**, negrito do corpo também. Texto corrido justificado e sem hifenização; célula de tabela e coluna estreita alinhadas à esquerda. Cor fica na estrutura (títulos, barras, filetes, faixas). Laranja em texto só no título do sumário.
-- **Expediente e sumário têm layout obrigatório** (o do modelo `publicacao.html`): não troque a composição nem as cores deles.
+- **Logo:** sempre o horizontal azul `assets/design-system/logo-pge.png`, em todo o documento (cabeçalho, expediente e qualquer outra página clara). A capa é branca e também leva o azul. A única troca é o horizontal branco `logo-pge-branco.png`, na contracapa, que tem fundo azul. Nunca redesenhe, recolora, estique nem peça a um modelo de imagem. Se o usuário anexar outro logo, use o dele no lugar e avise que fugiu do padrão.
+- **Texto de leitura é preto**, negrito do corpo também. Texto corrido justificado e sem hifenização; célula de tabela e coluna estreita alinhadas à esquerda. Cor fica na estrutura (títulos, barras, filetes, faixas). Laranja em texto só no sobretítulo da capa.
+- **Expediente e sumário têm layout obrigatório** (o do documento de referência, `references/padrao-referencia.md`): não troque a composição nem as cores deles. O sumário é azul, não laranja.
 - **Nada de texto dentro da imagem de capa** (acento errado, marca fora do padrão), a menos que o usuário anexe uma capa completa já aprovada, que entra sem nada por cima.
 - **Não invente** norma, número de resolução, nome de autoridade, cargo, data ou estatística. O que não estiver no texto nem na resposta do usuário vira `[CONFERIR]`, e o build avisa quantos sobraram.
 - **Grafia dos nomes e cargos** do expediente: confira com o usuário, com acento. É o erro que mais volta.
@@ -48,6 +48,7 @@ Na primeira vez em cada computador, rode `<dpge> setup` (cria um ambiente própr
 
 | Preciso de | Arquivo |
 |---|---|
+| **O padrão (documento de referência), com precedência** | `references/padrao-referencia.md` e `references/padrao-referencia/` |
 | O que perguntar e como | `references/entrevista.md` |
 | Classes e marcação de cada componente | `references/componentes.md` |
 | Capa, faixa de imagem, contracapa, como ajudar com a arte | `references/capa-e-contracapa.md` |
