@@ -178,6 +178,36 @@ Estes blocos só aparecem com `--modo completo` (classe `so-completo`); no modo 
 
 Largura da barra em mm, 112 mm para a maior e as outras em proporção. Todo número de capa, tabela ou gráfico tem de constar do próprio documento: gráfico não é lugar de estimativa nova.
 
+## Plano de ação, figura, anexo e aprovação (padrão do Programa de Integridade)
+
+```html
+<div class="eixo"><span class="eixo-selo">Eixo temático 1:</span><span class="eixo-nome">Compromisso com a integridade</span></div>
+
+<div class="acao">
+  <div class="acao-cab"><span class="acao-num">Ação 01</span><span class="acao-titulo">Título da ação</span></div>
+  <div class="acao-linha"><div class="acao-rot">Justificativa</div><div class="acao-txt"><p>…</p></div></div>
+  <div class="acao-linha"><div class="acao-rot">Descrição das atividades</div><div class="acao-txt"><ol><li>…;</li><li>….</li></ol></div></div>
+</div>
+
+<td><span class="pct"><span class="pct-valor">62%</span><span class="pct-trilho"><span style="width:62%"></span></span></span></td>
+
+<figure class="figura">
+  <figcaption><span class="fig-num">Figura 1</span> – Organograma da PGE/MS.</figcaption>
+  <img src="figura-1.png" alt="…">
+  <p class="fig-fonte">Fonte: PGE/MS.</p>
+</figure>
+
+<p class="anexo-contexto">Procuradoria-Geral do Estado de Mato Grosso do Sul · Programa X</p>
+<dl class="ficha-anexo"><div><dt>Órgão</dt><dd>…</dd></div><div><dt>Data de elaboração</dt><dd>…</dd></div></dl>
+
+<div class="aprovacao">
+  <p class="aprovacao-titulo">Aprovação e assinaturas</p>
+  <div class="assinatura"><div class="filete"></div><div class="nome">Nome</div><div class="cargo">Cargo</div></div>
+</div>
+```
+
+`eixo` abre um grupo de ações e cola no cartão seguinte. `acao` é o cartão do plano de ação: cabeçalho azul com o selo laranja, linhas rótulo / conteúdo alternando o fundo; parte entre páginas por linha, nunca dentro de uma linha. `pct` é a barra de percentual dentro da célula, com a largura igual ao valor. O rótulo de tabela é o próprio `caption` de `table.dados`. `figura` leva a legenda acima e a fonte abaixo, numeradas em ordem ("Figura 1", "Figura 2"…). `anexo-contexto` e `ficha-anexo` vêm logo depois do título do anexo. `aprovacao` fecha o documento; o título dela não entra no sumário.
+
 ## Componentes herdados de peça processual
 
 `tese`, `precedente`, `pedidos`, `fecho` de petição e as capas `.capa-tarja` existem no CSS por herança. Fora do escopo desta skill; não os use em publicação.

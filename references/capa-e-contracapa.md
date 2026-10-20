@@ -17,13 +17,14 @@ O título, o logo e a faixa são sempre HTML, nunca parte da imagem. O texto da 
 
 `.cm-tipo` é opcional: sem ele, o título ocupa o lugar e cresce para 21 pt. `.cm-lei` também é opcional.
 
-## Três capas possíveis
+## Quatro capas possíveis
 
 | Capa | Quando | Como |
 |---|---|---|
-| Azul liso | o usuário não tem arte | apague o bloco `.cm-fundo` do modelo |
+| Azul liso (padrão) | o usuário não tem arte | apague o bloco `.cm-fundo` do modelo |
 | Azul com arte de fundo | o usuário anexou uma foto ou ilustração | `imagem fundo`, e o arquivo entra em `.cm-fundo` |
 | Imagem de página inteira | o usuário anexou uma capa completa, já aprovada | `imagem pagina`; nada é desenhado por cima |
+| Branca (variante) | só quando o usuário pedir uma capa clara, como a do Programa de Integridade 2026 | troque a seção pela marcação `capa-branca` do comentário do modelo; ver `padrao-referencia.md` |
 
 A arte de fundo entra em cinza e a 18% sobre o azul. O efeito é o dos manuais da UPD: a imagem vira textura azulada e o título branco continua legível em qualquer foto.
 

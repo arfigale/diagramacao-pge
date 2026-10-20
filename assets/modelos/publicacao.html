@@ -39,6 +39,30 @@
        <section class="capa-manual capa-img">
          <img src="capa-pagina.png" alt="[texto alternativo da capa]">
        </section>
+
+     Capa branca (variante opcional, a do Programa de Integridade 2026; só
+     quando o usuário pedir): apague esta seção e use no lugar
+       <section class="capa-manual capa-branca">
+         <div class="cm-lateral"></div>
+         <svg class="cm-grafismo" viewBox="0 0 210 297" aria-hidden="true">
+           <g fill="none" stroke="#9DB4C6" stroke-width="0.35">
+             <circle cx="165" cy="244" r="71"/><circle cx="165" cy="244" r="57"/><circle cx="165" cy="244" r="42"/>
+           </g>
+           <circle cx="165" cy="244" r="26" fill="#4A7391"/>
+           <path d="M153 245 l8 8 l15 -17" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+           <circle cx="123.5" cy="285" r="2.6" fill="#51A8B1"/>
+         </svg>
+         <div class="cm-logo"><img src="@ds/logo-pge.png" alt="PGE – Procuradoria-Geral do Estado de Mato Grosso do Sul"></div>
+         <div class="cm-bloco-branco">
+           <div class="cm-sobretitulo">Tema ou programa</div>
+           <h1 class="cm-titulo">Título<br>em duas linhas</h1>
+           <div class="cm-filete"></div>
+           <p class="cm-sub">Procuradoria-Geral do Estado<br>de Mato Grosso do Sul</p>
+         </div>
+         <div class="cm-ano">2026</div>
+       </section>
+     O "check" do grafismo é o ícone do tema: troque o <path> por outro
+     traço branco simples (escudo, balança, documento) se o tema pedir.
      ============================================================ -->
 <section class="capa-manual">
   <div class="cm-fundo"><img src="capa-fundo.png" alt=""></div>
@@ -62,7 +86,7 @@
 
 <!-- ============================================================
      EXPEDIENTE (verso da capa). Layout obrigatório: logo horizontal no
-     alto e, para cada papel, o rótulo em laranja entre dois filetes, com
+     alto e, para cada papel, o rótulo em azul entre dois filetes azuis, com
      nome (negrito) e cargo embaixo. Um bloco por papel; várias pessoas no
      mesmo papel ficam no mesmo bloco. Confira a grafia de cada nome.
      Com capa própria, esta página sai junto da capa, sem cabeçalho e sem
@@ -188,6 +212,55 @@
     <p>[PREENCHER: texto do modelo, com <span class="campo">(campo a preencher)</span>.]</p>
     <div class="nota"><p><span class="n-rot">Nota explicativa 1:</span> [PREENCHER: orientação de uso.]</p></div>
   </div>
+</div>
+
+<!-- Figura com legenda: "Figura n" antes da imagem; a fonte embaixo. -->
+<figure class="figura">
+  <figcaption><span class="fig-num">Figura 1</span> – [PREENCHER: descrição da figura].</figcaption>
+  <img src="[PREENCHER: arquivo da figura, ex.: figura-1.png]" alt="[PREENCHER: texto alternativo]">
+  <p class="fig-fonte">Fonte: [PREENCHER: fonte].</p>
+</figure>
+
+<!-- Tabela com rótulo (caption) e barra de percentual numa célula. A
+     largura do <span> interno é o próprio percentual. -->
+<table class="dados">
+  <caption>[PREENCHER: rótulo da tabela, ex.: I – Resultados do diagnóstico:]</caption>
+  <thead><tr><th>[PREENCHER: coluna]</th><th>% [PREENCHER]</th></tr></thead>
+  <tbody>
+    <tr><td>[PREENCHER]</td><td><span class="pct"><span class="pct-valor">62%</span><span class="pct-trilho"><span style="width:62%"></span></span></span></td></tr>
+  </tbody>
+</table>
+
+<!-- Plano de ação: um .eixo abre o grupo; cada ação é um cartão .acao.
+     Linhas usuais: Justificativa, Objetivos da ação, Descrição das
+     atividades, Unidade responsável, Unidades de apoio, Indicador de
+     desempenho, Indicador de resultado, Prazo estimado. Apague as que
+     o texto não tiver. -->
+<div class="eixo"><span class="eixo-selo">Eixo temático 1:</span><span class="eixo-nome">[PREENCHER: nome do eixo]</span></div>
+
+<div class="acao">
+  <div class="acao-cab"><span class="acao-num">Ação 01</span><span class="acao-titulo">[PREENCHER: título da ação]</span></div>
+  <div class="acao-linha"><div class="acao-rot">Justificativa</div><div class="acao-txt"><p>[PREENCHER]</p></div></div>
+  <div class="acao-linha"><div class="acao-rot">Objetivos da ação</div><div class="acao-txt"><p>[PREENCHER]</p></div></div>
+  <div class="acao-linha"><div class="acao-rot">Descrição das atividades</div><div class="acao-txt"><ol><li>[PREENCHER];</li><li>[PREENCHER].</li></ol></div></div>
+  <div class="acao-linha"><div class="acao-rot">Unidade responsável</div><div class="acao-txt"><p>[PREENCHER]</p></div></div>
+  <div class="acao-linha"><div class="acao-rot">Prazo estimado</div><div class="acao-txt"><p>[PREENCHER]</p></div></div>
+</div>
+
+<!-- Anexo: linha de contexto e ficha do anexo, logo depois do título. -->
+<h2 class="secao quebra-antes"><span class="titulo">Anexo I – [PREENCHER: título do anexo]</span></h2>
+<p class="anexo-contexto">[PREENCHER: contexto, ex.: Procuradoria-Geral do Estado de Mato Grosso do Sul · Programa X]</p>
+<dl class="ficha-anexo">
+  <div><dt>Órgão</dt><dd>Procuradoria-Geral do Estado de Mato Grosso do Sul (PGE/MS)</dd></div>
+  <div><dt>Data de elaboração</dt><dd>[PREENCHER]</dd></div>
+  <div><dt>Elaborado por</dt><dd>[PREENCHER]</dd></div>
+</dl>
+
+<!-- Aprovação e assinaturas, no fim do corpo: uma .assinatura por
+     signatário. Confira nome e cargo com o usuário. -->
+<div class="aprovacao">
+  <p class="aprovacao-titulo">Aprovação e assinaturas</p>
+  <div class="assinatura"><div class="filete"></div><div class="nome">[PREENCHER: nome]</div><div class="cargo">[PREENCHER: cargo]</div></div>
 </div>
 
 

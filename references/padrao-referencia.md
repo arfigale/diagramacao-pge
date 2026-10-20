@@ -23,7 +23,9 @@ Estes elementos do documento de referência já são o que o build produz; não 
 
 ## O que muda em relação ao padrão anterior da skill
 
-### 1. Capa branca (substitui a capa azul)
+### 1. Capa branca: variante opcional, não é o padrão
+
+**A capa padrão continua a azul** (`.capa-manual`, com logo branco e faixa laranja). A capa branca do Programa de Integridade é uma variante (`.capa-manual.capa-branca`, marcação pronta no comentário do modelo `publicacao.html`) para usar só quando o usuário pedir ou o documento exigir uma capa clara. Composição da variante:
 
 - Fundo **branco**, com **logo horizontal azul** no alto à esquerda (≈ 30 mm do topo, alinhado à coluna do título).
 - **Faixa vertical na borda esquerda**, de largura total da página em altura e ≈ 11 mm de largura, em três segmentos de cima para baixo: azul `#294964` (≈ 60 %), verde-água `#51A8B1` (≈ 25 %), laranja `#F58634` (≈ 15 %).
@@ -35,16 +37,20 @@ Estes elementos do documento de referência já são o que o build produz; não 
 - **Ano** no pé, à esquerda, em negrito pequeno com entreletra ("2026").
 - Sem faixa laranja horizontal e sem edição na faixa.
 
-No documento de referência a capa entrou como imagem de página inteira aprovada (`imagem pagina`). Enquanto o modelo `publicacao.html` não tiver a capa branca em vetor, monte-a em HTML/CSS seguindo esta descrição (grafismo em SVG inline) ou use uma capa completa já aprovada. A regra de não pôr texto dentro de imagem gerada continua.
+A variante sai em vetor (HTML e SVG inline), sem imagem; troque o ícone do grafismo conforme o tema. A regra de não pôr texto dentro de imagem gerada continua.
+
+### Design: moderno e profissional
+
+Composição limpa, com muito branco e pouca decoração: a cor fica nas peças de estrutura (cabeçalho de tabela, cabeçalho do cartão, selos, barras, filetes), e não em fundos coloridos atrás do texto. Cantos levemente arredondados (≈ 1,8 mm) nos cartões, filetes finos cinza entre linhas, hierarquia por peso e tamanho, e não por cor. Nada de sombra, gradiente decorativo, clip-art nem caixa alta em texto corrido.
 
 ### 2. Sumário em azul (substitui o título laranja)
 
 - Título "Sumário" 17 pt negrito **azul `#294964`** entre dois filetes **azuis**.
 - O sumário tem cabeçalho e rodapé e é a **página 1** da numeração (o corpo começa na página 2).
 - Entrada principal 11 pt negrito preta, com número seguido de ponto ("1. Conhecendo…"); subitem 10 pt normal, recuado ≈ 4 mm; guia pontilhada; página com dois dígitos ("05").
-- Com isso, o laranja não aparece mais em texto em nenhum lugar do documento, exceto o sobretítulo da capa.
+- Com isso, o laranja não aparece mais em texto no corpo do documento.
 
-### 3. Componentes novos
+### 3. Componentes novos (marcação em `componentes.md`)
 
 **Rótulo de tabela** (acima de uma tabela, no lugar de `caption`): traço azul curto + texto em caixa alta, 7,3 pt negrito azul, entreletra larga — "— I – RESULTADOS DO QUESTIONÁRIO DIAGNÓSTICO DA INTEGRIDADE PÚBLICA:".
 

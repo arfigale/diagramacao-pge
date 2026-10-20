@@ -158,6 +158,119 @@
   .cm-faixa span { text-align: left; }
   .cm-faixa .cm-edicao { white-space: nowrap; text-align: right; }
 
+
+  /* ------------------------------------------------------------
+     VARIANTE OPCIONAL: CAPA BRANCA (.capa-manual.capa-branca)
+     A do Programa de Integridade 2026. Não é o padrão: use só quando
+     o usuário pedir ou o documento pedir uma capa clara.
+       - faixa vertical na borda esquerda, em azul, verde-água e
+         laranja, de cima para baixo (.cm-lateral);
+       - logo horizontal AZUL (logo-pge.png) no alto;
+       - sobretítulo em caixa alta, título em azul-escuro, filete
+         laranja curto e o nome do órgão embaixo;
+       - grafismo de círculos concêntricos com o ícone do tema no
+         canto inferior direito (.cm-grafismo, SVG do modelo);
+       - ano no pé.
+     ------------------------------------------------------------ */
+  .capa-manual.capa-branca {
+    background: var(--branco);
+    color: var(--marinho-escuro);
+  }
+  body.so-capa .capa-manual.capa-branca { display: block; }
+  .capa-branca::before,
+  .capa-branca::after { display: none; }
+
+  /* Faixa lateral: 14 mm de largura, na altura toda; 60 % azul,
+     25 % verde-água e 15 % laranja. */
+  .cm-lateral {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 14mm;
+    background: linear-gradient(to bottom,
+      var(--marinho) 0 60%,
+      var(--agua) 60% 85%,
+      var(--laranja) 85% 100%);
+    z-index: 2;
+  }
+
+  /* Grafismo: um SVG de página inteira (viewBox 0 0 210 297, em mm), por
+     baixo do texto; o que passa da borda é cortado pelo overflow. */
+  .cm-grafismo {
+    position: absolute;
+    inset: 0;
+    width: 210mm;
+    height: 297mm;
+    z-index: 0;
+  }
+
+  .capa-branca .cm-logo {
+    position: absolute;
+    left: 34mm;
+    top: 26mm;
+    z-index: 1;
+    display: block;
+    padding: 0;
+  }
+  .capa-branca .cm-logo img { display: block; width: 42mm; height: auto; }
+
+  .cm-bloco-branco {
+    position: absolute;
+    left: 34mm;
+    right: 30mm;
+    top: 112mm;
+    z-index: 1;
+  }
+
+  /* Sobretítulo: tema ou programa, em caixa alta. Laranja-escuro, e não o
+     laranja da marca, pelo contraste com o branco. */
+  .cm-sobretitulo {
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--laranja-escuro);
+    margin: 0 0 6mm 0;
+  }
+
+  .capa-branca .cm-titulo {
+    font-size: 44pt;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    color: var(--marinho-escuro);
+    text-align: left;
+    margin: 0;
+  }
+
+  .cm-filete {
+    width: 30mm;
+    height: 1.2mm;
+    background: var(--laranja);
+    margin: 11mm 0 8mm 0;
+  }
+
+  .cm-sub {
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--marinho);
+    margin: 0;
+    max-width: 90mm;
+  }
+
+  .cm-ano {
+    position: absolute;
+    left: 34mm;
+    bottom: 16mm;
+    z-index: 1;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--marinho-escuro);
+  }
+
   /* ------------------------------------------------------------
      CONTRACAPA
      Página inteira em azul, como nos manuais da UPD: logo horizontal
@@ -255,7 +368,7 @@
 
   /* ------------------------------------------------------------
      SUMÁRIO — layout obrigatório do padrão PGE
-     Título "Sumário" em laranja entre dois filetes laranja (o mesmo
+     Título "Sumário" em azul entre dois filetes azuis (o mesmo
      rótulo do expediente). Entrada principal em negrito, com o número
      seguido de ponto ("1. Apresentação"); subitem recuado, em texto
      normal e corpo menor. Guia pontilhada até o número da página, que
@@ -988,4 +1101,233 @@
   body:not(.doc-peca) > p.item-letra,
   body:not(.doc-peca) > p.tab-nota,
   body:not(.doc-peca) > p.anexo-sobre,
+  body:not(.doc-peca) > p.anexo-contexto,
   body:not(.doc-peca) > p.sem-recuo { text-indent: 0; }
+
+  /* ------------------------------------------------------------
+     COMPONENTES DO PROGRAMA DE INTEGRIDADE (2026)
+     Eixo temático, cartão de ação, barra de percentual em célula,
+     figura com legenda, ficha de anexo e bloco de aprovação. Ver
+     references/componentes.md e references/padrao-referencia.md.
+     ------------------------------------------------------------ */
+
+  /* Eixo temático: selo azul + nome do eixo. Abre um grupo de cartões. */
+  .eixo {
+    display: flex;
+    align-items: center;
+    gap: 3.2mm;
+    margin: var(--esp-4) 0 var(--esp-2) 0;
+    break-after: avoid;
+    page-break-after: avoid;
+    text-indent: 0;
+  }
+  .eixo-selo {
+    flex: 0 0 auto;
+    background: var(--marinho);
+    color: var(--branco);
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 1.6mm 2.4mm;
+    border-radius: 0.8mm;
+    white-space: nowrap;
+  }
+  .eixo-nome {
+    font-size: 12.5pt;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--marinho);
+  }
+
+  /* Cartão de ação: cabeçalho azul com o selo laranja e o título, e
+     linhas rótulo / conteúdo. Parte entre páginas por linha; o pedaço
+     que continua leva a moldura inteira (box-decoration-break). */
+  .acao {
+    border: 0.26mm solid var(--cinza-05);
+    border-radius: 1.8mm;
+    overflow: hidden;
+    margin: 0 0 var(--esp-4) 0;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .acao-cab {
+    display: flex;
+    align-items: flex-start;
+    gap: 3.4mm;
+    background: var(--marinho);
+    color: var(--branco);
+    padding: 3.2mm 5mm;
+    break-after: avoid;
+    page-break-after: avoid;
+    break-inside: avoid;
+  }
+  .acao-num {
+    flex: 0 0 auto;
+    background: var(--laranja);
+    color: var(--marinho-escuro);
+    font-size: 7.6pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 1.3mm 2.2mm;
+    border-radius: 0.8mm;
+    margin-top: 0.4mm;
+    white-space: nowrap;
+  }
+  .acao-titulo {
+    font-size: 11pt;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: left;
+  }
+  .acao-linha {
+    display: grid;
+    grid-template-columns: 40mm 1fr;
+    column-gap: 5mm;
+    padding: 2.8mm 5mm;
+    border-top: 0.26mm solid var(--cinza-04);
+    font-size: var(--t-apoio);
+    line-height: 1.5;
+    text-align: left;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .acao-cab + .acao-linha { border-top: 0; }
+  .acao-linha:nth-child(odd) { background: var(--cinza-01); }
+  .acao-rot { font-weight: 700; color: var(--marinho); }
+  .acao-txt { color: var(--texto); min-width: 0; }
+  .acao-txt p { margin: 0; text-indent: 0; text-align: left; }
+  .acao-txt p + p { margin-top: 1.4mm; }
+  .acao-txt ol {
+    margin: 0;
+    padding-left: 5.2mm;
+  }
+  .acao-txt ol li { margin: 0 0 0.9mm 0; padding-left: 0.6mm; }
+  .acao-txt ol li:last-child { margin-bottom: 0; }
+  .acao-txt ol li::marker { font-weight: 700; color: var(--marinho); }
+
+  /* Barra de percentual em célula de tabela: número em negrito azul e,
+     embaixo, trilho cinza com o preenchimento proporcional (style width). */
+  .pct { display: block; }
+  .pct-valor {
+    display: block;
+    font-weight: 700;
+    color: var(--marinho);
+    font-variant-numeric: tabular-nums;
+  }
+  .pct-trilho {
+    display: block;
+    width: 100%;
+    max-width: 30mm;
+    height: 1.6mm;
+    margin-top: 1.2mm;
+    border-radius: 0.8mm;
+    background: var(--cinza-03);
+    overflow: hidden;
+  }
+  .pct-trilho > span {
+    display: block;
+    height: 100%;
+    border-radius: 0.8mm;
+    background: var(--marinho);
+  }
+
+  /* Figura com legenda: "Figura n" em azul, descrição em preto, filete
+     laranja à esquerda; a fonte vai embaixo, em cinza. */
+  figure.figura {
+    margin: var(--esp-3) 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  figure.figura figcaption {
+    border-left: 0.9mm solid var(--laranja);
+    padding: 0.4mm 0 0.4mm 2.6mm;
+    margin: 0 0 3mm 0;
+    font-size: 10.5pt;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--texto);
+    text-align: left;
+  }
+  figure.figura .fig-num { font-weight: 800; color: var(--marinho); }
+  figure.figura img,
+  figure.figura svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  figure.figura .fig-fonte {
+    font-size: 9pt;
+    line-height: 1.4;
+    color: var(--cinza-texto);
+    margin: 2.4mm 0 0 0;
+    text-indent: 0;
+    text-align: left;
+  }
+
+  /* Ficha de anexo: linha de contexto em cinza e quadro de rótulos. */
+  p.anexo-contexto {
+    font-size: var(--t-apoio);
+    line-height: 1.45;
+    color: var(--cinza-texto);
+    margin: -1mm 0 var(--esp-3) 0;
+    text-indent: 0;
+    text-align: left;
+  }
+  dl.ficha-anexo {
+    margin: 0 0 var(--esp-4) 0;
+    padding: 2mm 5mm;
+    background: var(--cinza-01);
+    border-left: 0.9mm solid var(--marinho);
+    text-align: left;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  dl.ficha-anexo > div {
+    display: grid;
+    grid-template-columns: 34mm 1fr;
+    column-gap: 4mm;
+    align-items: baseline;
+    padding: 1.6mm 0;
+    border-bottom: 0.2mm solid var(--cinza-04);
+  }
+  dl.ficha-anexo > div:last-child { border-bottom: 0; }
+  dl.ficha-anexo dt {
+    font-size: var(--t-rotulo);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--marinho);
+    line-height: 1.35;
+  }
+  dl.ficha-anexo dd {
+    margin: 0;
+    font-size: var(--t-apoio);
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--texto);
+  }
+
+  /* Aprovação e assinaturas: título azul e uma .assinatura por signatário. */
+  .aprovacao {
+    margin-top: var(--esp-5);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .aprovacao-titulo {
+    font-size: var(--t-subsecao);
+    font-weight: 700;
+    color: var(--marinho);
+    line-height: 1.3;
+    margin: 0;
+    text-indent: 0;
+    text-align: left;
+  }
+  .aprovacao .assinatura { margin-top: 14mm; }
+  .aprovacao .assinatura .filete { width: 75mm; }
+  .aprovacao .assinatura .nome { font-size: 13pt; }
+  .aprovacao .assinatura .cargo { font-size: 10pt; }
