@@ -234,6 +234,12 @@
   --esp-3:              5mm;
   --esp-4:              7mm;
   --esp-5:              10mm;
+
+  /* Recuo de primeira linha do texto corrido: 1,25 cm no padrão da PGE
+     (documento de referência). A regra que o aplica está só em
+     componentes.css, seção "Recuo de primeira linha". A peça processual
+     redeclara o valor em `.doc-peca`, abaixo. */
+  --recuo-corpo:        1.25cm;
 }
 
 
@@ -245,13 +251,11 @@
    o documento institucional sai byte a byte como antes.
 
    A separação é o ponto: manual, informativo e ofício são texto de tela e
-   de leitura corrida, e recuo de primeira linha com corpo serifado neles
-   pareceria peça. Quem tem recuo é a petição.
+   de leitura corrida, e corpo serifado neles pareceria peça. A peça também
+   tem recuo maior (1,5 cm, abaixo).
 
-   O recuo se AUTOPROTEGE: `p { text-indent: var(--recuo-corpo) }` vive no
-   componentes.css sem condicional, e fora daqui a variável não resolve —
-   a declaração cai como inválida e o recuo é zero. Não há segunda regra
-   para manter em dia.
+   O recuo é uma regra só, em componentes.css ("Recuo de primeira linha");
+   aqui só mudam os valores.
    ============================================================ */
 .doc-peca {
   /* Corpo em Source Serif 4; rótulo, ficha e assinatura ficam em sans.
@@ -263,9 +267,9 @@
   --lh-citacao:         1.36;
   --lh-caixa:           1.32;
 
-  /* Recuo de primeira linha do parágrafo, e recuo de BLOCO (lista e
-     citação) 1 cm além dele. O caminho ABNT usa 2/3/4 cm; aqui os valores
-     são os pedidos para o visual law. */
+  /* Na peça, o recuo de primeira linha sobe para 1,5 cm, e o recuo de
+     BLOCO (lista e citação) fica 1 cm além dele. O caminho ABNT usa 2/3/4
+     cm; aqui os valores são os pedidos para o visual law. */
   --recuo-corpo:        1.5cm;
   --recuo-bloco:        2.5cm;
 }

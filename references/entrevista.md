@@ -14,12 +14,11 @@ Pergunte só o que o texto recebido e o pedido não respondem. Use `AskUserQuest
 
 | Pergunta | Onde entra |
 |---|---|
-| Que tipo de publicação é (Guia, Plano, Manual, Cartilha, Orientações)? | `.cm-tipo`, em caixa alta; pode ficar sem, se o título já disser o tipo |
+| Tema ou programa da publicação (ex.: Compliance Público)? | `.cm-sobretitulo` da capa branca, em caixa alta; apague a linha se não houver |
 | Título completo, em até três linhas | `h1.cm-titulo`, com `<br>` nas quebras |
-| Subtítulo ou norma de referência (ex.: Lei n. 13.709/2018) | `.cm-lei`; apague se não houver |
-| Unidade responsável, como deve aparecer na faixa (ex.: UPD – PGE/MS – Unidade de Proteção de Dados Pessoais) | `.cm-faixa`, à esquerda |
-| Edição e ano (ex.: 1ª edição \| 2026) | `.cm-edicao`, à direita da faixa |
-| Tem arte para a capa? Veja `capa-e-contracapa.md` | fundo da capa padrão, página inteira ou azul liso |
+| Ano | `.cm-ano`, no pé da capa branca |
+| O tema pede outro ícone no grafismo (escudo, balança, livro)? Se não, fica o documento | `<path>` do SVG da capa, ver `capa-e-contracapa.md` |
+| Quer capa azul no lugar da branca, ou tem uma capa pronta? Só se pedir | capa azul (variante: `.cm-tipo`, `.cm-lei`, `.cm-faixa` com unidade e edição, arte de fundo opcional) ou página inteira; ver `capa-e-contracapa.md` |
 
 ## 3. Expediente (verso da capa)
 

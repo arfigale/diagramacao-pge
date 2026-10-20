@@ -369,21 +369,23 @@ rodapé.
 Os dois marcam o início do parágrafo. São cinto e suspensório: um resolve, os
 dois juntos é erro.
 
-**Documento institucional** usa espaço entre parágrafos e nenhum recuo. (Peça
-processual usa recuo de 1,5 cm, por convenção do foro; fora do escopo desta skill.)
+**Documento institucional da PGE** (publicação e documento curto) usa os dois: recuo
+de 1,25 cm na primeira linha do texto corrido e 2,4 mm entre parágrafos, como no
+documento de referência (`padrao-referencia.md`). Peça processual usa recuo de
+1,5 cm, por convenção do foro; fora do escopo desta skill.
 
-Isso deixa a peça com os dois — recuo *e* espaço entre parágrafos — o que o
+Isso deixa o documento com os dois — recuo *e* espaço entre parágrafos — o que o
 livro chama de erro. É uma divergência consciente, registrada na seção 9: num
 documento que será impresso, grampeado e folheado por terceiros, o espaço entre
 parágrafos é o que permite retomar a leitura depois de uma interrupção, e o
 recuo é o que faz o documento *parecer* peça. Perder qualquer um dos dois custa
 mais do que a incoerência custa.
 
-O recuo se liga sozinho: `<meta name="vl-tipo" content="peca">` faz o
-`build.py` pôr `doc-peca` no `<body>`, e é a classe que define
-`--recuo-corpo`. Fora dela a variável não existe, `text-indent: var(--recuo-corpo)`
-cai como declaração inválida, e o recuo é zero. Não há segunda regra para
-esquecer de manter em dia.
+A regra do recuo é uma só, em `componentes.css` ("Recuo de primeira linha"); o
+valor é `--recuo-corpo` em `tokens.css` (1,25 cm). `<meta name="vl-tipo" content="peca">`
+faz o `build.py` pôr `doc-peca` no `<body>`, e essa classe redeclara a variável
+para 1,5 cm. Só o texto corrido recua: caixa, tabela, ficha, figura, rótulo de
+grupo e item de enumeração ficam sem recuo.
 
 Lista e citação recuam o **bloco** inteiro, 1 cm além do recuo do corpo
 (`--recuo-bloco`, 2,5 cm) — o item não se alinha à primeira linha do parágrafo,

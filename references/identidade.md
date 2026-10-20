@@ -19,7 +19,7 @@ As três primeiras são as do manual da marca, com os códigos dele.
 
 Texto de leitura é preto e a cor fica na moldura institucional. Negrito do corpo é preto, não azul.
 
-O laranja não serve para texto corrido sobre o branco: o contraste é de 2,5:1, e as WCAG pedem 4,5:1 para texto comum. Pelo mesmo motivo, o texto da faixa laranja da capa é azul-escuro (`#223141`, 5,3:1), e não branco (2,5:1).
+O laranja não serve para texto corrido sobre o branco: o contraste é de 2,5:1, e as WCAG pedem 4,5:1 para texto comum. Pelo mesmo motivo, o texto da faixa laranja da capa azul (variante) é azul-escuro (`#223141`, 5,3:1), e não branco (2,5:1).
 
 Os manuais da UPD usavam cinco azuis e cinco laranjas diferentes. O padrão fica com um de cada, os do manual da marca.
 
@@ -43,7 +43,7 @@ Títulos de seção em 16 pt, subseção em 13 pt, ambos em azul e negrito, só 
 
 - Os logos são os arquivos de `assets/design-system/`, entregues pela usuária, e a regra é fixa:
   - `logo-pge.png`, horizontal azul (letras e brasão em azul, filetes laranja, fundo transparente), em todo o documento: cabeçalho de cada página, expediente e qualquer página de fundo claro;
-  - `logo-pge-branco.png`, horizontal branco (letras brancas, brasão em cor, filetes laranja, fundo transparente), só na capa e na contracapa, que têm fundo azul.
+  - `logo-pge-branco.png`, horizontal branco (letras brancas, brasão em cor, filetes laranja, fundo transparente), só na contracapa e na capa azul (variante), que têm fundo azul. A capa branca, que é o padrão, leva o azul.
 - Não se usa outra versão do logo (vertical, policromia sobre branco). Os logos não se alteram, não se recolorem, não se esticam e nunca se pedem a um modelo de imagem. A marca da PGE e os logos pertencem à Procuradoria-Geral do Estado de Mato Grosso do Sul e não estão cobertos pela licença deste repositório.
 - A área de proteção do manual da marca é de dois módulos em volta do logo; não encoste texto nem filete nele.
 - Nenhuma marca de terceiro entra no documento sem o usuário pedir.

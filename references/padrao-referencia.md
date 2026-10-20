@@ -23,9 +23,9 @@ Estes elementos do documento de referência já são o que o build produz; não 
 
 ## O que muda em relação ao padrão anterior da skill
 
-### 1. Capa branca: variante opcional, não é o padrão
+### 1. Capa branca: é o padrão
 
-**A capa padrão continua a azul** (`.capa-manual`, com logo branco e faixa laranja). A capa branca do Programa de Integridade é uma variante (`.capa-manual.capa-branca`, marcação pronta no comentário do modelo `publicacao.html`) para usar só quando o usuário pedir ou o documento exigir uma capa clara. Composição da variante:
+**A capa padrão é a branca** do Programa de Integridade (`.capa-manual.capa-branca`, ativa no modelo `publicacao.html`). A capa azul (`.capa-manual`, com logo branco e faixa laranja, dos manuais da UPD de 2025) é a variante, com a marcação pronta no comentário do modelo, para usar só quando o usuário pedir. Composição da capa branca:
 
 - Fundo **branco**, com **logo horizontal azul** no alto à esquerda (≈ 30 mm do topo, alinhado à coluna do título).
 - **Faixa vertical na borda esquerda**, de largura total da página em altura e ≈ 11 mm de largura, em três segmentos de cima para baixo: azul `#294964` (≈ 60 %), verde-água `#51A8B1` (≈ 25 %), laranja `#F58634` (≈ 15 %).
@@ -33,11 +33,11 @@ Estes elementos do documento de referência já são o que o build produz; não 
 - **Título** em negrito pesado, azul-escuro `#223141`, ≈ 44 pt, em até duas ou três linhas, alinhado à esquerda.
 - **Filete laranja** curto (≈ 26 mm × 1 mm) sob o título.
 - **Subtítulo** com o nome do órgão ("Procuradoria-Geral do Estado / de Mato Grosso do Sul"), ≈ 13 pt, cinza-azulado.
-- **Grafismo** no canto inferior direito: círculos concêntricos de traço fino cinza-azulado, um disco azul-médio com o ícone do tema em branco (no Programa de Integridade, um "check") e um ponto verde-água sobre o círculo externo. O ícone acompanha o tema do documento.
+- **Grafismo** no canto inferior direito: círculos concêntricos de traço fino cinza-azulado, um disco azul-médio com o ícone do tema em branco e um ponto verde-água sobre o círculo externo. O Programa de Integridade usa um "check"; o ícone padrão do modelo é um documento, que serve a qualquer documento institucional. O ícone acompanha o tema do documento e se troca pelo `<path>` do SVG.
 - **Ano** no pé, à esquerda, em negrito pequeno com entreletra ("2026").
 - Sem faixa laranja horizontal e sem edição na faixa.
 
-A variante sai em vetor (HTML e SVG inline), sem imagem; troque o ícone do grafismo conforme o tema. A regra de não pôr texto dentro de imagem gerada continua.
+A capa branca sai em vetor (HTML e SVG inline), sem imagem; troque o ícone do grafismo conforme o tema. A regra de não pôr texto dentro de imagem gerada continua.
 
 ### Design: moderno e profissional
 

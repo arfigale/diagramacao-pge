@@ -5,11 +5,14 @@ dpge.py, ponto de entrada único da skill diagramacao-pge.
 
     dpge setup                  prepara o ambiente (uma vez)
     dpge doctor                 confere o que está instalado
-    dpge build   <doc.html> ... compila em PDF
+    dpge build   <doc.html> ... compila em PDF e em Word (.docx); --sem-docx desliga o Word
+    dpge docx    <doc.html> ... gera só o .docx editável
     dpge sumario <doc.html> ... acerta o sumário (compila)
     dpge checar  <doc.html> ... confere a tipografia
     dpge converter <arq> ...    .docx ou .md para HTML
     dpge imagem  <subcomando>   prepara imagem de capa
+    dpge conferir-texto <fonte> --pdf <pdf> [--html <html>] [--correcoes <tsv>]
+                                confere se o texto diagramado é o original
 
 "dpge" é este arquivo: `python3 scripts/dpge.py` no Mac e no Linux, `dpge.cmd`
 (na raiz da skill) no Windows.
@@ -41,6 +44,8 @@ COMANDOS = {
     "checar": "checar_tipografia.py",
     "converter": "converter.py",
     "imagem": "imagem.py",
+    "conferir-texto": "conferir_texto.py",
+    "docx": "exportar_docx.py",
 }
 
 

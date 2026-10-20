@@ -2,7 +2,7 @@
 
 Skill para o Claude Code e para o Claude Desktop que diagrama documentos institucionais da Procuradoria-Geral do Estado de Mato Grosso do Sul em PDF A4, com a identidade visual do órgão: capa, expediente, sumário com número de página calculado, corpo, contracapa, cabeçalho e rodapé.
 
-Serve a manual, cartilha, apostila, programa, informativo, relatório, nota técnica e ofício. Não faz peça processual e não gera imagens: a arte da capa é a que o usuário anexar, e sem arte a capa usa uma faixa vetorial padrão.
+Serve a manual, cartilha, apostila, programa, informativo, relatório, nota técnica e ofício. Não faz peça processual e não gera imagens: a capa padrão é a branca, toda em vetor, e a arte só entra se o usuário anexar uma capa pronta ou pedir a capa azul com imagem de fundo.
 
 A skill conduz uma entrevista curta (título, expediente, contracapa, arte), converte o texto de um `.docx` ou `.md`, monta o documento, confere a tipografia, compila o PDF e mostra cada página para conferência antes de entregar.
 

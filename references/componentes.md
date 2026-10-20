@@ -11,13 +11,13 @@ As classes vivem em `assets/design-system/componentes.css` (base) e `publicacao.
 <p class="item-letra">a) item recuado de uma enumeração;</p>
 ```
 
-Parágrafo de texto corrido (filho direto do `<body>`) abre com recuo de 1,25 cm; para um parágrafo solto sem recuo, `class="sem-recuo"`. Parte é `h2.secao`, seção é `h3.subsecao`; três níveis no máximo, dois é melhor. O `h2.secao` sai com a barra laranja vertical à esquerda, a marca dos manuais da UPD, em azul e negrito de 16 pt. Os títulos levam maiúscula só na primeira letra e nos nomes próprios: nada de "PARTE 1 – TÍTULO" em caixa alta. Título sem número (Apresentação, Glossário) usa só o `.titulo`. O título diz o argumento, não rotula ("A decisão vale para os processos em curso", não "Da vigência"). `converter --numerar` produz a forma numerada.
+Parágrafo de texto corrido (filho direto do `<body>`, ou de um `<section>` ou `<article>` sem classe) abre com recuo de 1,25 cm, inclusive o primeiro depois de título, lista, caixa ou figura, como no documento de referência. Parágrafo dentro de caixa, tabela, ficha, figura, expediente e capa não recua, nem `grupo`, `item-letra`, `tab-nota` e `anexo-contexto`. Para um parágrafo solto sem recuo, `class="sem-recuo"`. A regra está só em `componentes.css`, seção "Recuo de primeira linha". Parte é `h2.secao`, seção é `h3.subsecao`; três níveis no máximo, dois é melhor. O `h2.secao` sai com a barra laranja vertical à esquerda, a marca dos manuais da UPD, em azul e negrito de 16 pt. Os títulos levam maiúscula só na primeira letra e nos nomes próprios: nada de "PARTE 1 – TÍTULO" em caixa alta. Título sem número (Apresentação, Glossário) usa só o `.titulo`. O título diz o argumento, não rotula ("A decisão vale para os processos em curso", não "Da vigência"). `converter --numerar` produz a forma numerada.
 
 Para forçar quebra de página antes de um título, `quebra-antes`; para impedir quebra dentro de um bloco, `nao-quebrar`; para colar dois blocos, `juntar`. O primeiro título depois do sumário leva `primeira`.
 
 ## Capa, expediente e contracapa
 
-O modelo `publicacao.html` já traz as três peças montadas; os detalhes estão em `capa-e-contracapa.md`.
+O modelo `publicacao.html` já traz as três peças montadas; os detalhes estão em `capa-e-contracapa.md`. A capa do modelo é a branca (`capa-manual capa-branca`, com logo azul, faixa lateral, grafismo e ícone do tema em SVG); a marcação dela está no próprio modelo. A marcação abaixo é a da capa azul, que só entra quando o usuário a pede.
 
 ```html
 <section class="capa-manual">
@@ -211,3 +211,24 @@ Largura da barra em mm, 112 mm para a maior e as outras em proporção. Todo nú
 ## Componentes herdados de peça processual
 
 `tese`, `precedente`, `pedidos`, `fecho` de petição e as capas `.capa-tarja` existem no CSS por herança. Fora do escopo desta skill; não os use em publicação.
+
+## Equivalência no Word (.docx)
+
+O build exporta o mesmo HTML para .docx (ver `build.md`, seção Word). Cores e medidas vêm de `tokens.css`: `--marinho` `#294964` nos títulos e cabeçalhos de tabela, `--laranja` `#F58634` na barra do Título 1, `--acento-fundo` e `--acento-claro` na síntese, `--destaque-fundo` na atenção, `--cinza-01` a `--cinza-05` em exemplo, nota e filetes.
+
+| Classe | No Word |
+|---|---|
+| `h2.secao`, `h3.subsecao`, `h4` | Título 1 (barra laranja), Título 2, Título 3 |
+| `h2.sumario-titulo` + `.sumario` | título do sumário + campo TOC |
+| `p` de texto corrido | estilo Corpo de texto, recuo de 1,25 cm |
+| `p.grupo`, `p.item-letra`, `p.tab-nota` | parágrafo sem recuo (grupo em negrito azul, nota em cinza) |
+| `ul`, `ol` | lista com numeração do Word; cada `ol` recomeça em 1 |
+| `table.dados`, `table.criterios` | tabela com linha de cabeçalho azul, linhas alternadas |
+| `.sintese`, `.exemplo`, `.nota`, `.atencao` | tabela de uma célula com o fundo e a borda do PDF |
+| `.requisitos`, `.confronto`, `.glossario`, `.ficha`, `.ficha-anexo` | tabela de 2 colunas |
+| `.modelo`, `.acao`, `.eixo` | tabela com faixa azul no alto; `.eixo` é parágrafo com selo |
+| `.assinatura`, `.aprovacao` | parágrafos centralizados com filete |
+| `figure.figura` | legenda, imagem centralizada com texto alternativo, fonte |
+| `.numeros`, `.timeline`, `.grafico` | tabela (só no modo completo) |
+| `.capa-manual`, `.expediente`, `.contracapa` | seções próprias; contracapa em tabela de página inteira |
+| `.pode-quebrar` em caixa | a caixa pode partir entre páginas; linha de tabela nunca parte, como no PDF |

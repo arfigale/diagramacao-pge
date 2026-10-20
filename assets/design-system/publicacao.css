@@ -11,12 +11,13 @@
    ============================================================ */
 
   /* ------------------------------------------------------------
-     CAPA DE PUBLICAÇÃO (padrão dos manuais da PGE, 2026)
+     CAPA DE PUBLICAÇÃO
+     Esta é a capa AZUL (variante); o padrão é a capa branca, mais adiante.
      Página inteira, sangrada, renderizada à parte pelo build.py e
      emendada na frente do corpo. Sem cabeçalho nem rodapé, e fora
      da contagem de páginas.
 
-     Composição tirada dos manuais da UPD (Guia, Plano, Orientações):
+     Composição da capa azul, tirada dos manuais da UPD (Guia, Plano, Orientações):
        - campo inteiro em azul da marca (#294964), com a arte anexada
          pelo usuário por baixo, em tom de azul (.cm-fundo, opcional);
        - faixa laranja no topo e filete laranja no pé;
@@ -160,16 +161,17 @@
 
 
   /* ------------------------------------------------------------
-     VARIANTE OPCIONAL: CAPA BRANCA (.capa-manual.capa-branca)
-     A do Programa de Integridade 2026. Não é o padrão: use só quando
-     o usuário pedir ou o documento pedir uma capa clara.
+     CAPA BRANCA (.capa-manual.capa-branca), PADRÃO
+     A do Programa de Integridade 2026. A capa azul (regras acima) é a
+     variante, para quando o usuário pedir.
        - faixa vertical na borda esquerda, em azul, verde-água e
          laranja, de cima para baixo (.cm-lateral);
        - logo horizontal AZUL (logo-pge.png) no alto;
        - sobretítulo em caixa alta, título em azul-escuro, filete
          laranja curto e o nome do órgão embaixo;
        - grafismo de círculos concêntricos com o ícone do tema no
-         canto inferior direito (.cm-grafismo, SVG do modelo);
+         canto inferior direito (.cm-grafismo, SVG do modelo; o ícone
+         padrão é um documento);
        - ano no pé.
      ------------------------------------------------------------ */
   .capa-manual.capa-branca {
@@ -1089,20 +1091,8 @@
   /* O arquivo original terminava sem fechar este bloco; tudo o que viesse
      depois ficava dentro dele e era ignorado. */
 
-  /* ------------------------------------------------------------
-     RECUO DE PRIMEIRA LINHA
-     Todo parágrafo de texto corrido (filho direto do <body>) abre com
-     recuo de 1,25 cm. Parágrafo dentro de caixa, tabela, ficha, figura,
-     expediente ou contracapa não recua. Rótulo de grupo também não.
-     A peça processual tem recuo próprio (--recuo-corpo, .doc-peca).
-     ------------------------------------------------------------ */
-  body:not(.doc-peca) > p { text-indent: 1.25cm; }
-  body:not(.doc-peca) > p.grupo,
-  body:not(.doc-peca) > p.item-letra,
-  body:not(.doc-peca) > p.tab-nota,
-  body:not(.doc-peca) > p.anexo-sobre,
-  body:not(.doc-peca) > p.anexo-contexto,
-  body:not(.doc-peca) > p.sem-recuo { text-indent: 0; }
+  /* O recuo de primeira linha do texto corrido está em componentes.css
+     ("Recuo de primeira linha"); não repetir aqui. */
 
   /* ------------------------------------------------------------
      COMPONENTES DO PROGRAMA DE INTEGRIDADE (2026)

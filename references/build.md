@@ -15,7 +15,8 @@ No Windows o `dpge.cmd` acha o Python (`py` ou `python`) sozinho.
 |---|---|
 | `setup` | cria o ambiente, instala as bibliotecas e confere o navegador (uma vez); baixa o Chromium só se não houver Edge nem Chrome. `--forcar` refaz do zero |
 | `doctor` | confere Python, ambiente, fontes, logo e CSS |
-| `build doc.html` | compila em PDF A4. Opções abaixo |
+| `build doc.html` | compila em PDF A4 e gera o .docx editável ao lado (mesmo nome). Opções abaixo |
+| `docx doc.html [--saida X.docx]` | gera só o .docx, sem recompilar o PDF |
 | `sumario doc.html [pdf] --ate-estabilizar` | compila, lê o PDF e grava os números de página no sumário, repetindo até estabilizar |
 | `checar doc.html [--corrigir]` | relata (e corrige o que é mecânico) problemas de tipografia |
 | `converter arq.docx\|.md` | gera o corpo em HTML e o esqueleto do sumário |
@@ -27,7 +28,8 @@ No Windows o `dpge.cmd` acha o Python (`py` ou `python`) sozinho.
 |---|---|
 | `--modo sobrio` (padrão) | tipografia, quadros, caixas e tabelas; serve a manual e apostila |
 | `--modo completo` | acrescenta números-chave, linha do tempo e gráfico (blocos `so-completo`); para documento curto |
-| `--saida arquivo.pdf` | nome do PDF final (padrão: `<html>-<modo>.pdf` ao lado do HTML) |
+| `--saida arquivo.pdf` | nome do PDF final (padrão: `<html>-<modo>.pdf` ao lado do HTML); o .docx usa o mesmo nome |
+| `--sem-docx` | não gera o .docx (por padrão o build gera PDF e Word) |
 | `--conferir` | grava um PNG por página em `_conferencia/` |
 | `--entrelinha 1.25` | entrelinha do corpo (padrão 1,22) |
 | `--espaco-paragrafo 2.5` | espaço entre parágrafos em mm (padrão 3) |
@@ -64,3 +66,31 @@ A última página sempre sobra, e a página que termina antes de um título de s
 - **Nota de rodapé com capa própria**: o build recusa. Use nota de rodapé só em documento curto.
 - **Linha de tabela cortada no pé da página**: linha longa demais para a coluna; use `pode-quebrar` na tabela e encurte o texto.
 - **PDF grande demais para e-mail**: as imagens da capa em 2480 px bastam; imagem maior não melhora o papel. Reduza a arte de origem com `imagem fundo`.
+
+## Word (.docx)
+
+O build gera, depois do PDF, um `.docx` com o mesmo nome (`exportar_docx.py`, biblioteca python-docx). Ele lê o HTML final e reconstrói o documento com recursos do Word, em vez de converter o PDF. O resumo do build lista os dois arquivos e, logo abaixo da linha `gerado (Word)`, os avisos do que o Word não reproduz igual. Se o .docx falhar, o PDF fica gravado e o erro aparece em vermelho; `--sem-docx` desliga.
+
+- **Página e texto.** A4, margens de 37 mm (topo), 19 mm (pé) e 25 mm (laterais), como no PDF. Corpo preto de 12 pt, entrelinha 1,5, texto justificado. O recuo de primeira linha de 1,25 cm vale só para o texto corrido (estilo Corpo de texto), pela mesma regra do `componentes.css`. `--corpo`, `--entrelinha`, `--espaco-paragrafo`, `--paleta`, `--texto` e `--estrutura` valem para o Word também.
+- **Fonte.** O estilo declara `Source Sans 3` e o .docx não embute a fonte. Se ela não estiver instalada no computador que abrir o arquivo, o Word troca por outra, sem aviso na tela. Os arquivos `SourceSans3-*.ttf` estão em `assets/design-system/fonts/`; instalá-los resolve. O negrito usa o peso Bold; os pesos SemiBold e ExtraBold do PDF viram Bold.
+- **Títulos.** `h2` vira Título 1 (com a barra laranja), `h3` vira Título 2, `h4` a `h6` viram Título 3, todos em azul `#294964`; aparecem no painel de navegação do Word.
+- **Sumário.** É um campo TOC (níveis 1 e 2), com as entradas do HTML já escritas e os números de página que o `sumario` gravou. O arquivo pede ao Word que atualize os campos ao abrir: responda **Sim**. Se responder Não, clique no sumário e use F9. Os números do Word podem diferir dos do PDF, porque a paginação é outra.
+- **Seções.** Capa, expediente, corpo (cabeçalho com logo, rodapé com unidade e `Pág. N de M`, numeração reiniciada no sumário) e contracapa são seções separadas. O total `de M` é o campo SECTIONPAGES, que conta só o corpo. O LibreOffice não o calcula e mostra 1; o Word calcula.
+- **Caixas e tabelas.** Síntese, atenção, exemplo, nota, requisitos, confronto, modelo e plano de ação são tabelas, com a cor de fundo e a borda do PDF. `table.dados` e `table.criterios` são tabelas reais com linha de cabeçalho repetida entre páginas.
+
+O que sai diferente do PDF, e o aviso que o build imprime:
+
+| No PDF | No Word |
+|---|---|
+| Barra de percentual (`pct`) | só o número |
+| Gráfico de barras (`grafico`) | barras de texto com o valor |
+| Linha do tempo (`timeline`) | tabela de duas colunas |
+| Nota de rodapé (`nota-rodape`) | texto `[nota: ...]` no ponto da chamada |
+| Ícones dos contatos da contracapa | marcador laranja |
+| Ficha do expediente no pé da página | logo após o último bloco do expediente |
+| Filete do cabeçalho com trecho laranja | filete cinza |
+| Capa azul com arte de fundo (`cm-fundo`) | azul liso |
+| Imagem SVG ou WebP | convertida em PNG; se falhar, fica de fora e há aviso |
+| Classe que não consta em `componentes.md` | o texto entra sem o visual, com aviso |
+
+A capa branca (faixa lateral e grafismo) entra como imagem decorativa atrás do texto; o título, o logo e o ano continuam editáveis. Toda imagem leva texto alternativo; imagem sem `alt` no HTML gera aviso.

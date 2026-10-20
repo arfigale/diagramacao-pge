@@ -26,61 +26,68 @@
 <body class="modo-sobrio">
 
 <!-- ============================================================
-     CAPA (padrão dos manuais da PGE). Campo azul da marca, faixa
-     laranja no topo, logo horizontal branco, bloco do título com
-     contorno laranja e faixa com unidade, edição e ano.
+     CAPA (padrão: capa branca, a do Programa de Integridade 2026). Fundo
+     branco, faixa vertical azul, verde-água e laranja na borda esquerda,
+     logo horizontal AZUL no alto, sobretítulo, título, filete laranja,
+     nome do órgão, grafismo de círculos no canto inferior direito e ano.
+     Tudo em HTML e SVG, sem imagem.
 
-     Arte de fundo (opcional): a imagem anexada pelo usuário, preparada por
+     O ícone do grafismo é o <path> branco dentro do disco azul-médio. O
+     modelo traz um documento (folha com canto dobrado e duas linhas), que
+     serve a qualquer documento institucional. Se o tema pedir outro (escudo,
+     balança, livro), troque só o <path> por outro traço branco simples,
+     centrado em (165, 244) e com até uns 26 mm de largura.
+
+     Capa azul (variante opcional, a dos manuais da UPD de 2025; só quando o
+     usuário pedir): apague a seção abaixo e use no lugar
+       <section class="capa-manual">
+         <div class="cm-fundo"><img src="capa-fundo.png" alt=""></div>
+         <div class="cm-logo"><img src="@ds/logo-pge-branco.png" alt="PGE – Procuradoria-Geral do Estado de Mato Grosso do Sul"></div>
+         <div class="cm-bloco">
+           <div class="cm-tipo">Guia</div>
+           <h1 class="cm-titulo">Título,<br>em até três linhas</h1>
+           <div class="cm-lei">Subtítulo ou norma de referência</div>
+         </div>
+         <div class="cm-faixa">
+           <span>Unidade responsável</span>
+           <span class="cm-edicao">1ª edição | 2026</span>
+         </div>
+       </section>
+     Na capa azul o logo é o branco (logo-pge-branco.png). A arte de fundo é
+     opcional:
        <dpge> imagem fundo <arquivo> --saida capa-fundo.png
-     Sem arte, apague o bloco .cm-fundo e a capa sai em azul liso.
+     Sem arte, apague o bloco .cm-fundo e a capa sai em azul liso. Apague
+     .cm-tipo e .cm-lei se não forem usados.
 
-     Capa pronta e aprovada (arte completa, com título): apague esta seção
-     e use no lugar
+     Capa pronta e aprovada (arte completa, com título): apague a seção
+     abaixo e use no lugar
        <section class="capa-manual capa-img">
          <img src="capa-pagina.png" alt="[texto alternativo da capa]">
        </section>
-
-     Capa branca (variante opcional, a do Programa de Integridade 2026; só
-     quando o usuário pedir): apague esta seção e use no lugar
-       <section class="capa-manual capa-branca">
-         <div class="cm-lateral"></div>
-         <svg class="cm-grafismo" viewBox="0 0 210 297" aria-hidden="true">
-           <g fill="none" stroke="#9DB4C6" stroke-width="0.35">
-             <circle cx="165" cy="244" r="71"/><circle cx="165" cy="244" r="57"/><circle cx="165" cy="244" r="42"/>
-           </g>
-           <circle cx="165" cy="244" r="26" fill="#4A7391"/>
-           <path d="M153 245 l8 8 l15 -17" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-           <circle cx="123.5" cy="285" r="2.6" fill="#51A8B1"/>
-         </svg>
-         <div class="cm-logo"><img src="@ds/logo-pge.png" alt="PGE – Procuradoria-Geral do Estado de Mato Grosso do Sul"></div>
-         <div class="cm-bloco-branco">
-           <div class="cm-sobretitulo">Tema ou programa</div>
-           <h1 class="cm-titulo">Título<br>em duas linhas</h1>
-           <div class="cm-filete"></div>
-           <p class="cm-sub">Procuradoria-Geral do Estado<br>de Mato Grosso do Sul</p>
-         </div>
-         <div class="cm-ano">2026</div>
-       </section>
-     O "check" do grafismo é o ícone do tema: troque o <path> por outro
-     traço branco simples (escudo, balança, documento) se o tema pedir.
      ============================================================ -->
-<section class="capa-manual">
-  <div class="cm-fundo"><img src="capa-fundo.png" alt=""></div>
+<section class="capa-manual capa-branca">
+  <div class="cm-lateral"></div>
+  <svg class="cm-grafismo" viewBox="0 0 210 297" aria-hidden="true">
+    <g fill="none" stroke="#9DB4C6" stroke-width="0.35">
+      <circle cx="165" cy="244" r="71"/><circle cx="165" cy="244" r="57"/><circle cx="165" cy="244" r="42"/>
+    </g>
+    <circle cx="165" cy="244" r="26" fill="#4A7391"/>
+    <!-- Ícone do tema: documento. Troque só este <path>. -->
+    <path d="M155 232 h12 l8 8 v17 h-20 z M167 232 v8 h8 M159.5 246 h11 M159.5 251 h11" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="123.5" cy="285" r="2.6" fill="#51A8B1"/>
+  </svg>
 
-  <div class="cm-logo"><img src="@ds/logo-pge-branco.png" alt="PGE – Procuradoria-Geral do Estado de Mato Grosso do Sul"></div>
+  <div class="cm-logo"><img src="@ds/logo-pge.png" alt="PGE – Procuradoria-Geral do Estado de Mato Grosso do Sul"></div>
 
-  <div class="cm-bloco">
-    <!-- Tipo da publicação em destaque (GUIA, PLANO, MANUAL). Apague a linha
-         se o título já disser o tipo. -->
-    <div class="cm-tipo">[PREENCHER: tipo, ex.: Guia]</div>
+  <div class="cm-bloco-branco">
+    <!-- Sobretítulo: tema ou programa, em caixa alta. Apague a linha se não houver. -->
+    <div class="cm-sobretitulo">[PREENCHER: tema ou programa]</div>
     <h1 class="cm-titulo">[PREENCHER: título,<br>em até três linhas]</h1>
-    <div class="cm-lei">[PREENCHER: subtítulo ou norma de referência, ou apague esta linha]</div>
+    <div class="cm-filete"></div>
+    <p class="cm-sub">Procuradoria-Geral do Estado<br>de Mato Grosso do Sul</p>
   </div>
 
-  <div class="cm-faixa">
-    <span>[PREENCHER: unidade, ex.: UPD – PGE/MS – Unidade de Proteção de Dados Pessoais]</span>
-    <span class="cm-edicao">[PREENCHER: edição e ano, ex.: 1ª edição | 2026]</span>
-  </div>
+  <div class="cm-ano">[PREENCHER: ano, ex.: 2026]</div>
 </section>
 
 
@@ -155,7 +162,7 @@
 
 <h3 class="subsecao"><span class="num">1.1</span>[PREENCHER: primeira seção]</h3>
 
-<p>[PREENCHER: texto corrido. Parágrafo alinhado à esquerda, sem recuo, uma ideia por parágrafo.]</p>
+<p>[PREENCHER: texto corrido. Parágrafo justificado, com recuo de 1,25 cm na primeira linha (automático), uma ideia por parágrafo.]</p>
 
 <ul>
   <li>[PREENCHER: item de lista]</li>

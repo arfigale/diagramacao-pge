@@ -5,7 +5,9 @@ build.py — compila um documento institucional da PGE-MS (HTML) em PDF A4, com
 cabeçalho e rodapé institucionais em todas as páginas, capa e contracapa
 próprias quando o HTML as declara.
 
-    python scripts/dpge.py build <documento.html> [--modo sobrio|completo] [--conferir]
+    python scripts/dpge.py build <documento.html> [--modo sobrio|completo] [--conferir] [--sem-docx]
+
+Além do PDF, gera por padrão um .docx editável com o mesmo nome (exportar_docx.py).
 
 Por que Playwright e não @page do CSS:
     o Chrome ignora as margin boxes do CSS paginado (@top-center, @bottom-right),
@@ -23,6 +25,7 @@ import base64
 import re
 import sys
 from pathlib import Path
+from typing import Optional
 
 from playwright.sync_api import sync_playwright
 
@@ -692,6 +695,27 @@ def rasterizar(pdf: Path, modo: str) -> None:
     doc.close()
 
 
+def gerar_docx(html: Path, pdf: Path, modo: str, args) -> Optional[Path]:
+    """Gera o .docx ao lado do PDF (mesmo nome). Falha no Word não derruba o
+    build: o PDF já está gravado, e o erro aparece de forma visível."""
+    try:
+        from exportar_docx import exportar, imprimir_avisos, tema_da_paleta
+        tema = tema_da_paleta(
+            args.paleta, corpo=args.corpo, entrelinha=args.entrelinha,
+            espaco_paragrafo=args.espaco_paragrafo,
+            texto=args.texto.lstrip("#").upper() if args.texto else None,
+            marinho=args.estrutura.lstrip("#").upper() if args.estrutura else None)
+        gravado, avisos = exportar(html, pdf.with_suffix(".docx"), modo, tema)
+    except Exception as e:  # noqa: BLE001
+        print(f"  ERRO: o PDF está pronto, mas não consegui gerar o .docx: {e}\n"
+              "        (rode `dpge setup` se faltar a biblioteca python-docx; "
+              "--sem-docx desliga o Word)", file=sys.stderr)
+        return None
+    print(f"gerado (Word): {gravado}")
+    imprimir_avisos(avisos)
+    return gravado
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("html", type=Path, help="caminho do documento .html")
@@ -728,8 +752,11 @@ def main() -> int:
     ap.add_argument("--permitir-pendencias", action="store_true",
                     dest="permitir_pendencias",
                     help="compila mesmo com [PREENCHER] no texto (só para teste)")
+    ap.add_argument("--sem-docx", action="store_true", dest="sem_docx",
+                    help="não gera o .docx editável ao lado do PDF (por padrão gera)")
     ap.add_argument("--saida", type=Path, default=None,
-                    help="caminho do PDF final (só com um modo por vez)")
+                    help="caminho do PDF final (só com um modo por vez); o .docx "
+                         "sai com o mesmo nome")
     ap.add_argument("--sufixo", default="",
                     help="sufixo no nome do PDF, para gerar variantes lado a lado")
     args = ap.parse_args()
@@ -751,6 +778,7 @@ def main() -> int:
     if args.saida and not args.saida.is_absolute() and args.saida.parent == Path("."):
         args.saida = args.html.resolve().parent / args.saida.name
     modos = ["sobrio", "completo"] if args.modo == "ambos" else [args.modo]
+    arquivos = []
     for modo in modos:
         saida = compilar(args.html, modo, args.conferir,
                          args.entrelinha, args.espaco_paragrafo, args.sufixo,
@@ -761,7 +789,15 @@ def main() -> int:
         import pymupdf as fitz
         d = fitz.open(saida); n = len(d); d.close()
         print(f"gerado: {saida}  ({n} páginas)")
+        arquivos.append(("PDF ", saida, f"{n} páginas"))
+        if not args.sem_docx:
+            docx = gerar_docx(args.html, saida, modo, args)
+            if docx:
+                arquivos.append(("Word", docx, "editável"))
 
+    print("Arquivos gerados:")
+    for rotulo, caminho, nota in arquivos:
+        print(f"  {rotulo}  {caminho}  ({nota})")
     return 0
 
 

@@ -1407,27 +1407,32 @@ table.criterios tr.atenua .selo { color: var(--cinza-texto); }
   font-weight: 450;
 }
 
-/* --- Recuo de primeira linha -------------------------------------------
-   Só o parágrafo de corpo. Endereçamento, ficha, resumo, síntese e citação
-   ou não são `p`, ou têm recuo de BLOCO — somar os dois desalinha. O fecho
-   ("Termos em que pede deferimento") É parágrafo de peça e recua com os
-   demais.
+/* --- Recuo de primeira linha (ÚNICA regra do recuo) ----------------------
+   Padrão da PGE: 1,25 cm na primeira linha do texto corrido justificado, e
+   só nele (`--recuo-corpo`, tokens.css; a peça usa 1,5 cm). Texto corrido é
+   o `p` filho direto do `<body>` ou de um `<section>`/`<article>` sem classe,
+   em qualquer posição: primeiro do documento, depois de título, subtítulo,
+   lista, caixa, tabela ou figura. O primeiro parágrafo depois do título
+   também recua, como no documento de referência.
 
-   A regra não precisa de condicional: `--recuo-corpo` só existe dentro de
-   `.doc-peca` (tokens.css). Em documento institucional a variável não
-   resolve, a declaração cai como inválida e o recuo é zero. */
-p {
+   Fica sem recuo, por não ser texto corrido: parágrafo dentro de caixa,
+   tabela, ficha, figura, expediente, capa e contracapa (não são filhos
+   diretos do corpo), rótulo de grupo, item de enumeração, nota de tabela,
+   contexto de anexo e `p.sem-recuo`. Item de lista e legenda não são `p`
+   de corpo. Parágrafo novo que não deva recuar: `class="sem-recuo"`.
+
+   Na peça processual o recuo vale para todo `p`, menos os de resumo,
+   síntese, precedente e capa. Não crie outra declaração de `text-indent`
+   para parágrafo de corpo em outro arquivo. */
+body:not(.doc-peca) > p,
+body:not(.doc-peca) > :is(section, article):not([class]) > p,
+.doc-peca p {
   text-indent: var(--recuo-corpo);
 }
 
-.resumo p,
-.resumo-exec p,
-.sintese p,
-.precedente p,
-.pedidos-intro,
-.capa p,
-.tese-texto,
-p.sem-recuo {
+body:not(.doc-peca) > p:is(.grupo, .item-letra, .tab-nota, .anexo-contexto, .sem-recuo),
+body:not(.doc-peca) > :is(section, article):not([class]) > p:is(.grupo, .item-letra, .tab-nota, .anexo-contexto, .sem-recuo),
+.doc-peca :is(.resumo p, .resumo-exec p, .sintese p, .precedente p, .capa p, .pedidos-intro, .tese-texto, p.sem-recuo) {
   text-indent: 0;
 }
 
