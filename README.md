@@ -13,7 +13,7 @@ Precisa de Python 3.10 ou mais novo (python.org; no Windows, marque "Add python.
 Claude Code, com Git:
 
 ```bash
-git clone https://github.com/kaoyeoshiro/diagramacao-pge ~/.claude/skills/diagramacao-pge
+git clone https://github.com/arfigale/diagramacao-pge ~/.claude/skills/diagramacao-pge
 ```
 
 No Windows (PowerShell), o destino é `$env:USERPROFILE\.claude\skills\diagramacao-pge`. Sem Git, use o botão Code > Download ZIP do GitHub e extraia a pasta no mesmo lugar. No Claude Desktop, adicione a pasta (ou um `.zip` dela) como skill pelas configurações.
