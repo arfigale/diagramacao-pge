@@ -1,0 +1,6 @@
+{
+  "name": "word-programa-de-integridade",
+  "private": true,
+  "description": "Gera o .docx do Programa de Integridade da PGE/MS a partir do documento.html da skill",
+  "dependencies": { "docx": "9.7.1" }
+}

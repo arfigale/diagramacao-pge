@@ -58,6 +58,7 @@ Na primeira vez em cada computador, rode `<dpge> setup` (cria um ambiente própr
 | Capa, faixa de imagem, contracapa, como ajudar com a arte | `references/capa-e-contracapa.md` |
 | Comandos, opções do build, quebra de página, problemas | `references/build.md` |
 | Cores, fontes, margens, regras de marca | `references/identidade.md` |
+| Versão em Word (.docx), instalação da fonte | `exemplos/word-programa-de-integridade/LEIAME.md` e `<dpge> fontes` |
 | Regras de composição tipográfica e o porquê | `references/tipografia.md` |
 | Roteiro do agente que revisa concordância e ortografia | `references/revisor-redacao.md` |
 | Roteiro do agente que garante que o texto é o original | `references/revisor-texto-original.md` |

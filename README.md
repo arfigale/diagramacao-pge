@@ -27,6 +27,12 @@ dpge.cmd setup                     # Windows (PowerShell: .\dpge.cmd setup)
 
 e depois `doctor` no lugar de `setup` para conferir.
 
+## Fontes e versão em Word
+
+O PDF carrega as fontes da própria skill. O Word precisa da Source Sans 3 instalada no computador. No Windows, dê dois cliques em `instalar-fontes.cmd`; no Mac e no Linux, rode `python3 scripts/dpge.py fontes`. O `setup` já faz isso. A instalação é só para o seu usuário e não pede administrador.
+
+O `build` gera o `.docx` junto com o PDF (comando `dpge docx`, desligável com `--sem-docx`). A pasta `exemplos/word-programa-de-integridade/` guarda uma versão alternativa do Programa de Integridade, feita com docx-js e conferida no Word 2016, com os scripts que a geram (`LEIAME.md`).
+
 ## Uso
 
 Peça ao Claude, por exemplo: "diagrama este manual no padrão da PGE" anexando o `.docx`. A skill pergunta o que faltar. Também dá para usar os comandos direto, a partir de uma pasta de trabalho onde esteja o `documento.html` (copie `assets/modelos/documento.html` ou `publicacao.html` para lá com esse nome). Abaixo, `dpge` é `python3 <pasta-da-skill>/scripts/dpge.py` no Mac e `<pasta-da-skill>\dpge.cmd` no Windows:

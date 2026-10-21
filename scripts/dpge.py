@@ -13,6 +13,7 @@ dpge.py, ponto de entrada único da skill diagramacao-pge.
     dpge imagem  <subcomando>   prepara imagem de capa
     dpge conferir-texto <fonte> --pdf <pdf> [--html <html>] [--correcoes <tsv>]
                                 confere se o texto diagramado é o original
+    dpge fontes                 instala a Source Sans 3 (necessária para o Word)
 
 "dpge" é este arquivo: `python3 scripts/dpge.py` no Mac e no Linux, `dpge.cmd`
 (na raiz da skill) no Windows.
@@ -136,8 +137,17 @@ def preparar(forcar: bool = False) -> Path:
         rodar([str(py), "-m", "playwright", "install", "chromium"],
               dica="Instale o Microsoft Edge ou o Google Chrome e rode `setup` de novo.")
     marca().write_text(assinatura_requisitos(), encoding="utf-8")
+    instalar_fontes()
     print("ambiente pronto.", flush=True)
     return py
+
+
+def instalar_fontes() -> None:
+    """Instala a Source Sans 3 para o usuário. Não derruba o setup se falhar."""
+    try:
+        rodar([sys.executable, str(AQUI / "fontes.py")])
+    except SystemExit:
+        print("      não consegui instalar as fontes; rode `dpge fontes` depois", flush=True)
 
 
 def doctor() -> int:
@@ -153,6 +163,10 @@ def doctor() -> int:
         nome = navegador_disponivel(python_do_venv())
         print(f"Navegador     {nome or 'NENHUM (instale o Edge ou o Chrome)'}")
         ok = ok and bool(nome)
+    r = subprocess.run([sys.executable, str(AQUI / "fontes.py"), "--verificar"],
+                       capture_output=True, text=True)
+    print(f"{'ok ' if r.returncode == 0 else 'AVISO'}  {r.stdout.strip()}"
+          + ("" if r.returncode == 0 else "  (só o Word precisa; rode: fontes)"))
     ds = RAIZ / "assets" / "design-system"
     for arq in ("tokens.css", "componentes.css", "publicacao.css", "logo-pge.png", "logo-pge-branco.png",
                 "fonts/SourceSans3-Regular.ttf", "fonts/Montserrat.ttf", "fonts/SourceSerif4.ttf",
@@ -173,6 +187,8 @@ def main(argv: list) -> int:
         return 0
     if cmd == "doctor":
         return doctor()
+    if cmd == "fontes":
+        return subprocess.run([sys.executable, str(AQUI / "fontes.py"), *resto]).returncode
     if cmd not in COMANDOS:
         print(f"comando desconhecido: {cmd}\n", file=sys.stderr)
         print(__doc__, file=sys.stderr)
