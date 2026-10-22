@@ -6,7 +6,19 @@ Serve a manual, cartilha, apostila, programa, informativo, relatório, nota téc
 
 A skill conduz uma entrevista curta (título, expediente, contracapa, arte), converte o texto de um `.docx` ou `.md`, monta o documento, confere a tipografia, compila o PDF e mostra cada página para conferência antes de entregar.
 
-## Instalação
+## Instalação automática
+
+Cole este pedido no Claude (Claude Code, aba Code do aplicativo ou Claude com a extensão Chrome):
+
+```
+Instale a skill deste repositório: https://github.com/arfigale/diagramacao-pge
+```
+
+O Claude lê o `CLAUDE.md`, baixa o repositório, roda `scripts/instalar.py` (pasta de skills, ambiente, fonte Source Sans 3 e zip) e confere o resultado. Sem o Claude, o mesmo vale à mão: no Windows, dois cliques em `instalar.cmd`; no Mac e no Linux, `python3 scripts/instalar.py`. Para atualizar, repita o pedido ou o comando.
+
+Quem usa o Claude só no site ou no aplicativo, sem terminal, precisa de um passo manual: enviar o `diagramacao-pge.zip` (gerado pelo instalador na pasta Downloads) em Customize > Skills > Adicionar > Fazer upload de Skill.
+
+## Instalação manual
 
 Precisa de Python 3.10 ou mais novo (python.org; no Windows, marque "Add python.exe to PATH" ao instalar) e de internet na primeira vez. Funciona em Windows e Mac.
 
